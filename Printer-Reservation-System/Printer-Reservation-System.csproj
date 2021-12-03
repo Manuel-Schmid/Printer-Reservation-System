@@ -71,6 +71,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Registration.aspx" />
     <Content Include="PrinterOverview.aspx" />
+    <Content Include="StudentsOverview.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +103,13 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="StudentsOverview.aspx.cs">
+      <DependentUpon>StudentsOverview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentsOverview.aspx.designer.cs">
+      <DependentUpon>StudentsOverview.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

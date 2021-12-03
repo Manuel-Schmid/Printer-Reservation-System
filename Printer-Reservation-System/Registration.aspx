@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
-       <link rel="stylesheet" runat="server" media="screen" href="login-styles.css" /> 
+    <link rel="stylesheet" runat="server" media="screen" href="login-styles.css" /> 
     <p>
         <asp:Literal ID="litInfo" runat="server" Text="Bitte registrieren Sie sich:" ></asp:Literal>
     </p>

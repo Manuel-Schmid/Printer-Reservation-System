@@ -104,7 +104,8 @@ namespace Printer_Reservation_System
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Login.aspx");
+            Response.Redirect("~/StudentsOverview.aspx");
+            //Response.Redirect("~/Login.aspx");
         }
     }
 }
