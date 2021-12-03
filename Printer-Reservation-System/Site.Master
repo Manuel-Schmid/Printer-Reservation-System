@@ -5,14 +5,24 @@
 <html>
 <head runat="server">
     <title></title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form" runat="server">
         <div>
-            <asp:ContentPlaceHolder ID="PlaceHolderHeader" runat="server">
+            <header>
+                title title title
+            </header>
+                <navigation>
+                    <span>
+                        <asp:ContentPlaceHolder ID="PlaceHolderHeader" runat="server">
+                          </asp:ContentPlaceHolder>
+                    </span>
+                </navigation>
+            <asp:ContentPlaceHolder ID="PlaceHolderMain" runat="server">
             </asp:ContentPlaceHolder>
+            <!-- <footer>
+                <span>footer footer footer</span>
+            </footer> -->
         </div>
     </form>
 </body>
