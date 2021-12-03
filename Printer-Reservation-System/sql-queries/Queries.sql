@@ -29,14 +29,14 @@ ORDER BY tbl_Student.ID;*/
 /* ***************************************************************************** */
 /*SELECT all reservations
 */
-/*
+
 DROP PROC IF EXISTS spSelectReservations;
 GO 
 CREATE PROC spSelectReservations 
 AS
-SELECT stu.Name, stu.Vorname, pri.Marke AS Druckermarke, pri.Modell AS Druckermodell, pri.Typ AS Druckertyp, Von, Bis, res.Bemerkung FROM tbl_Reservation AS res
+SELECT stu.Name, stu.Vorname, pri.Marke AS Druckermarke, pri.Modell AS Druckermodell, Von, Bis, res.Bemerkung FROM tbl_Reservation AS res
 JOIN tbl_Student AS stu ON res.ID_Student = stu.ID
 JOIN tbl_Drucker AS pri ON res.ID_Drucker = pri.ID
-ORDER BY res.ID;*/
+ORDER BY res.ID;
 
 /*EXEC spSelectReservations;*/
