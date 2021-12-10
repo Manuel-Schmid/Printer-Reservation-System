@@ -78,6 +78,15 @@ namespace Printer_Reservation_System
         protected global::System.Web.UI.WebControls.RequiredFieldValidator requiredFieldValidator5;
 
         /// <summary>
+        /// lblInvalidLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvalidLogin;
+
+        /// <summary>
         /// btnLogin control.
         /// </summary>
         /// <remarks>

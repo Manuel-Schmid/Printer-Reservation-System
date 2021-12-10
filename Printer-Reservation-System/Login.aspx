@@ -28,6 +28,8 @@
         runat="server" CssClass="validator"/>
     <br />
     <br />
+    <asp:Label ID="lblInvalidLogin" runat="server" ForeColor="Red"></asp:Label>
+    <br />
 
     <asp:Button type="submit" ID="btnLogin" runat="server" Text="Anmelden" CssClass="btnSubmit" OnClick="btnLogin_Click" />
     &nbsp;&nbsp;

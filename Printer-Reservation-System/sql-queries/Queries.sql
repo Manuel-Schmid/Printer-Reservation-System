@@ -1,6 +1,8 @@
 ﻿/*
 ALTER TABLE tbl_Student
 ALTER COLUMN Passwort VARCHAR(100);
+ALTER TABLE tbl_Student
+ADD UNIQUE (eMail);
 */
 
 /* ***************************************************************************** */
@@ -82,5 +84,5 @@ GO
 */
 
 
-EXEC spValidateLogin @eMail='manysch3@gmail.com', @Passwort='9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08';
+EXEC spValidateLogin @eMail='manysch3@gmail.com', @Passwort='CEBF2CB7F8D7C263837CF63E10CECB98A0560C181D34E6C4BDAB3F28E619CABC';
 

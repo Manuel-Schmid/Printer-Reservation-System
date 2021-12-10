@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,6 +13,7 @@ namespace Printer_Reservation_System
 {
     public partial class Login1 : System.Web.UI.Page
     {
+        readonly SqlConnectionStringBuilder conBuilder = new SqlConnectionStringBuilder();
         protected override void OnInit(System.EventArgs e)
         {
             base.OnInit(e);
@@ -28,7 +31,9 @@ namespace Printer_Reservation_System
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            conBuilder.DataSource = @"NOTEBOOKMANY\MSSQLSERVER2019";
+            conBuilder.InitialCatalog = "3D_Drucker";
+            conBuilder.IntegratedSecurity = true;
         }
 
         bool IsValidEmail(string email)
@@ -59,6 +64,31 @@ namespace Printer_Reservation_System
         {
             if (Page.IsValid)
             {
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = conBuilder.ConnectionString;
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand("spValidateLogin", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@Passwort", SqlDbType.VarChar));
+                cmd.Parameters["@eMail"].Value = txtEmail.Text;
+                cmd.Parameters["@Passwort"].Value = GetHashString(txtPassword.Text);
+
+                bool isValid = 1 == (int)cmd.ExecuteScalar();
+                con.Close();
+
+                if (isValid) // login successful
+                {
+                    lblInvalidLogin.Text = "";
+                    Response.Redirect("~/StudentsOverview.aspx");
+                } else
+                {
+                    lblInvalidLogin.Text = "Your login credentials were incorrect.";
+                }
+
                 // set cookie
                 //HttpCookie userCookie = new HttpCookie("userCookie");
                 //userCookie.Values.Add("firstName", txtFirstName.Text);
@@ -74,7 +104,6 @@ namespace Printer_Reservation_System
                 //Session["interest"] = radioInterests.SelectedItem.Value.ToString();
 
                 //Response.Redirect("~/PrinterOverview.aspx");
-
 
             }
         }
