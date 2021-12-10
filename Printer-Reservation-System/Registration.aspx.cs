@@ -106,10 +106,16 @@ namespace Printer_Reservation_System
                 cmd.Parameters["@Handy"].Value = txtHandy.Text;
                 cmd.Parameters["@Passwort"].Value = GetHashString(txtPassword.Text);
 
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    Response.Redirect("~/StudentsOverview.aspx");
+                }
+                catch
+                {
+                    duplicateEmailValidator.IsValid = false;
+                }
                 con.Close();
-
-                Response.Redirect("~/StudentsOverview.aspx");
             }
         }
 

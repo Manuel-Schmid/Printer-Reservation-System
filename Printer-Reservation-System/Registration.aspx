@@ -32,6 +32,9 @@
     <asp:RequiredFieldValidator id="requiredFieldValidator3" ControlToValidate="txtEmail"
         ErrorMessage="Bitte füllen Sie dieses Feld aus" 
         runat="server" Display="Dynamic" CssClass="validator"/>
+    <asp:CustomValidator id="duplicateEmailValidator" ControlToValidate="txtEmail"
+        ErrorMessage="Es existiert bereits ein Konto mit dieser E-Mail Adresse." 
+        runat="server" Display="Dynamic" CssClass="validator"/>
     <asp:CustomValidator id="customValidator1" ControlToValidate="txtEmail"
         OnServerValidate="email_validator"
         ErrorMessage="Bitte geben Sie eine gültige E-Mail Adresse ein" runat="server" Display="Dynamic" CssClass="validator"/>
