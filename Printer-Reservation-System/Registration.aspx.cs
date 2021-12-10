@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Printer_Reservation_System
 {
@@ -84,28 +87,50 @@ namespace Printer_Reservation_System
         {
             if (Page.IsValid)
             {
-                // set cookie
-                //HttpCookie userCookie = new HttpCookie("userCookie");
-                //userCookie.Values.Add("firstName", txtFirstName.Text);
-                //userCookie.Values.Add("lastName", txtLastName.Text);
-                //Response.Cookies.Add(userCookie);
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = conBuilder.ConnectionString;
+                con.Open();
 
-                // set session data
-                //Session["firstName"] = txtFirstName.Text;
-                //Session["lastName"] = txtLastName.Text;
-                //Session["email"] = txtEmail.Text;
-                //Session["birthdate"] = txtBirthdate.Text;
-                //Session["class"] = txtClass.Text;
-                //Session["interest"] = radioInterests.SelectedItem.Value.ToString();
+                SqlCommand cmd = new SqlCommand("spInsertStudent", con);
 
-                Response.Redirect("~/PrinterOverview.aspx");
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@Vorname", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@Handy", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@Passwort", SqlDbType.VarChar));
+                cmd.Parameters["@Name"].Value = txtLastName.Text;
+                cmd.Parameters["@Vorname"].Value = txtFirstName.Text;
+                cmd.Parameters["@eMail"].Value = txtEmail.Text;
+                cmd.Parameters["@Handy"].Value = txtHandy.Text;
+                cmd.Parameters["@Passwort"].Value = GetHashString(txtPassword.Text);
+
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+                Response.Redirect("~/StudentsOverview.aspx");
             }
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/StudentsOverview.aspx");
-            //Response.Redirect("~/Login.aspx");
+            Response.Redirect("~/Login.aspx");
+        }
+
+        private byte[] GetHash(string inputString)
+        {
+            using (HashAlgorithm algorithm = SHA256.Create())
+                return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        private string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
         }
     }
 }

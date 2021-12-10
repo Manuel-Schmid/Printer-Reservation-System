@@ -1,4 +1,9 @@
-﻿/* ***************************************************************************** */
+﻿/*
+ALTER TABLE tbl_Student
+ALTER COLUMN Passwort VARCHAR(100);
+*/
+
+/* ***************************************************************************** */
 /*SELECT all printers
 */
 /*
@@ -30,6 +35,7 @@ ORDER BY tbl_Student.ID;*/
 /*SELECT all reservations
 */
 
+/*
 DROP PROC IF EXISTS spSelectReservations;
 GO 
 CREATE PROC spSelectReservations 
@@ -38,5 +44,43 @@ SELECT stu.Name, stu.Vorname, pri.Marke AS Druckermarke, pri.Modell AS Druckermo
 JOIN tbl_Student AS stu ON res.ID_Student = stu.ID
 JOIN tbl_Drucker AS pri ON res.ID_Drucker = pri.ID
 ORDER BY res.ID;
-
+*/
 /*EXEC spSelectReservations;*/
+
+
+/*
+DROP PROC IF EXISTS spInsertStudent;
+GO 
+CREATE PROC spInsertStudent
+(
+	@Name VARCHAR(50),
+	@Vorname VARCHAR(50),
+	@eMail VARCHAR(50),
+	@Handy VARCHAR(50),
+	@Passwort VARCHAR(100)
+)
+AS
+INSERT INTO tbl_Student (Name, Vorname, eMail, Handy, Passwort, IsAdmin, Bemerkung, ID_Status)
+VALUES (@Name, @Vorname, @eMail, @Handy, @Passwort, 0, NULL, (SELECT ID FROM tbl_Status WHERE Status='Anfrage Registration'));
+GO
+*/
+/*
+EXEC spInsertStudent @Name='Lssse', @Vorname='Bao Minh', @eMail='bao.minh@gmail.com', @Handy='02949284972', @Passwort='96C34D848F3F576D6E43FB42D7B5DDBA12303D1280F6601448003B84C205B6B4';
+*/
+
+/*
+DROP PROC IF EXISTS spValidateLogin;
+GO 
+CREATE PROC spValidateLogin
+(
+	@eMail VARCHAR(50),
+	@Passwort VARCHAR(100)
+)
+AS
+SELECT COUNT(ID) FROM tbl_Student WHERE eMail = @eMail and Passwort = @Passwort
+GO
+*/
+
+
+EXEC spValidateLogin @eMail='manysch3@gmail.com', @Passwort='9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08';
+
