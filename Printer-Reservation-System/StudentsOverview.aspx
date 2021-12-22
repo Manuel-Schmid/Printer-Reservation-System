@@ -3,6 +3,19 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
-    <asp:GridView ID="gridviewStudents" runat="server"></asp:GridView>
+    <asp:GridView ID="gridviewStudents" runat="server">
+        <Columns>  
+            <asp:BoundField DataField="Name" HeaderText="Name" />  
+            <asp:BoundField DataField="Vorname" HeaderText="Vorname" />  
+            <asp:BoundField DataField="E-Mail" HeaderText="E-Mail" />  
+            <asp:BoundField DataField="Handy" HeaderText="Handy" />  
+            <asp:BoundField DataField="Bemerkung" HeaderText="Bemerkung" />  
+            <asp:BoundField DataField="Status" HeaderText="Status" />  
+            <asp:BoundField DataField="Beschreibung" HeaderText="Beschreibung" />  
+            <asp:BoundField DataField="Admin" HeaderText="Admin" />  
+            <asp:CommandField ShowEditButton="true" />  
+            <asp:CommandField ShowDeleteButton="true" />
+        </Columns>
+    </asp:GridView>
 
 </asp:Content>

@@ -55,8 +55,7 @@
         ErrorMessage="Bitte füllen Sie diesses Feld aus" 
         runat="server" CssClass="validator"/>
     <br />
-    <br />
-    
+    <br />    
     <asp:Button type="submit" ID="btnSignup" runat="server" Text="Registrieren" CssClass="btnSubmit" OnClick="btnSignup_Click" />
 
     &nbsp;&nbsp;
