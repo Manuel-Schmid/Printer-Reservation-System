@@ -62,13 +62,17 @@ namespace Printer_Reservation_System
         protected void gridviewStudents_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             GridViewRow row = (GridViewRow)gridviewStudents.Rows[e.RowIndex];
-            Label lbldeleteid = (Label)row.FindControl("lblID");
-            Console.WriteLine(lbldeleteid);
-            //con.Open();
-            //SqlCommand cmd = new SqlCommand("delete FROM detail where id='" + Convert.ToInt32(gridviewStudents.DataKeys[e.RowIndex].Value.ToString()) + "'", con);
-            //cmd.ExecuteNonQuery();
-            //con.Close();
-            //gvBindStudents();
+            con.Open();
+            SqlCommand cmd = new SqlCommand("spDeleteStudent", con);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+            cmd.Parameters["@eMail"].Value = row.Cells[2].Text;
+
+            cmd.ExecuteNonQuery();
+            con.Close();
+            gvBindStudents();
         }
 
         protected void gridviewStudents_RowEditing(object sender, GridViewEditEventArgs e)

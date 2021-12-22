@@ -96,3 +96,18 @@ GO
 
 EXEC spValidateLogin @eMail='manysch3@gmail.com', @Passwort='CEBF2CB7F8D7C263837CF63E10CECB98A0560C181D34E6C4BDAB3F28E619CABC';
 
+
+/* ***************************************************************************** */
+/*DELETE student
+*/
+
+DROP PROC IF EXISTS spDeleteStudent;
+GO 
+CREATE PROC spDeleteStudent 
+(
+	@eMail VARCHAR(50)
+)
+AS
+DELETE FROM tbl_Student WHERE tbl_Student.eMail = @eMail;
+
+EXEC spDeleteStudent @eMail='manuel.schmids@ksb-sg.ch';
