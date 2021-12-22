@@ -11,7 +11,6 @@
             <asp:BoundField DataField="Handy" HeaderText="Handy" />  
             <asp:BoundField DataField="Bemerkung" HeaderText="Bemerkung" />  
             <asp:BoundField DataField="Status" HeaderText="Status" />  
-            <asp:BoundField DataField="Beschreibung" HeaderText="Beschreibung" />  
             <asp:BoundField DataField="Admin" HeaderText="Admin" />  
 
             <asp:CommandField ShowEditButton="true" />  
@@ -19,6 +18,6 @@
         </Columns>
     </asp:GridView>
 
-    <asp:Label ID="lbltest" runat="server" Text="Label"></asp:Label>
+    <asp:Label ID="lbltest" runat="server" Text="testlabel"></asp:Label>
 
 </asp:Content>

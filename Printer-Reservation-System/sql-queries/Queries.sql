@@ -33,7 +33,7 @@ DROP PROC IF EXISTS spSelectStudents;
 GO 
 CREATE PROC spSelectStudents 
 AS
-SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, Status, Beschreibung, IsAdmin AS 'Admin' FROM tbl_Student
+SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, Status, IsAdmin AS 'Admin' FROM tbl_Student
 JOIN tbl_Status ON ID_Status = tbl_Status.ID
 ORDER BY tbl_Student.ID;
 
@@ -111,3 +111,38 @@ AS
 DELETE FROM tbl_Student WHERE tbl_Student.eMail = @eMail;
 
 EXEC spDeleteStudent @eMail='manuel.schmids@ksb-sg.ch';
+
+
+/* ***************************************************************************** */
+/*DELETE UPDATE student
+*/
+
+DROP PROC IF EXISTS spUpdateStudent;
+
+GO 
+CREATE PROC spUpdateStudent
+(
+	@Name VARCHAR(50),
+	@Vorname VARCHAR(50),
+	@currentEMail VARCHAR(50), /* how to change ? */
+	@Handy VARCHAR(50),
+	@Bemerkung TEXT,	
+	@Status VARCHAR(50),
+	@IsAdmin BIT
+)
+AS
+UPDATE tbl_Student
+SET    
+Name = @Name,
+Vorname = @Vorname,
+/* eMail = @currentEMail, */
+Handy = @Handy,
+Bemerkung = @Bemerkung,
+ID_Status = (SELECT tbl_Status.ID FROM tbl_Status WHERE tbl_Status.Status = @Status),
+IsAdmin = @IsAdmin
+WHERE tbl_Student.eMail = @currentEMail
+GO
+
+/*
+EXEC spUpdateStudent @Name = 'se', @Vorname = 'be', @currentEMail = 'manysch3@gmail.com', @Handy = '019191919', @Bemerkung = 'weeew', @Status = 'Gesperrt', @IsAdmin = true;
+*/
