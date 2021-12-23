@@ -23,9 +23,14 @@ namespace Printer_Reservation_System
 
 			if (!IsPostBack)
 			{
-				gvBindStudents();
-				gvBindRegistrations();
+				gvBindAll();
 			}
+		}
+
+		private void gvBindAll()
+		{
+			gvBindStudents();
+			gvBindRegistrations();
 		}
 
 		protected void gvBindStudents()
@@ -115,7 +120,8 @@ namespace Printer_Reservation_System
 
 			cmd.ExecuteNonQuery();
 			con.Close();
-			gvBindStudents();
+
+			gvBindAll();
 		}
 
 		protected void gridviewStudents_RowEditing(object sender, GridViewEditEventArgs e)
@@ -135,9 +141,6 @@ namespace Printer_Reservation_System
 			gridviewStudents.EditIndex = -1;
 			gvBindStudents();
 		}
-
-
-
 
 		// registrations
 
@@ -207,8 +210,7 @@ namespace Printer_Reservation_System
 			cmd.ExecuteNonQuery();
 			con.Close();
 
-			gvBindRegistrations();
-			gvBindStudents();
+			gvBindAll();
 		}
 	}
 }

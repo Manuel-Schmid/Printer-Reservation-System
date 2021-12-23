@@ -22,6 +22,8 @@
             <asp:BoundField DataField="E-Mail" HeaderText="Mail" />  
             <asp:BoundField DataField="Handy" HeaderText="Handy" />  
             <asp:BoundField DataField="Bemerkung" HeaderText="Bemerkung" />  
+
+
             <asp:BoundField DataField="Status" HeaderText="Status" />  
             <asp:CheckBoxField DataField="Admin" HeaderText="Admin" />
 
