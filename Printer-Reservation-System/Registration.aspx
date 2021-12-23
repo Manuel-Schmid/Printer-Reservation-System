@@ -60,7 +60,7 @@
 
     &nbsp;&nbsp;
 
-    <asp:Button type="submit" ID="btnLogin" runat="server" Text="Stattdessen anmelden " CssClass="btnSubmit" OnClick="btnLogin_Click" />
+    <asp:Button type="submit" ID="btnLogin" runat="server" Text="Anmelden" CssClass="btnSubmit" OnClick="btnLogin_Click" />
 
     
 </asp:Content>

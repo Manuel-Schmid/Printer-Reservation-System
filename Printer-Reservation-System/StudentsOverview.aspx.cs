@@ -24,12 +24,13 @@ namespace Printer_Reservation_System
 			if (!IsPostBack)
 			{
 				gvBindStudents();
+				gvBindRegistrations();
 			}
 		}
 
 		protected void gvBindStudents()
 		{
-			DataTable tblPrinters = new DataTable();
+			DataTable tblStudents = new DataTable();
 
 			con.Open();
 
@@ -39,23 +40,23 @@ namespace Printer_Reservation_System
 
 			SqlDataAdapter dap = new SqlDataAdapter(cmd);
 
-			dap.Fill(tblPrinters);
+			dap.Fill(tblStudents);
 			con.Close();
-			if (tblPrinters.Rows.Count > 0)
+			if (tblStudents.Rows.Count > 0)
 			{
-				gridviewStudents.DataSource = tblPrinters;
+				gridviewStudents.DataSource = tblStudents;
 				gridviewStudents.DataBind();
 			}
 			else
 			{
-				tblPrinters.Rows.Add(tblPrinters.NewRow());
-				gridviewStudents.DataSource = tblPrinters;
+				tblStudents.Rows.Add(tblStudents.NewRow());
+				gridviewStudents.DataSource = tblStudents;
 				gridviewStudents.DataBind();
 				int columncount = gridviewStudents.Rows[0].Cells.Count;
 				gridviewStudents.Rows[0].Cells.Clear();
 				gridviewStudents.Rows[0].Cells.Add(new TableCell());
 				gridviewStudents.Rows[0].Cells[0].ColumnSpan = columncount;
-				gridviewStudents.Rows[0].Cells[0].Text = "No Records Found";
+				gridviewStudents.Rows[0].Cells[0].Text = "No Students Found";
 			}
 		}
 
@@ -110,7 +111,7 @@ namespace Printer_Reservation_System
 			cmd.Parameters["@Handy"].Value = ((TextBox)row.Cells[3].Controls[0]).Text;
 			cmd.Parameters["@Bemerkung"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
 			cmd.Parameters["@Status"].Value = ((TextBox)row.Cells[5].Controls[0]).Text; // validate Status !
-			cmd.Parameters["@IsAdmin"].Value = ((TextBox)row.Cells[6].Controls[0]).Text == "True" ? true : false;
+			cmd.Parameters["@IsAdmin"].Value = ((CheckBox)row.Cells[6].Controls[0]).Checked;
 
 			cmd.ExecuteNonQuery();
 			con.Close();
@@ -132,6 +133,79 @@ namespace Printer_Reservation_System
 		protected void gridviewStudents_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
 		{
 			gridviewStudents.EditIndex = -1;
+			gvBindStudents();
+		}
+
+
+
+
+		// registrations
+
+		protected void gvBindRegistrations()
+		{
+			DataTable tblRegistrations = new DataTable();
+
+			con.Open();
+
+			SqlCommand cmd = new SqlCommand("spSelectRegistrations", con);
+
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			SqlDataAdapter dap = new SqlDataAdapter(cmd);
+
+			dap.Fill(tblRegistrations);
+			con.Close();
+			if (tblRegistrations.Rows.Count > 0)
+			{
+				gridviewRegistrations.DataSource = tblRegistrations;
+				gridviewRegistrations.DataBind();
+			}
+			else
+			{
+				tblRegistrations.Rows.Add(tblRegistrations.NewRow());
+				gridviewRegistrations.DataSource = tblRegistrations;
+				gridviewRegistrations.DataBind();
+				int columncount = gridviewRegistrations.Rows[0].Cells.Count;
+				gridviewRegistrations.Rows[0].Cells.Clear();
+				gridviewRegistrations.Rows[0].Cells.Add(new TableCell());
+				gridviewRegistrations.Rows[0].Cells[0].ColumnSpan = columncount;
+				gridviewRegistrations.Rows[0].Cells[0].Text = "No Registrations Found";
+			}
+		}
+
+		//OnRowEditing="gridviewRegistrations_RowEditing"
+		//protected void gridviewRegistrations_RowEditing(object sender, GridViewEditEventArgs e)
+		//{
+		//	gridviewRegistrations.EditIndex = e.NewEditIndex;
+		//	gvBindRegistrations();
+		//}
+
+		protected void gridviewRegistrations_PageIndexChanging(object sender, GridViewPageEventArgs e)
+		{
+			gridviewRegistrations.PageIndex = e.NewPageIndex;
+			gvBindRegistrations();
+		}
+
+
+		protected void gridviewRegistrations_RowCommand(object sender, GridViewCommandEventArgs e)
+		{
+			int index = Convert.ToInt32(e.CommandArgument);
+			GridViewRow row = (GridViewRow)gridviewRegistrations.Rows[index];
+
+			con.Open();
+			SqlCommand cmd = new SqlCommand("spUpdateStudentStatus", con);
+
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+			cmd.Parameters.Add(new SqlParameter("@NewStatusID", SqlDbType.Int));
+			cmd.Parameters["@eMail"].Value = row.Cells[2].Text;
+			cmd.Parameters["@NewStatusID"].Value = 2; // change status to active
+
+			cmd.ExecuteNonQuery();
+			con.Close();
+
+			gvBindRegistrations();
 			gvBindStudents();
 		}
 	}

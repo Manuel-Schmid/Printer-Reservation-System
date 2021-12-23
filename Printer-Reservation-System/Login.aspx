@@ -34,6 +34,6 @@
     <asp:Button type="submit" ID="btnLogin" runat="server" Text="Anmelden" CssClass="btnSubmit" OnClick="btnLogin_Click" />
     &nbsp;&nbsp;
 
-    <asp:Button type="submit" ID="btnSignup" runat="server" Text="Stattdessen registrieren" CssClass="btnSubmit" OnClick="btnSignup_Click" />
+    <asp:Button type="submit" ID="btnSignup" runat="server" Text="Registrieren" CssClass="btnSubmit" OnClick="btnSignup_Click" />
 
 </asp:Content>

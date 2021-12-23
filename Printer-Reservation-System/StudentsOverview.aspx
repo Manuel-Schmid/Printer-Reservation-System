@@ -2,7 +2,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
-    /* AutoGenerateColumns="false" DataKeyNames="id" */
+    
+    <asp:GridView ID="gridviewRegistrations" AutoGenerateColumns="false" runat="server" OnPageIndexChanging="gridviewRegistrations_PageIndexChanging" OnRowCommand="gridviewRegistrations_RowCommand" >
+        <Columns>  
+            <asp:BoundField DataField="Name" HeaderText="Name" />  
+            <asp:BoundField DataField="Vorname" HeaderText="Vorname" />  
+            <asp:BoundField DataField="E-Mail" HeaderText="Mail" />  
+            <asp:BoundField DataField="Handy" HeaderText="Handy" />  
+            <asp:Buttonfield  buttontype="button" Text="Annehmen" commandname="accept"  />
+
+        </Columns>
+    </asp:GridView>
+
     <asp:GridView ID="gridviewStudents" AutoGenerateColumns="false" runat="server" OnPageIndexChanging="gridviewStudents_PageIndexChanging" OnRowCancelingEdit="gridviewStudents_RowCancelingEdit" OnRowDeleting="gridviewStudents_RowDeleting" OnRowEditing="gridviewStudents_RowEditing" OnRowUpdating="gridviewStudents_RowUpdating">
         <Columns>  
             <asp:BoundField DataField="Name" HeaderText="Name" />  
@@ -11,7 +22,7 @@
             <asp:BoundField DataField="Handy" HeaderText="Handy" />  
             <asp:BoundField DataField="Bemerkung" HeaderText="Bemerkung" />  
             <asp:BoundField DataField="Status" HeaderText="Status" />  
-            <asp:BoundField DataField="Admin" HeaderText="Admin" />  
+            <asp:CheckBoxField DataField="Admin" HeaderText="Admin" />
 
             <asp:CommandField ShowEditButton="true" />  
             <asp:CommandField ShowDeleteButton="true" /> 

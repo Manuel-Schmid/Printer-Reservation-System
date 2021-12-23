@@ -35,6 +35,7 @@ CREATE PROC spSelectStudents
 AS
 SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, Status, IsAdmin AS 'Admin' FROM tbl_Student
 JOIN tbl_Status ON ID_Status = tbl_Status.ID
+WHERE ID_Status != 1
 ORDER BY tbl_Student.ID;
 
 /*
@@ -114,7 +115,7 @@ EXEC spDeleteStudent @eMail='manuel.schmids@ksb-sg.ch';
 
 
 /* ***************************************************************************** */
-/*DELETE UPDATE student
+/* UPDATE student
 */
 
 DROP PROC IF EXISTS spUpdateStudent;
@@ -146,3 +147,40 @@ GO
 /*
 EXEC spUpdateStudent @Name = 'se', @Vorname = 'be', @currentEMail = 'manysch3@gmail.com', @Handy = '019191919', @Bemerkung = 'weeew', @Status = 'Gesperrt', @IsAdmin = true;
 */
+
+
+/* ***************************************************************************** */
+/*SELECT all registrations (Students who have not yet been accepted)
+*/
+
+DROP PROC IF EXISTS spSelectRegistrations;
+GO 
+CREATE PROC spSelectRegistrations 
+AS
+SELECT Name, Vorname, eMail AS 'E-Mail', Handy FROM tbl_Student
+WHERE ID_Status = 1 /* 1 means not yet accepted */
+ORDER BY tbl_Student.ID;
+
+/*
+EXEC spSelectRegistrations;
+*/
+
+
+/* ***************************************************************************** */
+/* UPDATE studentstatus
+*/
+
+DROP PROC IF EXISTS spUpdateStudentStatus;
+
+GO 
+CREATE PROC spUpdateStudentStatus
+(
+	@eMail VARCHAR(50),
+	@NewStatusID INT
+)
+AS
+UPDATE tbl_Student
+SET    
+ID_Status = @NewStatusID
+WHERE tbl_Student.eMail = @eMail
+GO
