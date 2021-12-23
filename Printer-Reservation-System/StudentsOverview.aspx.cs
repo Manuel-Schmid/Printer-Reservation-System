@@ -173,19 +173,11 @@ namespace Printer_Reservation_System
 			}
 		}
 
-		//OnRowEditing="gridviewRegistrations_RowEditing"
-		//protected void gridviewRegistrations_RowEditing(object sender, GridViewEditEventArgs e)
-		//{
-		//	gridviewRegistrations.EditIndex = e.NewEditIndex;
-		//	gvBindRegistrations();
-		//}
-
 		protected void gridviewRegistrations_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 			gridviewRegistrations.PageIndex = e.NewPageIndex;
 			gvBindRegistrations();
 		}
-
 
 		protected void gridviewRegistrations_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
@@ -200,8 +192,18 @@ namespace Printer_Reservation_System
 			cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
 			cmd.Parameters.Add(new SqlParameter("@NewStatusID", SqlDbType.Int));
 			cmd.Parameters["@eMail"].Value = row.Cells[2].Text;
-			cmd.Parameters["@NewStatusID"].Value = 2; // change status to active
-
+			if (e.CommandName == "accept")
+			{
+				cmd.Parameters["@NewStatusID"].Value = 2; // change status to active
+			} else if (e.CommandName == "deny")
+			{
+				cmd.Parameters["@NewStatusID"].Value = 4; // change status to ended
+			}
+			else
+			{
+				con.Close();
+				return;
+			}
 			cmd.ExecuteNonQuery();
 			con.Close();
 

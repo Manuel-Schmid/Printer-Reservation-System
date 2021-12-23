@@ -9,7 +9,8 @@
             <asp:BoundField DataField="Vorname" HeaderText="Vorname" />  
             <asp:BoundField DataField="E-Mail" HeaderText="Mail" />  
             <asp:BoundField DataField="Handy" HeaderText="Handy" />  
-            <asp:Buttonfield  buttontype="button" Text="Annehmen" commandname="accept"  />
+            <asp:Buttonfield buttontype="button" Text="Annehmen" commandname="accept"  />
+            <asp:Buttonfield buttontype="button" Text="Ablehnen" commandname="deny"  />
 
         </Columns>
     </asp:GridView>
