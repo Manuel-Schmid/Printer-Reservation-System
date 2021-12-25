@@ -17,9 +17,10 @@
 
 	<asp:GridView ID="gridviewStudents" AutoGenerateColumns="false" runat="server" OnPageIndexChanging="gridviewStudents_PageIndexChanging" OnRowCancelingEdit="gridviewStudents_RowCancelingEdit" OnRowDeleting="gridviewStudents_RowDeleting" OnRowEditing="gridviewStudents_RowEditing" OnRowUpdating="gridviewStudents_RowUpdating" OnRowDataBound="gv_StatusRowDataBound">
 		<Columns>  
+			<asp:CheckBoxField DataField="Admin" HeaderText="Admin" />
 			<asp:BoundField DataField="Name" HeaderText="Name" />  
 			<asp:BoundField DataField="Vorname" HeaderText="Vorname" />  
-			<asp:BoundField DataField="E-Mail" HeaderText="Mail" />  
+			<asp:BoundField DataField="E-Mail" HeaderText="Mail" readonly="true" />  
 			<asp:BoundField DataField="Handy" HeaderText="Handy" />  
 			<asp:BoundField DataField="Bemerkung" HeaderText="Bemerkung" />  
 
@@ -33,7 +34,6 @@
 				</ItemTemplate>
 			</asp:TemplateField>
 
-			<asp:CheckBoxField DataField="Admin" HeaderText="Admin" />
 			<asp:CommandField ShowEditButton="true" />  
 			<asp:CommandField ShowDeleteButton="true" /> 
 		</Columns>

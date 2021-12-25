@@ -136,13 +136,13 @@ namespace Printer_Reservation_System
 			cmd.Parameters.Add(new SqlParameter("@Bemerkung", SqlDbType.VarChar));
 			cmd.Parameters.Add(new SqlParameter("@Status", SqlDbType.VarChar));
 			cmd.Parameters.Add(new SqlParameter("@IsAdmin", SqlDbType.VarChar));
-			cmd.Parameters["@Name"].Value = ((TextBox)row.Cells[0].Controls[0]).Text;
-			cmd.Parameters["@Vorname"].Value = ((TextBox)row.Cells[1].Controls[0]).Text;
-			cmd.Parameters["@currentEMail"].Value = ((TextBox)row.Cells[2].Controls[0]).Text;
-			cmd.Parameters["@Handy"].Value = ((TextBox)row.Cells[3].Controls[0]).Text;
-			cmd.Parameters["@Bemerkung"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
+			cmd.Parameters["@IsAdmin"].Value = ((CheckBox)row.Cells[0].Controls[0]).Checked;
+			cmd.Parameters["@Name"].Value = ((TextBox)row.Cells[1].Controls[0]).Text;
+			cmd.Parameters["@Vorname"].Value = ((TextBox)row.Cells[2].Controls[0]).Text;
+			cmd.Parameters["@currentEMail"].Value = row.Cells[3].Text;
+			cmd.Parameters["@Handy"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
+			cmd.Parameters["@Bemerkung"].Value = ((TextBox)row.Cells[5].Controls[0]).Text;
 			cmd.Parameters["@Status"].Value = ((DropDownList)row.FindControl("ddl_Status")).SelectedValue;
-			cmd.Parameters["@IsAdmin"].Value = ((CheckBox)row.Cells[6].Controls[0]).Checked;
 
 			cmd.ExecuteNonQuery();
 			con.Close();
