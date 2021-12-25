@@ -23,10 +23,19 @@
             <asp:BoundField DataField="Handy" HeaderText="Handy" />  
             <asp:BoundField DataField="Bemerkung" HeaderText="Bemerkung" />  
 
+            <asp:TemplateField HeaderText = "Status">
 
-            <asp:BoundField DataField="Status" HeaderText="Status" />  
+                <EditItemTemplate>  
+                    <asp:DropDownList ID="ddlStatus" runat="server"></asp:DropDownList>
+                </EditItemTemplate>  
+
+                <ItemTemplate>
+                    <asp:Label ID="lblStatus" runat="server"></asp:Label>  
+                </ItemTemplate>
+
+            </asp:TemplateField>
+
             <asp:CheckBoxField DataField="Admin" HeaderText="Admin" />
-
             <asp:CommandField ShowEditButton="true" />  
             <asp:CommandField ShowDeleteButton="true" /> 
         </Columns>

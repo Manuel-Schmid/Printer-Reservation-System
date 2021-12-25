@@ -83,8 +83,8 @@ namespace Printer_Reservation_System
                 if (isValid) // login successful
                 {
                     lblInvalidLogin.Text = "";
-                    //Response.Redirect("~/StudentsOverview.aspx");
-                    Response.Redirect("~/PrinterOverview.aspx");
+                    Response.Redirect("~/StudentsOverview.aspx");
+                    //Response.Redirect("~/PrinterOverview.aspx");
                 } else
                 {
                     lblInvalidLogin.Text = "Your login credentials were incorrect.";

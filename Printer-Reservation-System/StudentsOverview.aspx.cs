@@ -63,6 +63,42 @@ namespace Printer_Reservation_System
 				gridviewStudents.Rows[0].Cells[0].ColumnSpan = columncount;
 				gridviewStudents.Rows[0].Cells[0].Text = "No Students Found";
 			}
+
+			foreach (GridViewRow row in gridviewStudents.Rows)
+			{
+				try
+				{
+					((Label)row.FindControl("lblStatus")).Text = getStudentStatus(row.Cells[2].Text);
+				} catch (Exception e) { 
+					
+				} // !!!
+			}
+		}
+
+		private string getStudentStatus(string eMail)
+		{
+			lbltest.Text = eMail;
+			con.Open();
+			SqlCommand cmd = new SqlCommand("spSelectStudentStatus", con);
+
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+			cmd.Parameters["@eMail"].Value = eMail;
+
+
+			string status = "";
+
+			object o = cmd.ExecuteScalar();
+			con.Close();
+
+			if (o != null)
+			{
+				status = o.ToString();
+			}
+			else { status = "error"; }
+			return status;
+
 		}
 
 		protected void gridviewStudents_RowDeleting(object sender, GridViewDeleteEventArgs e)

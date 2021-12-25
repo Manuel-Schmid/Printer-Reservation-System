@@ -33,13 +33,30 @@ DROP PROC IF EXISTS spSelectStudents;
 GO 
 CREATE PROC spSelectStudents 
 AS
-SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, Status, IsAdmin AS 'Admin' FROM tbl_Student
-JOIN tbl_Status ON ID_Status = tbl_Status.ID
-WHERE ID_Status != 1
+SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, IsAdmin AS 'Admin' FROM tbl_Student
 ORDER BY tbl_Student.ID;
 
 /*
 EXEC spSelectStudents;
+*/
+
+/* ***************************************************************************** */
+/*SELECT all students
+*/
+
+DROP PROC IF EXISTS spSelectStudentStatus;
+GO 
+CREATE PROC spSelectStudentStatus 
+(
+	@eMail VARCHAR(50)
+)
+AS
+SELECT Status FROM tbl_Status
+JOIN tbl_Student ON tbl_Status.ID = ID_Status
+WHERE tbl_Student.eMail = @eMail;
+
+/*
+EXEC spSelectStudentStatus @eMail = 'manysch3@gmail.com';
 */
 
 /* ***************************************************************************** */
@@ -94,9 +111,9 @@ SELECT COUNT(ID) FROM tbl_Student WHERE eMail = @eMail and Passwort = @Passwort
 GO
 */
 
-
+/*
 EXEC spValidateLogin @eMail='manysch3@gmail.com', @Passwort='CEBF2CB7F8D7C263837CF63E10CECB98A0560C181D34E6C4BDAB3F28E619CABC';
-
+*/
 
 /* ***************************************************************************** */
 /*DELETE student
