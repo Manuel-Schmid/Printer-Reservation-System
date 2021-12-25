@@ -35,7 +35,7 @@ DROP PROC IF EXISTS spSelectStudents;
 GO 
 CREATE PROC spSelectStudents 
 AS
-SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, Status, IsAdmin AS 'Admin' FROM tbl_Student
+SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, ID_Status as 'Stat_ID', Status, IsAdmin AS 'Admin' FROM tbl_Student
 JOIN tbl_Status ON ID_Status = tbl_Status.ID
 WHERE ID_Status != 1 /* all which are not in registration process */
 ORDER BY tbl_Student.ID;
@@ -147,10 +147,10 @@ CREATE PROC spUpdateStudent
 (
 	@Name VARCHAR(50),
 	@Vorname VARCHAR(50),
-	@currentEMail VARCHAR(50), /* how to change ? */
+	@currentEMail VARCHAR(50), 
 	@Handy VARCHAR(50),
 	@Bemerkung TEXT,	
-	@Status VARCHAR(50),
+	@Status INT,
 	@IsAdmin BIT
 )
 AS
@@ -161,7 +161,7 @@ Vorname = @Vorname,
 /* eMail = @currentEMail, */
 Handy = @Handy,
 Bemerkung = @Bemerkung,
-ID_Status = (SELECT tbl_Status.ID FROM tbl_Status WHERE tbl_Status.Status = @Status),
+ID_Status = @Status,
 IsAdmin = @IsAdmin
 WHERE tbl_Student.eMail = @currentEMail
 GO
@@ -209,4 +209,17 @@ EXEC spUpdateStudentStatus @eMail = 'aösdf', @NewStatusID = 2;
 */
 
 
+/* ***************************************************************************** */
+/*SELECT all statuses
+*/
 
+DROP PROC IF EXISTS spSelectStatuses;
+GO 
+CREATE PROC spSelectStatuses 
+AS
+SELECT Status, ID as 'Status_ID' FROM tbl_Status
+ORDER BY ID;
+
+/*
+EXEC spSelectStatuses;
+*/

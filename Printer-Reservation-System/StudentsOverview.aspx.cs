@@ -63,16 +63,6 @@ namespace Printer_Reservation_System
 				gridviewStudents.Rows[0].Cells[0].ColumnSpan = columncount;
 				gridviewStudents.Rows[0].Cells[0].Text = "No Students Found";
 			}
-			/*
-			foreach (GridViewRow row in gridviewStudents.Rows)
-			{
-				try
-				{
-					((Label)row.FindControl("lblStatus")).Text = getStudentStatus(row.Cells[2].Text);
-				} catch (Exception e) { 
-					
-				} // !!!
-			}*/
 		}
 
 		private string getStudentStatus(string eMail)
@@ -151,7 +141,7 @@ namespace Printer_Reservation_System
 			cmd.Parameters["@currentEMail"].Value = ((TextBox)row.Cells[2].Controls[0]).Text;
 			cmd.Parameters["@Handy"].Value = ((TextBox)row.Cells[3].Controls[0]).Text;
 			cmd.Parameters["@Bemerkung"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
-			cmd.Parameters["@Status"].Value = ((TextBox)row.Cells[5].Controls[0]).Text; // validate Status !
+			cmd.Parameters["@Status"].Value = ((DropDownList)row.FindControl("ddl_Status")).SelectedValue;
 			cmd.Parameters["@IsAdmin"].Value = ((CheckBox)row.Cells[6].Controls[0]).Checked;
 
 			cmd.ExecuteNonQuery();
@@ -247,6 +237,45 @@ namespace Printer_Reservation_System
 			con.Close();
 
 			gvBindAll();
+		}
+
+		private DataTable getStatuses()
+		{
+			DataTable tblStatuses = new DataTable();
+
+			con.Open();
+
+			SqlCommand cmd = new SqlCommand("spSelectStatuses", con);
+
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			SqlDataAdapter dap = new SqlDataAdapter(cmd);
+
+			dap.Fill(tblStatuses);
+			con.Close();
+
+			return tblStatuses;
+		}
+
+		protected void gv_StatusRowDataBound(object sender, GridViewRowEventArgs e)
+		{
+			if (e.Row.RowType == DataControlRowType.DataRow)
+			{
+				if ((e.Row.RowState & DataControlRowState.Edit) > 0)
+				{
+					DropDownList ddList = (DropDownList)e.Row.FindControl("ddl_Status");
+
+					//return DataTable havinf department data
+					DataTable dt = getStatuses();
+					ddList.DataSource = dt;
+					ddList.DataTextField = "Status";
+					ddList.DataValueField = "Status_ID";
+					ddList.DataBind();
+
+					DataRowView dr = e.Row.DataItem as DataRowView;
+					ddList.SelectedValue = dr["Stat_ID"].ToString();
+				}
+			}
 		}
 	}
 }
