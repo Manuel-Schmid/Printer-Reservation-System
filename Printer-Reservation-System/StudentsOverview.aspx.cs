@@ -63,7 +63,7 @@ namespace Printer_Reservation_System
 				gridviewStudents.Rows[0].Cells[0].ColumnSpan = columncount;
 				gridviewStudents.Rows[0].Cells[0].Text = "No Students Found";
 			}
-
+			/*
 			foreach (GridViewRow row in gridviewStudents.Rows)
 			{
 				try
@@ -72,7 +72,7 @@ namespace Printer_Reservation_System
 				} catch (Exception e) { 
 					
 				} // !!!
-			}
+			}*/
 		}
 
 		private string getStudentStatus(string eMail)

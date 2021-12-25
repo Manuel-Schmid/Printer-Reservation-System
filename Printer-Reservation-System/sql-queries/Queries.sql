@@ -27,13 +27,17 @@ EXEC spSelectPrinters;
 
 /* ***************************************************************************** */
 /*SELECT all students
+
+SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, IsAdmin AS 'Admin' FROM tbl_Student
 */
 
 DROP PROC IF EXISTS spSelectStudents;
 GO 
 CREATE PROC spSelectStudents 
 AS
-SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, IsAdmin AS 'Admin' FROM tbl_Student
+SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, Status, IsAdmin AS 'Admin' FROM tbl_Student
+JOIN tbl_Status ON ID_Status = tbl_Status.ID
+WHERE ID_Status != 1 /* all which are not in registration process */
 ORDER BY tbl_Student.ID;
 
 /*
@@ -78,7 +82,7 @@ EXEC spSelectReservations;
 */
 
 
-/*
+
 DROP PROC IF EXISTS spInsertStudent;
 GO 
 CREATE PROC spInsertStudent
@@ -93,12 +97,12 @@ AS
 INSERT INTO tbl_Student (Name, Vorname, eMail, Handy, Passwort, IsAdmin, Bemerkung, ID_Status)
 VALUES (@Name, @Vorname, @eMail, @Handy, @Passwort, 0, NULL, (SELECT ID FROM tbl_Status WHERE Status='Anfrage Registration'));
 GO
-*/
+
 /*
 EXEC spInsertStudent @Name='Lssse', @Vorname='Bao Minh', @eMail='bao.minh@gmail.com', @Handy='02949284972', @Passwort='96C34D848F3F576D6E43FB42D7B5DDBA12303D1280F6601448003B84C205B6B4';
 */
 
-/*
+
 DROP PROC IF EXISTS spValidateLogin;
 GO 
 CREATE PROC spValidateLogin
@@ -109,7 +113,7 @@ CREATE PROC spValidateLogin
 AS
 SELECT COUNT(ID) FROM tbl_Student WHERE eMail = @eMail and Passwort = @Passwort
 GO
-*/
+
 
 /*
 EXEC spValidateLogin @eMail='manysch3@gmail.com', @Passwort='CEBF2CB7F8D7C263837CF63E10CECB98A0560C181D34E6C4BDAB3F28E619CABC';
@@ -128,8 +132,9 @@ CREATE PROC spDeleteStudent
 AS
 DELETE FROM tbl_Student WHERE tbl_Student.eMail = @eMail;
 
+/*
 EXEC spDeleteStudent @eMail='manuel.schmids@ksb-sg.ch';
-
+*/
 
 /* ***************************************************************************** */
 /* UPDATE student
@@ -188,7 +193,6 @@ EXEC spSelectRegistrations;
 */
 
 DROP PROC IF EXISTS spUpdateStudentStatus;
-
 GO 
 CREATE PROC spUpdateStudentStatus
 (
@@ -197,7 +201,12 @@ CREATE PROC spUpdateStudentStatus
 )
 AS
 UPDATE tbl_Student
-SET    
-ID_Status = @NewStatusID
-WHERE tbl_Student.eMail = @eMail
-GO
+SET tbl_Student.ID_Status = @NewStatusID
+WHERE tbl_Student.eMail = @eMail;
+
+/*
+EXEC spUpdateStudentStatus @eMail = 'aösdf', @NewStatusID = 2;
+*/
+
+
+
