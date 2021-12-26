@@ -294,6 +294,6 @@ CREATE PROC spInsertPrinter
 	@Druckbereich_Hoehe FLOAT(53)
 )
 AS
-INSERT INTO tbl_Drucker (Name, Vorname, eMail, Handy, Passwort, IsAdmin, Bemerkung, ID_Status)
-VALUES (@Name, @Vorname, @eMail, @Handy, @Passwort, 0, NULL, (SELECT ID FROM tbl_Status WHERE Status='Anfrage Registration'));
+INSERT INTO tbl_Drucker (Marke, Modell, Typ, Beschreibung, Druckbereich_Laenge, Druckbereich_Breite, Druckbereich_Hoehe, Bemerkung)
+VALUES (@Marke, @Modell, @Typ, @Beschreibung, @Druckbereich_Laenge, @Druckbereich_Breite, @Druckbereich_Hoehe, NULL)
 GO
