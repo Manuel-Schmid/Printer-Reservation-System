@@ -70,6 +70,8 @@ namespace Printer_Reservation_System
 
 			cmd.CommandType = CommandType.StoredProcedure;
 
+			DataRowView dr = row.DataItem as DataRowView;
+
 			cmd.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int));
 			cmd.Parameters["@ID"].Value = row.Cells[0].Text;
 
@@ -167,6 +169,11 @@ namespace Printer_Reservation_System
 			return new string(input.ToCharArray()
 				.Where(c => !Char.IsWhiteSpace(c))
 				.ToArray());
+		}
+
+		protected void btnAddReservation_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

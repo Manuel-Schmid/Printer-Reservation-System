@@ -307,7 +307,7 @@ DROP PROC IF EXISTS spSelectReservations;
 GO 
 CREATE PROC spSelectReservations 
 AS
-SELECT stu.Name, stu.Vorname, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', res.Von, res.Bis, res.Bemerkung  FROM tbl_Reservation as res
+SELECT res.ID, stu.Name, stu.Vorname, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', res.Von, res.Bis, res.Bemerkung  FROM tbl_Reservation as res
 JOIN tbl_Student as stu on stu.ID = res.ID_Student
 JOIN tbl_Drucker as dru on dru.ID = res.ID_Drucker
 ORDER BY res.ID;
@@ -317,7 +317,7 @@ EXEC spSelectReservations;
 */
 
 /* ***************************************************************************** */
-/*DELETE printer
+/*DELETE reservation
 */
 
 DROP PROC IF EXISTS spDeleteReservation;
@@ -327,14 +327,14 @@ CREATE PROC spDeleteReservation
 	@ID INT
 )
 AS
-DELETE FROM tbl_Drucker WHERE tbl_Drucker.ID = @ID;
+DELETE FROM tbl_Reservation WHERE tbl_Reservation.ID = @ID;
 
 /*
 EXEC spDeleteReservation @eMail='manuel.schmids@ksb-sg.ch';
 */
 
 /* ***************************************************************************** */
-/* UPDATE printer
+/* UPDATE reservation
 */
 
 DROP PROC IF EXISTS spUpdateReservation;
@@ -366,7 +366,7 @@ GO
 
 
 /* ***************************************************************************** */
-/* INSERT new printer
+/* INSERT new reservation
 */
 
 
