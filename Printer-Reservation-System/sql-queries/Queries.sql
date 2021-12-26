@@ -10,22 +10,6 @@ ADD UNIQUE (eMail);
 
 
 /* ***************************************************************************** */
-/* SELECT all printers
-*/
-
-DROP PROC IF EXISTS spSelectPrinters;
-GO 
-CREATE PROC spSelectPrinters 
-AS
-SELECT Marke, Modell, Typ, Beschreibung, Druckbereich_Breite AS 'Breite Druckbereich', Druckbereich_Laenge AS 'Länge Druckbereich', Druckbereich_Hoehe AS 'Höhe Druckbereich'  FROM tbl_Drucker 
-ORDER BY ID;
-
-/*
-EXEC spSelectPrinters;
-*/
-
-
-/* ***************************************************************************** */
 /*SELECT all students
 
 SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, IsAdmin AS 'Admin' FROM tbl_Student
@@ -81,6 +65,9 @@ ORDER BY res.ID;
 EXEC spSelectReservations;
 */
 
+/* ***************************************************************************** */
+/* INSERT new student
+*/
 
 
 DROP PROC IF EXISTS spInsertStudent;
@@ -223,3 +210,90 @@ ORDER BY ID;
 /*
 EXEC spSelectStatuses;
 */
+
+
+/* ***************************************************************************** */
+/* SELECT all printers
+*/
+
+DROP PROC IF EXISTS spSelectPrinters;
+GO 
+CREATE PROC spSelectPrinters 
+AS
+SELECT ID, Marke, Modell, Typ, Beschreibung, CAST(Druckbereich_Laenge AS VARCHAR(16)) + ' x ' + CAST(Druckbereich_Breite AS VARCHAR(16)) + ' x ' + CAST(Druckbereich_Hoehe AS VARCHAR(16)) as 'Druckbereich'  FROM tbl_Drucker 
+ORDER BY ID;
+
+/*
+EXEC spSelectPrinters;
+*/
+
+/* ***************************************************************************** */
+/*DELETE printer
+*/
+
+DROP PROC IF EXISTS spDeletePrinter;
+GO 
+CREATE PROC spDeletePrinter 
+(
+	@ID INT
+)
+AS
+DELETE FROM tbl_Drucker WHERE tbl_Drucker.ID = @ID;
+
+/*
+EXEC spDeletePrinter @eMail='manuel.schmids@ksb-sg.ch';
+*/
+
+/* ***************************************************************************** */
+/* UPDATE printer
+*/
+
+DROP PROC IF EXISTS spUpdatePrinter;
+
+GO 
+CREATE PROC spUpdatePrinter
+(
+	@ID INT,
+	@Marke VARCHAR(50),
+	@Modell VARCHAR(50),
+	@Typ VARCHAR(50), 
+	@Beschreibung VARCHAR(50),
+	@Druckbereich_Laenge FLOAT(53),
+	@Druckbereich_Breite FLOAT(53),
+	@Druckbereich_Hoehe FLOAT(53)
+)
+AS
+UPDATE tbl_Drucker
+SET    
+Marke = @Marke,
+Modell = @Modell,
+Typ = @Typ,
+Beschreibung = @Beschreibung,
+Druckbereich_Laenge = @Druckbereich_Laenge,
+Druckbereich_Breite = @Druckbereich_Breite,
+Druckbereich_Hoehe = @Druckbereich_Hoehe
+WHERE tbl_Drucker.ID = @ID
+GO
+
+
+/* ***************************************************************************** */
+/* INSERT new printer
+*/
+
+
+DROP PROC IF EXISTS spInsertPrinter;
+GO 
+CREATE PROC spInsertPrinter
+(
+	@Marke VARCHAR(50),
+	@Modell VARCHAR(50),
+	@Typ VARCHAR(50), 
+	@Beschreibung VARCHAR(50),
+	@Druckbereich_Laenge FLOAT(53),
+	@Druckbereich_Breite FLOAT(53),
+	@Druckbereich_Hoehe FLOAT(53)
+)
+AS
+INSERT INTO tbl_Drucker (Name, Vorname, eMail, Handy, Passwort, IsAdmin, Bemerkung, ID_Status)
+VALUES (@Name, @Vorname, @eMail, @Handy, @Passwort, 0, NULL, (SELECT ID FROM tbl_Status WHERE Status='Anfrage Registration'));
+GO

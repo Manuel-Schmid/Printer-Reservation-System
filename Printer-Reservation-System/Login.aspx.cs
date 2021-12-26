@@ -62,6 +62,11 @@ namespace Printer_Reservation_System
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+            // remove this !!!!!
+            Response.Redirect("~/PrinterOverview.aspx");
+            return;
+            // remove this !!!!!
+
             if (Page.IsValid)
             {
                 SqlConnection con = new SqlConnection();

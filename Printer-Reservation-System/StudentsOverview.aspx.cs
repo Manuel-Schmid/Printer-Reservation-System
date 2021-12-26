@@ -109,19 +109,6 @@ namespace Printer_Reservation_System
 
 		protected void gridviewStudents_RowUpdating(object sender, GridViewUpdateEventArgs e)
 		{
-			/*
-				CREATE PROC spUpdateStudent
-				(
-					@Name VARCHAR(50),
-					@Vorname VARCHAR(50),
-					@currentEMail VARCHAR(50), // how to change ?
-					@Handy VARCHAR(50),
-					@Bemerkung TEXT,
-					@Status VARCHAR(50),
-					@IsAdmin BIT
-				)
-			 */
-
 			GridViewRow row = (GridViewRow)gridviewStudents.Rows[e.RowIndex];
 			gridviewStudents.EditIndex = -1;
 			con.Open();

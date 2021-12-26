@@ -15,12 +15,12 @@ namespace Printer_Reservation_System
     {
 
         /// <summary>
-        /// gridviewPrinters control.
+        /// gvPrinters control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridviewPrinters;
+        protected global::System.Web.UI.WebControls.GridView gvPrinters;
     }
 }
