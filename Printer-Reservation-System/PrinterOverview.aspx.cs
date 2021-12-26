@@ -128,35 +128,6 @@ namespace Printer_Reservation_System
 			gvBindPrinters();
 		}
 
-		private void insertPrinter(GridViewRow row)
-		{
-			con.Open();
-			SqlCommand cmd = new SqlCommand("spInsertPrinter", con);
-
-			cmd.CommandType = CommandType.StoredProcedure;
-
-			string[] druckbereich = RemoveWhitespace(((TextBox)row.Cells[5].Controls[0]).Text).Split('x');
-
-			cmd.Parameters.Add(new SqlParameter("@Marke", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Modell", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Typ", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Beschreibung", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Druckbereich_Laenge", SqlDbType.Float));
-			cmd.Parameters.Add(new SqlParameter("@Druckbereich_Breite", SqlDbType.Float));
-			cmd.Parameters.Add(new SqlParameter("@Druckbereich_Hoehe", SqlDbType.Float));
-			cmd.Parameters["@Marke"].Value = ((TextBox)row.Cells[1].Controls[0]).Text;
-			cmd.Parameters["@Modell"].Value = ((TextBox)row.Cells[2].Controls[0]).Text;
-			cmd.Parameters["@Typ"].Value = ((TextBox)row.Cells[3].Controls[0]).Text;
-			cmd.Parameters["@Beschreibung"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
-			cmd.Parameters["@Druckbereich_Laenge"].Value = druckbereich[0];
-			cmd.Parameters["@Druckbereich_Breite"].Value = druckbereich[1];
-			cmd.Parameters["@Druckbereich_Hoehe"].Value = druckbereich[2];
-
-			cmd.ExecuteNonQuery();
-			con.Close();
-
-			gvBindPrinters();
-		}
 
 		protected void gvPrinters_RowEditing(object sender, GridViewEditEventArgs e)
 		{

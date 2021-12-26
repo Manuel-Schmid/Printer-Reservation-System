@@ -216,24 +216,24 @@ EXEC spSelectStatuses;
 /* SELECT all printers
 */
 
-DROP PROC IF EXISTS spSelectPrinters;
+DROP PROC IF EXISTS spSelectReservations;
 GO 
-CREATE PROC spSelectPrinters 
+CREATE PROC spSelectReservations 
 AS
 SELECT ID, Marke, Modell, Typ, Beschreibung, CAST(Druckbereich_Laenge AS VARCHAR(16)) + ' x ' + CAST(Druckbereich_Breite AS VARCHAR(16)) + ' x ' + CAST(Druckbereich_Hoehe AS VARCHAR(16)) as 'Druckbereich'  FROM tbl_Drucker 
 ORDER BY ID;
 
 /*
-EXEC spSelectPrinters;
+EXEC spSelectReservations;
 */
 
 /* ***************************************************************************** */
 /*DELETE printer
 */
 
-DROP PROC IF EXISTS spDeletePrinter;
+DROP PROC IF EXISTS spDeleteReservation;
 GO 
-CREATE PROC spDeletePrinter 
+CREATE PROC spDeleteReservation 
 (
 	@ID INT
 )
@@ -241,17 +241,17 @@ AS
 DELETE FROM tbl_Drucker WHERE tbl_Drucker.ID = @ID;
 
 /*
-EXEC spDeletePrinter @eMail='manuel.schmids@ksb-sg.ch';
+EXEC spDeleteReservation @eMail='manuel.schmids@ksb-sg.ch';
 */
 
 /* ***************************************************************************** */
 /* UPDATE printer
 */
 
-DROP PROC IF EXISTS spUpdatePrinter;
+DROP PROC IF EXISTS spUpdateReservation;
 
 GO 
-CREATE PROC spUpdatePrinter
+CREATE PROC spUpdateReservation
 (
 	@ID INT,
 	@Marke VARCHAR(50),
@@ -281,9 +281,98 @@ GO
 */
 
 
-DROP PROC IF EXISTS spInsertPrinter;
+DROP PROC IF EXISTS spInsertReservation;
 GO 
-CREATE PROC spInsertPrinter
+CREATE PROC spInsertReservation
+(
+	@Marke VARCHAR(50),
+	@Modell VARCHAR(50),
+	@Typ VARCHAR(50), 
+	@Beschreibung VARCHAR(50),
+	@Druckbereich_Laenge FLOAT(53),
+	@Druckbereich_Breite FLOAT(53),
+	@Druckbereich_Hoehe FLOAT(53)
+)
+AS
+INSERT INTO tbl_Drucker (Marke, Modell, Typ, Beschreibung, Druckbereich_Laenge, Druckbereich_Breite, Druckbereich_Hoehe, Bemerkung)
+VALUES (@Marke, @Modell, @Typ, @Beschreibung, @Druckbereich_Laenge, @Druckbereich_Breite, @Druckbereich_Hoehe, NULL)
+GO
+
+
+/* ***************************************************************************** */
+/* SELECT all reservations
+*/
+
+DROP PROC IF EXISTS spSelectReservations;
+GO 
+CREATE PROC spSelectReservations 
+AS
+SELECT stu.Name, stu.Vorname, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', res.Von, res.Bis, res.Bemerkung  FROM tbl_Reservation as res
+JOIN tbl_Student as stu on stu.ID = res.ID_Student
+JOIN tbl_Drucker as dru on dru.ID = res.ID_Drucker
+ORDER BY res.ID;
+
+/*
+EXEC spSelectReservations;
+*/
+
+/* ***************************************************************************** */
+/*DELETE printer
+*/
+
+DROP PROC IF EXISTS spDeleteReservation;
+GO 
+CREATE PROC spDeleteReservation 
+(
+	@ID INT
+)
+AS
+DELETE FROM tbl_Drucker WHERE tbl_Drucker.ID = @ID;
+
+/*
+EXEC spDeleteReservation @eMail='manuel.schmids@ksb-sg.ch';
+*/
+
+/* ***************************************************************************** */
+/* UPDATE printer
+*/
+
+DROP PROC IF EXISTS spUpdateReservation;
+
+GO 
+CREATE PROC spUpdateReservation
+(
+	@ID INT,
+	@Marke VARCHAR(50),
+	@Modell VARCHAR(50),
+	@Typ VARCHAR(50), 
+	@Beschreibung VARCHAR(50),
+	@Druckbereich_Laenge FLOAT(53),
+	@Druckbereich_Breite FLOAT(53),
+	@Druckbereich_Hoehe FLOAT(53)
+)
+AS
+UPDATE tbl_Drucker
+SET    
+Marke = @Marke,
+Modell = @Modell,
+Typ = @Typ,
+Beschreibung = @Beschreibung,
+Druckbereich_Laenge = @Druckbereich_Laenge,
+Druckbereich_Breite = @Druckbereich_Breite,
+Druckbereich_Hoehe = @Druckbereich_Hoehe
+WHERE tbl_Drucker.ID = @ID
+GO
+
+
+/* ***************************************************************************** */
+/* INSERT new printer
+*/
+
+
+DROP PROC IF EXISTS spInsertReservation;
+GO 
+CREATE PROC spInsertReservation
 (
 	@Marke VARCHAR(50),
 	@Modell VARCHAR(50),

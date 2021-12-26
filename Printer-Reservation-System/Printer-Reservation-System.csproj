@@ -71,6 +71,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Registration.aspx" />
     <Content Include="PrinterOverview.aspx" />
+    <Content Include="ReservationsOverview.aspx" />
     <Content Include="StudentsOverview.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -97,6 +98,13 @@
       <DependentUpon>PrinterOverview.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReservationsOverview.aspx.cs">
+      <DependentUpon>ReservationsOverview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReservationsOverview.aspx.designer.cs">
+      <DependentUpon>ReservationsOverview.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
