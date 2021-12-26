@@ -174,7 +174,7 @@ namespace Printer_Reservation_System
 
 		protected void btnAddReservation_Click(object sender, EventArgs e)
 		{
-			Response.Redirect("~/Registration.aspx");
+			Response.Redirect("~/CreateReservation.aspx");
 		}
 	}
 }

@@ -216,24 +216,25 @@ EXEC spSelectStatuses;
 /* SELECT all printers
 */
 
-DROP PROC IF EXISTS spSelectReservations;
+
+DROP PROC IF EXISTS spSelectPrinters;
 GO 
-CREATE PROC spSelectReservations 
+CREATE PROC spSelectPrinters 
 AS
 SELECT ID, Marke, Modell, Typ, Beschreibung, CAST(Druckbereich_Laenge AS VARCHAR(16)) + ' x ' + CAST(Druckbereich_Breite AS VARCHAR(16)) + ' x ' + CAST(Druckbereich_Hoehe AS VARCHAR(16)) as 'Druckbereich'  FROM tbl_Drucker 
 ORDER BY ID;
 
 /*
-EXEC spSelectReservations;
+EXEC spSelectPrinters;
 */
 
 /* ***************************************************************************** */
 /*DELETE printer
 */
 
-DROP PROC IF EXISTS spDeleteReservation;
+DROP PROC IF EXISTS spDeletePrinter;
 GO 
-CREATE PROC spDeleteReservation 
+CREATE PROC spDeletePrinter 
 (
 	@ID INT
 )
@@ -241,17 +242,17 @@ AS
 DELETE FROM tbl_Drucker WHERE tbl_Drucker.ID = @ID;
 
 /*
-EXEC spDeleteReservation @eMail='manuel.schmids@ksb-sg.ch';
+EXEC spDeletePrinter @eMail='manuel.schmids@ksb-sg.ch';
 */
 
 /* ***************************************************************************** */
 /* UPDATE printer
 */
 
-DROP PROC IF EXISTS spUpdateReservation;
+DROP PROC IF EXISTS spUpdatePrinter;
 
 GO 
-CREATE PROC spUpdateReservation
+CREATE PROC spUpdatePrinter
 (
 	@ID INT,
 	@Marke VARCHAR(50),
@@ -281,9 +282,9 @@ GO
 */
 
 
-DROP PROC IF EXISTS spInsertReservation;
+DROP PROC IF EXISTS spInsertPrinter;
 GO 
-CREATE PROC spInsertReservation
+CREATE PROC spInsertPrinter
 (
 	@Marke VARCHAR(50),
 	@Modell VARCHAR(50),
@@ -386,3 +387,19 @@ AS
 INSERT INTO tbl_Drucker (Marke, Modell, Typ, Beschreibung, Druckbereich_Laenge, Druckbereich_Breite, Druckbereich_Hoehe, Bemerkung)
 VALUES (@Marke, @Modell, @Typ, @Beschreibung, @Druckbereich_Laenge, @Druckbereich_Breite, @Druckbereich_Hoehe, NULL)
 GO
+
+
+/* ***************************************************************************** */
+/*SELECT all printers for ddl
+*/
+
+DROP PROC IF EXISTS spSelectDDLPrinters;
+GO 
+CREATE PROC spSelectDDLPrinters 
+AS
+SELECT ID as 'DruckerID', CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'DruckerName' FROM tbl_Drucker as dru
+ORDER BY ID;
+
+/*
+EXEC spSelectDDLPrinters;
+*/
