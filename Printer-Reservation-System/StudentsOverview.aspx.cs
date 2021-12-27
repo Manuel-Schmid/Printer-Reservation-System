@@ -67,7 +67,6 @@ namespace Printer_Reservation_System
 
 		private string getStudentStatus(string eMail)
 		{
-			lbltest.Text = eMail;
 			con.Open();
 			SqlCommand cmd = new SqlCommand("spSelectStudentStatus", con);
 
@@ -88,7 +87,6 @@ namespace Printer_Reservation_System
 			}
 			else { status = "error"; }
 			return status;
-
 		}
 
 		protected void gridviewStudents_RowDeleting(object sender, GridViewDeleteEventArgs e)

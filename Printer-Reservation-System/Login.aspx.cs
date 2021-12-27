@@ -14,6 +14,8 @@ namespace Printer_Reservation_System
     public partial class Login1 : System.Web.UI.Page
     {
         readonly SqlConnectionStringBuilder conBuilder = new SqlConnectionStringBuilder();
+        SqlConnection con = new SqlConnection();
+
         protected override void OnInit(System.EventArgs e)
         {
             base.OnInit(e);
@@ -34,6 +36,7 @@ namespace Printer_Reservation_System
             conBuilder.DataSource = GlobalVariables.dataSource;
             conBuilder.InitialCatalog = GlobalVariables.dbName;
             conBuilder.IntegratedSecurity = true;
+            con.ConnectionString = conBuilder.ConnectionString;
         }
 
         bool IsValidEmail(string email)
@@ -71,14 +74,36 @@ namespace Printer_Reservation_System
             {
                 if (isLoginValid())
                 {
-                    lblInvalidLogin.Text = "";
-                    Session["email"] = txtEmail.Text;
-                    Session["isAdmin"] = IsStudentAdmin(txtEmail.Text);
-                    Response.Redirect("~/ReservationsOverview.aspx");
+                    switch (getStudentStatus(txtEmail.Text))
+                    {
+                        case "Aktiv":
+                            lblInvalidLogin.Text = "";
+                            Session["email"] = txtEmail.Text;
+                            Session["isAdmin"] = IsStudentAdmin(txtEmail.Text);
+                            Response.Redirect("~/ReservationsOverview.aspx");
+                            break;
+
+                        case "Anfrage Registration ":
+                            lblInvalidLogin.Text = "Ihre Registrationsanfrage wurde gespeichert und ist noch in Bearbeitung. Dies kann 2 - 5 Tage dauern.";
+                            break;
+
+                        case "Gesperrt":
+                            lblInvalidLogin.Text = "Dieses Konto wurde durch einen Administrator gesperrt.";
+                            break;
+
+                        case "Beendet":
+                            lblInvalidLogin.Text = "Die Registration dieses Kontos wurde von einem Administrator abgelehnt.";
+                            break;
+
+                        default:
+                            lblInvalidLogin.Text = "An error occured.";
+                            break;
+                    }
                 } else
                 {
-                    lblInvalidLogin.Text = "Your login credentials were incorrect.";
+                    lblInvalidLogin.Text = "Die eingegebenen Login-Daten sind inkorrekt.";
                 }
+            
 
                 // set cookie
                 //HttpCookie userCookie = new HttpCookie("userCookie");
@@ -101,8 +126,6 @@ namespace Printer_Reservation_System
 
         private bool isLoginValid()
         {
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = conBuilder.ConnectionString;
             con.Open();
 
             SqlCommand cmd = new SqlCommand("spValidateLogin", con);
@@ -121,8 +144,6 @@ namespace Printer_Reservation_System
 
         private Boolean IsStudentAdmin(string eMail)
         {
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = conBuilder.ConnectionString;
             con.Open();
 
             SqlCommand cmd = new SqlCommand("spSelectIsStudentAdmin", con);
@@ -135,6 +156,30 @@ namespace Printer_Reservation_System
             bool isValid = ((int)cmd.ExecuteScalar() >= 1);
             con.Close();
             return isValid;
+        }
+
+        private string getStudentStatus(string eMail)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("spSelectStudentStatus", con);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+            cmd.Parameters["@eMail"].Value = eMail;
+
+
+            string status = "";
+
+            object o = cmd.ExecuteScalar();
+            con.Close();
+
+            if (o != null)
+            {
+                status = o.ToString();
+            }
+            else { status = "error"; }
+            return status;
         }
 
         private byte[] GetHash(string inputString)

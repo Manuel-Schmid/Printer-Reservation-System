@@ -48,7 +48,7 @@ EXEC spSelectIsStudentAdmin @eMail = 'test@test.com';
 */
 
 /* ***************************************************************************** */
-/*SELECT student status
+/*SELECT student status as text
 */
 
 
@@ -92,6 +92,10 @@ GO
 EXEC spInsertStudent @Name='Lssse', @Vorname='Bao Minh', @eMail='bao.minh@gmail.com', @Handy='02949284972', @Passwort='96C34D848F3F576D6E43FB42D7B5DDBA12303D1280F6601448003B84C205B6B4';
 */
 
+
+/* ***************************************************************************** */
+/* Validate student login
+*/
 
 DROP PROC IF EXISTS spValidateLogin;
 GO 
