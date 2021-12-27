@@ -31,8 +31,8 @@ namespace Printer_Reservation_System
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            conBuilder.DataSource = @"NOTEBOOKMANY\MSSQLSERVER2019";
-            conBuilder.InitialCatalog = "3D_Drucker";
+            conBuilder.DataSource = GlobalVariables.dataSource;
+            conBuilder.InitialCatalog = GlobalVariables.dbName;
             conBuilder.IntegratedSecurity = true;
             con.ConnectionString = conBuilder.ConnectionString;
 
@@ -78,7 +78,12 @@ namespace Printer_Reservation_System
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            Label1.Text = ddlPrinters.SelectedValue;
+            //Label1.Text = ddlPrinters.SelectedValue;
+            //Label2.Text = Session["email"].ToString();
+            //string fromDate = txtFromDate.Text + " " + txtFromTime.Text;
+            //Label1.Text = fromDate;
+            //DateTime oDate = Convert.ToDateTime(fromDate);
+            //Label2.Text = oDate.ToString();
         }
     }
 }

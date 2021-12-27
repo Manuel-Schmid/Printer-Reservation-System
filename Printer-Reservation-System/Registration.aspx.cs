@@ -54,8 +54,8 @@ namespace Printer_Reservation_System
                 //txtPassword.Text = Session["class"].ToString();
             //}
 
-            conBuilder.DataSource = @"NOTEBOOKMANY\MSSQLSERVER2019";
-            conBuilder.InitialCatalog = "3D_Drucker";
+            conBuilder.DataSource = GlobalVariables.dataSource;
+            conBuilder.InitialCatalog = GlobalVariables.dbName;
             conBuilder.IntegratedSecurity = true;
         }
 

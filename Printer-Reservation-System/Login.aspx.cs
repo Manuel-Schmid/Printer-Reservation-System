@@ -31,8 +31,8 @@ namespace Printer_Reservation_System
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            conBuilder.DataSource = @"NOTEBOOKMANY\MSSQLSERVER2019";
-            conBuilder.InitialCatalog = "3D_Drucker";
+            conBuilder.DataSource = GlobalVariables.dataSource;
+            conBuilder.InitialCatalog = GlobalVariables.dbName;
             conBuilder.IntegratedSecurity = true;
         }
 
@@ -63,8 +63,8 @@ namespace Printer_Reservation_System
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             // remove this !!!!!
-            Response.Redirect("~/RegistrationsOverview.aspx");
-            return;
+            //Response.Redirect("~/ReservationsOverview.aspx");
+            //return;
             // remove this !!!!!
 
             if (Page.IsValid)
@@ -88,7 +88,8 @@ namespace Printer_Reservation_System
                 if (isValid) // login successful
                 {
                     lblInvalidLogin.Text = "";
-                    Response.Redirect("~/StudentsOverview.aspx");
+                    Session["email"] = txtEmail.Text;
+                    Response.Redirect("~/ReservationsOverview.aspx");
                     //Response.Redirect("~/PrinterOverview.aspx");
                 } else
                 {

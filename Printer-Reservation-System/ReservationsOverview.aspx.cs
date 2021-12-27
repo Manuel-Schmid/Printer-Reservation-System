@@ -16,8 +16,8 @@ namespace Printer_Reservation_System
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			conBuilder.DataSource = @"NOTEBOOKMANY\MSSQLSERVER2019";
-			conBuilder.InitialCatalog = "3D_Drucker";
+			conBuilder.DataSource = GlobalVariables.dataSource;
+			conBuilder.InitialCatalog = GlobalVariables.dbName;
 			conBuilder.IntegratedSecurity = true;
 			con.ConnectionString = conBuilder.ConnectionString;
 
