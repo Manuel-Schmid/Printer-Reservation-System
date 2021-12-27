@@ -92,54 +92,17 @@ namespace Printer_Reservation_System
 
 			cmd.CommandType = CommandType.StoredProcedure;
 
-			string[] druckbereich = RemoveWhitespace(((TextBox)row.Cells[5].Controls[0]).Text).Split('x');
-
 			cmd.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int));
-			cmd.Parameters.Add(new SqlParameter("@Marke", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Modell", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Typ", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Beschreibung", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Druckbereich_Laenge", SqlDbType.Float));
-			cmd.Parameters.Add(new SqlParameter("@Druckbereich_Breite", SqlDbType.Float));
-			cmd.Parameters.Add(new SqlParameter("@Druckbereich_Hoehe", SqlDbType.Float));
+			cmd.Parameters.Add(new SqlParameter("@ID_Drucker", SqlDbType.Int));
+			cmd.Parameters.Add(new SqlParameter("@Von", SqlDbType.DateTime));
+			cmd.Parameters.Add(new SqlParameter("@Bis", SqlDbType.DateTime));
+			cmd.Parameters.Add(new SqlParameter("@Bemerkung", SqlDbType.Text));
 			cmd.Parameters["@ID"].Value = row.Cells[0].Text;
-			cmd.Parameters["@Marke"].Value = ((TextBox)row.Cells[1].Controls[0]).Text;
-			cmd.Parameters["@Modell"].Value = ((TextBox)row.Cells[2].Controls[0]).Text;
-			cmd.Parameters["@Typ"].Value = ((TextBox)row.Cells[3].Controls[0]).Text;
-			cmd.Parameters["@Beschreibung"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
-			cmd.Parameters["@Druckbereich_Laenge"].Value = druckbereich[0];
-			cmd.Parameters["@Druckbereich_Breite"].Value = druckbereich[1];
-			cmd.Parameters["@Druckbereich_Hoehe"].Value = druckbereich[2];
-
-			cmd.ExecuteNonQuery();
-			con.Close();
-
-			gvBindReservations();
-		}
-
-		private void insertPrinter(GridViewRow row)
-		{
-			con.Open();
-			SqlCommand cmd = new SqlCommand("spInsertReservation", con);
-
-			cmd.CommandType = CommandType.StoredProcedure;
-
-			string[] druckbereich = RemoveWhitespace(((TextBox)row.Cells[5].Controls[0]).Text).Split('x');
-
-			cmd.Parameters.Add(new SqlParameter("@Marke", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Modell", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Typ", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Beschreibung", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Druckbereich_Laenge", SqlDbType.Float));
-			cmd.Parameters.Add(new SqlParameter("@Druckbereich_Breite", SqlDbType.Float));
-			cmd.Parameters.Add(new SqlParameter("@Druckbereich_Hoehe", SqlDbType.Float));
-			cmd.Parameters["@Marke"].Value = ((TextBox)row.Cells[1].Controls[0]).Text;
-			cmd.Parameters["@Modell"].Value = ((TextBox)row.Cells[2].Controls[0]).Text;
-			cmd.Parameters["@Typ"].Value = ((TextBox)row.Cells[3].Controls[0]).Text;
-			cmd.Parameters["@Beschreibung"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
-			cmd.Parameters["@Druckbereich_Laenge"].Value = druckbereich[0];
-			cmd.Parameters["@Druckbereich_Breite"].Value = druckbereich[1];
-			cmd.Parameters["@Druckbereich_Hoehe"].Value = druckbereich[2];
+			cmd.Parameters["@ID_Drucker"].Value = ((DropDownList)row.FindControl("ddl_Drucker")).SelectedValue;
+			cmd.Parameters["@Von"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
+			cmd.Parameters["@Bis"].Value = ((TextBox)row.Cells[5].Controls[0]).Text;
+			cmd.Parameters["@Bemerkung"].Value = ((TextBox)row.Cells[6].Controls[0]).Text;
+			
 
 			cmd.ExecuteNonQuery();
 			con.Close();
@@ -175,6 +138,44 @@ namespace Printer_Reservation_System
 		protected void btnAddReservation_Click(object sender, EventArgs e)
 		{
 			Response.Redirect("~/CreateReservation.aspx");
+		}
+
+		protected void gvReservationsRowDataBound(object sender, GridViewRowEventArgs e)
+		{
+			if (e.Row.RowType == DataControlRowType.DataRow)
+			{
+				if ((e.Row.RowState & DataControlRowState.Edit) > 0)
+				{
+					DropDownList ddList = (DropDownList)e.Row.FindControl("ddl_Drucker");
+
+					DataTable dt = getPrinterTable();
+					ddList.DataSource = dt;
+					ddList.DataTextField = "DruckerName";
+					ddList.DataValueField = "DruckerID";
+					ddList.DataBind();
+
+					DataRowView dr = e.Row.DataItem as DataRowView;
+					ddList.SelectedValue = dr["ID_Drucker"].ToString();
+				}
+			}
+		}
+
+		private DataTable getPrinterTable()
+		{
+			DataTable tblPrinters = new DataTable();
+
+			con.Open();
+
+			SqlCommand cmd = new SqlCommand("spSelectDDLPrinters", con);
+
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			SqlDataAdapter dap = new SqlDataAdapter(cmd);
+
+			dap.Fill(tblPrinters);
+			con.Close();
+
+			return tblPrinters;
 		}
 	}
 }

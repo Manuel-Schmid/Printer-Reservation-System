@@ -51,25 +51,6 @@ EXEC spSelectStudentStatus @eMail = 'manysch3@gmail.com';
 */
 
 /* ***************************************************************************** */
-/*SELECT all reservations
-*/
-
-
-DROP PROC IF EXISTS spSelectReservations;
-GO 
-CREATE PROC spSelectReservations 
-AS
-SELECT stu.Name, stu.Vorname, pri.Marke AS Druckermarke, pri.Modell AS Druckermodell, Von, Bis, res.Bemerkung FROM tbl_Reservation AS res
-JOIN tbl_Student AS stu ON res.ID_Student = stu.ID
-JOIN tbl_Drucker AS pri ON res.ID_Drucker = pri.ID
-ORDER BY res.ID;
-GO
-
-/*
-EXEC spSelectReservations;
-*/
-
-/* ***************************************************************************** */
 /* INSERT new student
 */
 
@@ -312,10 +293,10 @@ GO
 */
 
 DROP PROC IF EXISTS spSelectReservations;
-GO 
+GO
 CREATE PROC spSelectReservations 
 AS
-SELECT res.ID, stu.Name, stu.Vorname, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', res.Von, res.Bis, res.Bemerkung  FROM tbl_Reservation as res
+SELECT res.ID, stu.Name, stu.Vorname, res.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', res.Von, res.Bis, res.Bemerkung  FROM tbl_Reservation as res
 JOIN tbl_Student as stu on stu.ID = res.ID_Student
 JOIN tbl_Drucker as dru on dru.ID = res.ID_Drucker
 ORDER BY res.ID;
@@ -346,33 +327,27 @@ EXEC spDeleteReservation @eMail='manuel.schmids@ksb-sg.ch';
 /* ***************************************************************************** */
 /* UPDATE reservation
 */
-/*
+
 DROP PROC IF EXISTS spUpdateReservation;
 GO 
 CREATE PROC spUpdateReservation
 (
 	@ID INT,
-	@Marke VARCHAR(50),
-	@Modell VARCHAR(50),
-	@Typ VARCHAR(50), 
-	@Beschreibung VARCHAR(50),
-	@Druckbereich_Laenge FLOAT(53),
-	@Druckbereich_Breite FLOAT(53),
-	@Druckbereich_Hoehe FLOAT(53)
+	@ID_Drucker INT,
+	@Von DATETIME, 
+	@Bis DATETIME,
+	@Bemerkung TEXT
 )
 AS
-UPDATE tbl_Drucker
-SET    
-Marke = @Marke,
-Modell = @Modell,
-Typ = @Typ,
-Beschreibung = @Beschreibung,
-Druckbereich_Laenge = @Druckbereich_Laenge,
-Druckbereich_Breite = @Druckbereich_Breite,
-Druckbereich_Hoehe = @Druckbereich_Hoehe
-WHERE tbl_Drucker.ID = @ID
+UPDATE tbl_Reservation
+SET
+ID_Drucker = @ID_Drucker,
+Von = @Von,
+Bis = @Bis,
+Bemerkung = @Bemerkung
+WHERE tbl_Reservation.ID = @ID;
 GO
-*/
+
 
 /* ***************************************************************************** */
 /* INSERT new reservation

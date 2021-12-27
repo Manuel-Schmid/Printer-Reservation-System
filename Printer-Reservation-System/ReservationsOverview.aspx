@@ -4,12 +4,22 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
-	<asp:GridView ID="gvReservations" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="gvReservations_PageIndexChanging" OnRowCancelingEdit="gvReservations_RowCancelingEdit" OnRowDeleting="gvReservations_RowDeleting" OnRowEditing="gvReservations_RowEditing" OnRowUpdating="gvReservations_RowUpdating">
+	<asp:GridView ID="gvReservations" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="gvReservations_PageIndexChanging" OnRowCancelingEdit="gvReservations_RowCancelingEdit" OnRowDeleting="gvReservations_RowDeleting" OnRowEditing="gvReservations_RowEditing" OnRowUpdating="gvReservations_RowUpdating" OnRowDataBound="gvReservationsRowDataBound">
 		<Columns>
 			<asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="true" />
 			<asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="true" />
 			<asp:BoundField DataField="Vorname" HeaderText="Vorname" ReadOnly="true" />
-			<asp:BoundField DataField="Drucker" HeaderText="Drucker" />  
+
+			<asp:TemplateField HeaderText="Drucker">
+				<EditItemTemplate>
+					<asp:DropDownList ID="ddl_Drucker" runat="server">
+					</asp:DropDownList>
+				</EditItemTemplate>
+				<ItemTemplate>
+					<asp:Label ID="Label4" runat="server" Text='<%# Eval("Drucker") %>'></asp:Label>
+				</ItemTemplate>
+			</asp:TemplateField>
+
 			<asp:BoundField DataField="Von" HeaderText="Von" />
 			<asp:BoundField DataField="Bis" HeaderText="Bis" />  
 			<asp:BoundField DataField="Bemerkung" HeaderText="Bemerkung" />

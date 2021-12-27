@@ -252,7 +252,6 @@ namespace Printer_Reservation_System
 				{
 					DropDownList ddList = (DropDownList)e.Row.FindControl("ddl_Status");
 
-					//return DataTable havinf department data
 					DataTable dt = getStatuses();
 					ddList.DataSource = dt;
 					ddList.DataTextField = "Status";
