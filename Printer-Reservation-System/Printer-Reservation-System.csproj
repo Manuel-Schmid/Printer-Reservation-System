@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CreateReservation.aspx" />
-    <Content Include="login-styles.css" />
+    <Content Include="styles.css" />
     <Content Include="Login.aspx" />
     <Content Include="Registration.aspx" />
     <Content Include="PrinterOverview.aspx" />
