@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="Registration" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="Printer_Reservation_System.Login" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
+    <p>
+        z</p>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
     <link rel="stylesheet" runat="server" media="screen" href="/styles.css" /> 

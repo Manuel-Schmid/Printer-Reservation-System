@@ -76,8 +76,15 @@
     </asp:RegularExpressionValidator>
     <br />
      <br />
+     <br />
+     <asp:Label ID="Label3" runat="server" Text="Bemerkung"></asp:Label>
+     <br />
+     <asp:TextBox ID="txtAreaComment" runat="server" TextMode="MultiLine"></asp:TextBox>
+     <br />
     <br />
 
+    <asp:Label ID="lblWrongDateOrder" runat="server" ForeColor="Red"></asp:Label>
+    <br />
 
     <asp:Button type="submit" ID="btnCreate" runat="server" Text="Erstellen" OnClick="btnCreate_Click" />
 

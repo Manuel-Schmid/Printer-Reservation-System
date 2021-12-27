@@ -378,24 +378,26 @@ GO
 /* INSERT new reservation
 */
 
-/*
+
 DROP PROC IF EXISTS spInsertReservation;
-GO 
+GO
 CREATE PROC spInsertReservation
 (
-	@Marke VARCHAR(50),
-	@Modell VARCHAR(50),
-	@Typ VARCHAR(50), 
-	@Beschreibung VARCHAR(50),
-	@Druckbereich_Laenge FLOAT(53),
-	@Druckbereich_Breite FLOAT(53),
-	@Druckbereich_Hoehe FLOAT(53)
+	@ID_Drucker INT,
+	@Student_eMail VARCHAR(50),
+	@Von DATETIME, 
+	@Bis DATETIME,
+	@Bemerkung TEXT
 )
 AS
-INSERT INTO tbl_Drucker (Marke, Modell, Typ, Beschreibung, Druckbereich_Laenge, Druckbereich_Breite, Druckbereich_Hoehe, Bemerkung)
-VALUES (@Marke, @Modell, @Typ, @Beschreibung, @Druckbereich_Laenge, @Druckbereich_Breite, @Druckbereich_Hoehe, NULL)
+INSERT INTO tbl_Reservation (ID_Drucker, ID_Student, Von, Bis, Bemerkung)
+VALUES (@ID_Drucker, (SELECT tbl_Student.ID FROM tbl_Student WHERE eMail = @Student_eMail), @Von, @Bis, @Bemerkung)
 GO
+
+/*
+EXEC spInsertReservation @ID_Drucker=4, @Student_eMail='test@test.com', @Von='10.02.2021 10:30', @Bis='10.02.2021 10:45', @Bemerkung='test';
 */
+
 
 /* ***************************************************************************** */
 /*SELECT all printers for ddl
