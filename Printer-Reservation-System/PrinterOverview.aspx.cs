@@ -67,17 +67,20 @@ namespace Printer_Reservation_System
 		protected void gvPrinters_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			GridViewRow row = (GridViewRow)gvPrinters.Rows[e.RowIndex];
-			con.Open();
-			SqlCommand cmd = new SqlCommand("spDeletePrinter", con);
+			if (row.Cells[0].Text != "&nbsp;") // only if no empty ID
+			{
+				con.Open();
+				SqlCommand cmd = new SqlCommand("spDeletePrinter", con);
 
-			cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandType = CommandType.StoredProcedure;
 
-			cmd.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int));
-			cmd.Parameters["@ID"].Value = row.Cells[0].Text;
+				cmd.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int));
+				cmd.Parameters["@ID"].Value = row.Cells[0].Text;
 
-			cmd.ExecuteNonQuery();
-			con.Close();
-			gvBindPrinters();
+				cmd.ExecuteNonQuery();
+				con.Close();
+				gvBindPrinters();
+			}
 		}
 
 		protected void gvPrinters_RowUpdating(object sender, GridViewUpdateEventArgs e)

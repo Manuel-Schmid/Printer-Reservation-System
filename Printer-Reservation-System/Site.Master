@@ -4,26 +4,29 @@
 
 <html>
 <head runat="server">
-    <title></title>
+	<title></title>
 </head>
 <body>
-    <form id="form" runat="server">
-        <div>
-            <header>
-                title title title
-            </header>
-                <navigation>
-                    <span>
-                        <asp:ContentPlaceHolder ID="PlaceHolderHeader" runat="server">
-                          </asp:ContentPlaceHolder>
-                    </span>
-                </navigation>
-            <asp:ContentPlaceHolder ID="PlaceHolderMain" runat="server">
-            </asp:ContentPlaceHolder>
-            <!-- <footer>
-                <span>footer footer footer</span>
-            </footer> -->
-        </div>
-    </form>
+	<form id="form" runat="server">
+		<div>
+			<header>
+				3D-Drucker Reservation 
+			</header>
+				<navigation>
+					<span>
+						<asp:ContentPlaceHolder ID="PlaceHolderHeader" runat="server">
+								<asp:HyperLink NavigateUrl="PrinterOverview.aspx" runat="server">Drucker</asp:HyperLink>
+						<asp:HyperLink NavigateUrl="ReservationsOverview.aspx" runat="server">Reservationen</asp:HyperLink>
+						<asp:HyperLink NavigateUrl="StudentsOverview.aspx" runat="server">Nutzerverwaltung</asp:HyperLink>
+						  </asp:ContentPlaceHolder>
+					</span>
+				</navigation>
+			<asp:ContentPlaceHolder ID="PlaceHolderMain" runat="server">
+			</asp:ContentPlaceHolder>
+			<!-- <footer>
+				<span>footer footer footer</span>
+			</footer> -->
+		</div>
+	</form>
 </body>
 </html>
