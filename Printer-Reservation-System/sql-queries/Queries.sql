@@ -23,6 +23,7 @@ SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, ID_Status as 'Stat_ID
 JOIN tbl_Status ON ID_Status = tbl_Status.ID
 WHERE ID_Status != 1 /* all which are not in registration process */
 ORDER BY tbl_Student.ID;
+GO
 
 /*
 EXEC spSelectStudents;
@@ -31,6 +32,7 @@ EXEC spSelectStudents;
 /* ***************************************************************************** */
 /*SELECT all students
 */
+
 
 DROP PROC IF EXISTS spSelectStudentStatus;
 GO 
@@ -42,6 +44,7 @@ AS
 SELECT Status FROM tbl_Status
 JOIN tbl_Student ON tbl_Status.ID = ID_Status
 WHERE tbl_Student.eMail = @eMail;
+GO
 
 /*
 EXEC spSelectStudentStatus @eMail = 'manysch3@gmail.com';
@@ -60,6 +63,7 @@ SELECT stu.Name, stu.Vorname, pri.Marke AS Druckermarke, pri.Modell AS Druckermo
 JOIN tbl_Student AS stu ON res.ID_Student = stu.ID
 JOIN tbl_Drucker AS pri ON res.ID_Drucker = pri.ID
 ORDER BY res.ID;
+GO
 
 /*
 EXEC spSelectReservations;
@@ -118,6 +122,7 @@ CREATE PROC spDeleteStudent
 )
 AS
 DELETE FROM tbl_Student WHERE tbl_Student.eMail = @eMail;
+GO
 
 /*
 EXEC spDeleteStudent @eMail='manuel.schmids@ksb-sg.ch';
@@ -128,7 +133,6 @@ EXEC spDeleteStudent @eMail='manuel.schmids@ksb-sg.ch';
 */
 
 DROP PROC IF EXISTS spUpdateStudent;
-
 GO 
 CREATE PROC spUpdateStudent
 (
@@ -169,6 +173,7 @@ AS
 SELECT Name, Vorname, eMail AS 'E-Mail', Handy FROM tbl_Student
 WHERE ID_Status = 1 /* 1 means not yet accepted */
 ORDER BY tbl_Student.ID;
+GO
 
 /*
 EXEC spSelectRegistrations;
@@ -190,6 +195,7 @@ AS
 UPDATE tbl_Student
 SET tbl_Student.ID_Status = @NewStatusID
 WHERE tbl_Student.eMail = @eMail;
+GO
 
 /*
 EXEC spUpdateStudentStatus @eMail = 'aösdf', @NewStatusID = 2;
@@ -206,6 +212,7 @@ CREATE PROC spSelectStatuses
 AS
 SELECT Status, ID as 'Status_ID' FROM tbl_Status
 ORDER BY ID;
+GO
 
 /*
 EXEC spSelectStatuses;
@@ -223,6 +230,7 @@ CREATE PROC spSelectPrinters
 AS
 SELECT ID, Marke, Modell, Typ, Beschreibung, CAST(Druckbereich_Laenge AS VARCHAR(16)) + ' x ' + CAST(Druckbereich_Breite AS VARCHAR(16)) + ' x ' + CAST(Druckbereich_Hoehe AS VARCHAR(16)) as 'Druckbereich'  FROM tbl_Drucker 
 ORDER BY ID;
+GO
 
 /*
 EXEC spSelectPrinters;
@@ -240,6 +248,7 @@ CREATE PROC spDeletePrinter
 )
 AS
 DELETE FROM tbl_Drucker WHERE tbl_Drucker.ID = @ID;
+GO
 
 /*
 EXEC spDeletePrinter @eMail='manuel.schmids@ksb-sg.ch';
@@ -250,7 +259,6 @@ EXEC spDeletePrinter @eMail='manuel.schmids@ksb-sg.ch';
 */
 
 DROP PROC IF EXISTS spUpdatePrinter;
-
 GO 
 CREATE PROC spUpdatePrinter
 (
@@ -280,7 +288,6 @@ GO
 /* ***************************************************************************** */
 /* INSERT new printer
 */
-
 
 DROP PROC IF EXISTS spInsertPrinter;
 GO 
@@ -312,6 +319,7 @@ SELECT res.ID, stu.Name, stu.Vorname, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAS
 JOIN tbl_Student as stu on stu.ID = res.ID_Student
 JOIN tbl_Drucker as dru on dru.ID = res.ID_Drucker
 ORDER BY res.ID;
+GO
 
 /*
 EXEC spSelectReservations;
@@ -329,6 +337,7 @@ CREATE PROC spDeleteReservation
 )
 AS
 DELETE FROM tbl_Reservation WHERE tbl_Reservation.ID = @ID;
+GO
 
 /*
 EXEC spDeleteReservation @eMail='manuel.schmids@ksb-sg.ch';
@@ -337,9 +346,8 @@ EXEC spDeleteReservation @eMail='manuel.schmids@ksb-sg.ch';
 /* ***************************************************************************** */
 /* UPDATE reservation
 */
-
+/*
 DROP PROC IF EXISTS spUpdateReservation;
-
 GO 
 CREATE PROC spUpdateReservation
 (
@@ -364,13 +372,13 @@ Druckbereich_Breite = @Druckbereich_Breite,
 Druckbereich_Hoehe = @Druckbereich_Hoehe
 WHERE tbl_Drucker.ID = @ID
 GO
-
+*/
 
 /* ***************************************************************************** */
 /* INSERT new reservation
 */
 
-
+/*
 DROP PROC IF EXISTS spInsertReservation;
 GO 
 CREATE PROC spInsertReservation
@@ -387,7 +395,7 @@ AS
 INSERT INTO tbl_Drucker (Marke, Modell, Typ, Beschreibung, Druckbereich_Laenge, Druckbereich_Breite, Druckbereich_Hoehe, Bemerkung)
 VALUES (@Marke, @Modell, @Typ, @Beschreibung, @Druckbereich_Laenge, @Druckbereich_Breite, @Druckbereich_Hoehe, NULL)
 GO
-
+*/
 
 /* ***************************************************************************** */
 /*SELECT all printers for ddl
@@ -399,6 +407,7 @@ CREATE PROC spSelectDDLPrinters
 AS
 SELECT ID as 'DruckerID', CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'DruckerName' FROM tbl_Drucker as dru
 ORDER BY ID;
+GO
 
 /*
 EXEC spSelectDDLPrinters;
