@@ -10,9 +10,7 @@ ADD UNIQUE (eMail);
 
 
 /* ***************************************************************************** */
-/*SELECT all students
-
-SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, IsAdmin AS 'Admin' FROM tbl_Student
+/*SELECT all students which are not in registration process
 */
 
 DROP PROC IF EXISTS spSelectStudents;
@@ -21,7 +19,7 @@ CREATE PROC spSelectStudents
 AS
 SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, ID_Status as 'Stat_ID', Status, IsAdmin AS 'Admin' FROM tbl_Student
 JOIN tbl_Status ON ID_Status = tbl_Status.ID
-WHERE ID_Status != 1 /* all which are not in registration process */
+WHERE ID_Status != 1
 ORDER BY tbl_Student.ID;
 GO
 
@@ -29,8 +27,28 @@ GO
 EXEC spSelectStudents;
 */
 
+
 /* ***************************************************************************** */
-/*SELECT all students
+/*SELECT if student is admin
+*/
+
+DROP PROC IF EXISTS spSelectIsStudentAdmin;
+GO 
+CREATE PROC spSelectIsStudentAdmin 
+(
+	@eMail VARCHAR(50)
+)
+AS
+SELECT COUNT(IsAdmin) FROM tbl_Student
+WHERE eMail = @eMail AND IsAdmin = 1;
+GO
+
+/*
+EXEC spSelectIsStudentAdmin @eMail = 'test@test.com';
+*/
+
+/* ***************************************************************************** */
+/*SELECT student status
 */
 
 
@@ -85,7 +103,6 @@ CREATE PROC spValidateLogin
 AS
 SELECT COUNT(ID) FROM tbl_Student WHERE eMail = @eMail and Passwort = @Passwort
 GO
-
 
 /*
 EXEC spValidateLogin @eMail='manysch3@gmail.com', @Passwort='CEBF2CB7F8D7C263837CF63E10CECB98A0560C181D34E6C4BDAB3F28E619CABC';

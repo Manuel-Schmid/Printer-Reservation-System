@@ -32,36 +32,9 @@ namespace Printer_Reservation_System
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //HttpCookie userCookie = Request.Cookies.Get("userCookie");
-            //if (IsPostBack && userCookie != null && checkIfCookieIsSet())
-            //{
-            //    string first = Request.Cookies["userCookie"]["firstName"];
-            //    string last = Request.Cookies["userCookie"]["lastName"];
-            //    string name = first + " " + last;
-            //    litInfo.Text = "Hallo " + name + ", Bitte geben Sie Ihre persönlichen Daten an:";
-            //}
-            //else
-            //{
-            //    litInfo.Text = "Bitte geben Sie Ihre persönlichen Daten an:";
-            //}
-
-            //if (Session["firstName"] != null)
-            //{
-                //txtFirstName.Text = Session["firstName"].ToString();
-                //txtLastName.Text = Session["lastName"].ToString();
-                //txtEmail.Text = Session["email"].ToString();
-                //txtHandy.Text = Session["handy"].ToString();
-                //txtPassword.Text = Session["class"].ToString();
-            //}
-
             conBuilder.DataSource = GlobalVariables.dataSource;
             conBuilder.InitialCatalog = GlobalVariables.dbName;
             conBuilder.IntegratedSecurity = true;
-        }
-
-        private Boolean checkIfCookieIsSet()
-        {
-            return (Request.Cookies["userCookie"]["firstName"] != null && Request.Cookies["userCookie"]["lastName"] != null);
         }
 
         bool IsValidEmail(string email)
@@ -109,7 +82,7 @@ namespace Printer_Reservation_System
                 try
                 {
                     cmd.ExecuteNonQuery();
-                    Response.Redirect("~/StudentsOverview.aspx");
+                    lblMsg.Text = "Ihre Registrationsanfrage wurde gespeichert. Bitte warten Sie bis Ihre Anfrage von einem Adminsitrator angenommen wird. Dies kann 2 - 5 Tage dauern.";
                 }
                 catch
                 {

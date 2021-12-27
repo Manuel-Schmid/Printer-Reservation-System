@@ -69,28 +69,12 @@ namespace Printer_Reservation_System
 
             if (Page.IsValid)
             {
-                SqlConnection con = new SqlConnection();
-                con.ConnectionString = conBuilder.ConnectionString;
-                con.Open();
-
-                SqlCommand cmd = new SqlCommand("spValidateLogin", con);
-
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
-                cmd.Parameters.Add(new SqlParameter("@Passwort", SqlDbType.VarChar));
-                cmd.Parameters["@eMail"].Value = txtEmail.Text;
-                cmd.Parameters["@Passwort"].Value = GetHashString(txtPassword.Text);
-
-                bool isValid = 1 == (int)cmd.ExecuteScalar();
-                con.Close();
-
-                if (isValid) // login successful
+                if (isLoginValid())
                 {
                     lblInvalidLogin.Text = "";
                     Session["email"] = txtEmail.Text;
+                    Session["isAdmin"] = IsStudentAdmin(txtEmail.Text);
                     Response.Redirect("~/ReservationsOverview.aspx");
-                    //Response.Redirect("~/PrinterOverview.aspx");
                 } else
                 {
                     lblInvalidLogin.Text = "Your login credentials were incorrect.";
@@ -113,6 +97,44 @@ namespace Printer_Reservation_System
                 //Response.Redirect("~/PrinterOverview.aspx");
 
             }
+        }
+
+        private bool isLoginValid()
+        {
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = conBuilder.ConnectionString;
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("spValidateLogin", con);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+            cmd.Parameters.Add(new SqlParameter("@Passwort", SqlDbType.VarChar));
+            cmd.Parameters["@eMail"].Value = txtEmail.Text;
+            cmd.Parameters["@Passwort"].Value = GetHashString(txtPassword.Text);
+
+            bool isValid = (int)cmd.ExecuteScalar() >= 1;
+            con.Close();
+            return isValid;
+        }
+
+        private Boolean IsStudentAdmin(string eMail)
+        {
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = conBuilder.ConnectionString;
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("spSelectIsStudentAdmin", con);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+            cmd.Parameters["@eMail"].Value = eMail;
+
+            bool isValid = ((int)cmd.ExecuteScalar() >= 1);
+            con.Close();
+            return isValid;
         }
 
         private byte[] GetHash(string inputString)

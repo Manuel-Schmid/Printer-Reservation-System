@@ -50,6 +50,8 @@
             ErrorMessage="Bitte füllen Sie dieses Feld aus" 
             runat="server" CssClass="validator"/>
         </div>
+
+        <asp:Label id="lblMsg" runat="server" CssClass="label" ForeColor="Green"></asp:Label>
     
         <div class="submit">
             <asp:Button type="submit" ID="btnSignup" runat="server" Text="Registrieren" CssClass="button is-link is-rounded" OnClick="btnSignup_Click" />
