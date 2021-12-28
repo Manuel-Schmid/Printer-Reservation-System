@@ -317,7 +317,7 @@ DROP PROC IF EXISTS spSelectReservations;
 GO
 CREATE PROC spSelectReservations 
 AS
-SELECT res.ID, stu.Name, stu.Vorname, res.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', res.Von, res.Bis, res.Bemerkung  FROM tbl_Reservation as res
+SELECT res.ID, stu.Name, stu.Vorname, res.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', (FORMAT (res.Von, 'dd.MM.yy hh:mm')) as 'Von', (FORMAT (res.Bis, 'dd.MM.yy hh:mm')) as 'Bis', res.Bemerkung  FROM tbl_Reservation as res
 JOIN tbl_Student as stu on stu.ID = res.ID_Student
 JOIN tbl_Drucker as dru on dru.ID = res.ID_Drucker
 ORDER BY res.ID;
