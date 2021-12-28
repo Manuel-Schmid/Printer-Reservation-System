@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateReservation.aspx.cs" Inherits="Printer_Reservation_System.CreateReservation" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateBlockingTime.aspx.cs" Inherits="Printer_Reservation_System.CreateBlockingTime" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 	<asp:HyperLink NavigateUrl="PrinterOverview.aspx" runat="server">Drucker</asp:HyperLink>
 	<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" runat="server">Sperrzeiten</asp:HyperLink>
@@ -6,10 +6,20 @@
 	<asp:HyperLink NavigateUrl="StudentsOverview.aspx" runat="server">Nutzerverwaltung</asp:HyperLink>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
-	 <p>
-		<asp:Literal ID="litInfo" runat="server" Text="Bitte geben Sie die gewünschten Daten an: " ></asp:Literal>
+
+	<p>
+		<asp:Literal ID="litInfo" runat="server" Text="Bitte geben Sie die gewünschten Daten für die Sperrzeit an: " ></asp:Literal>
 	</p>
-	Drucker<br />
+
+	 <br />
+	 <asp:Label ID="Label4" runat="server" Text="Grund"></asp:Label>
+	 <br />
+	 <asp:TextBox ID="txtAreaReason" runat="server" TextMode="MultiLine"></asp:TextBox>
+	 <br />
+	<br />
+	<br />
+
+	Zu sperrender Drucker<br />
 	<asp:DropDownList ID="ddlPrinters" runat="server"></asp:DropDownList>
 	<br />
 	<br />
@@ -80,6 +90,12 @@
 	<br />
 	 <br />
 	 <br />
+
+	<asp:Label runat="server" ID="Label5">Von der Sperrzeit ausgenommene Schüler</asp:Label>
+	<br />
+	<br />
+	<br />
+	 <br />
 	 <asp:Label ID="Label3" runat="server" Text="Bemerkung"></asp:Label>
 	 <br />
 	 <asp:TextBox ID="txtAreaComment" runat="server" TextMode="MultiLine"></asp:TextBox>
@@ -90,6 +106,5 @@
 	<br />
 
 	<asp:Button type="submit" ID="btnCreate" runat="server" Text="Erstellen" OnClick="btnCreate_Click" />
-
 
 </asp:Content>

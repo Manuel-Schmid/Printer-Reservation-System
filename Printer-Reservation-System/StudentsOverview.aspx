@@ -1,13 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="StudentsOverview.aspx.cs" Inherits="Printer_Reservation_System.StudentsOverview" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 	<asp:HyperLink NavigateUrl="PrinterOverview.aspx" runat="server">Drucker</asp:HyperLink>
+	<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" runat="server">Sperrzeiten</asp:HyperLink>
 	<asp:HyperLink NavigateUrl="ReservationsOverview.aspx" runat="server">Reservationen</asp:HyperLink>
 	<asp:HyperLink NavigateUrl="StudentsOverview.aspx" runat="server" CssClass="active">Nutzerverwaltung</asp:HyperLink>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 	
 	<asp:GridView ID="gridviewRegistrations" AutoGenerateColumns="false" runat="server" OnPageIndexChanging="gridviewRegistrations_PageIndexChanging" OnRowCommand="gridviewRegistrations_RowCommand" >
-		<Columns>  
+		<Columns>
 			<asp:BoundField DataField="Name" HeaderText="Name" />  
 			<asp:BoundField DataField="Vorname" HeaderText="Vorname" />  
 			<asp:BoundField DataField="E-Mail" HeaderText="E-Mail" />  

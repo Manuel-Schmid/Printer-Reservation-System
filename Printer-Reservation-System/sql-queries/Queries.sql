@@ -411,3 +411,44 @@ GO
 /*
 EXEC spSelectDDLPrinters;
 */
+
+
+/* ***************************************************************************** */
+/* SELECT all Blocking Times
+*/
+
+DROP PROC IF EXISTS spSelectBlockingTimes;
+GO
+CREATE PROC spSelectBlockingTimes 
+AS
+SELECT sperr.ID, sperr_dru.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', sperr.Grund, (FORMAT (sperr.Von, 'dd.MM.yy hh:mm')) as 'Von', (FORMAT (sperr.Bis, 'dd.MM.yy hh:mm')) as 'Bis', sperr.Bemerkung FROM tbl_Sperrfenster as sperr
+JOIN [tbl_Sperrfenster-Drucker] as sperr_dru on sperr.ID = sperr_dru.ID_Sperrfenster
+JOIN tbl_Drucker as dru on dru.ID = sperr_dru.ID_Drucker
+ORDER BY sperr.Von;
+GO
+
+/*
+EXEC spSelectBlockingTimes;
+*/
+
+
+/* ***************************************************************************** */
+/* SELECT all Blocking Times
+*/
+
+DROP PROC IF EXISTS spSelectExceptions;
+GO
+CREATE PROC spSelectExceptions 
+(@SperrfensterID INT)
+AS
+SELECT CAST(Vorname AS VARCHAR(16)) + ' ' + CAST(Name AS VARCHAR(16)) as 'Schueler' FROM tbl_Sperrfenster as sperr
+JOIN [tbl_SperrfensterAusnahmen] as spa ON sperr.ID = spa.ID_Sperrfenster
+JOIN tbl_Student as stu ON stu.ID = spa.ID_Sperrfenster
+ORDER BY sperr.ID;
+GO
+
+/*
+EXEC spSelectExceptions @SperrfensterID = 1;
+*/
+
+

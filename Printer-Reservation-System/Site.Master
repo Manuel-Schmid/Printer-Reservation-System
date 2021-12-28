@@ -16,6 +16,7 @@
 					<span>
 						<asp:ContentPlaceHolder ID="PlaceHolderHeader" runat="server">
 								<asp:HyperLink NavigateUrl="PrinterOverview.aspx" runat="server">Drucker</asp:HyperLink>
+						<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" runat="server">Sperrzeiten</asp:HyperLink>
 						<asp:HyperLink NavigateUrl="ReservationsOverview.aspx" runat="server">Reservationen</asp:HyperLink>
 						<asp:HyperLink NavigateUrl="StudentsOverview.aspx" runat="server">Nutzerverwaltung</asp:HyperLink>
 						  </asp:ContentPlaceHolder>

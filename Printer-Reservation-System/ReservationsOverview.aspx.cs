@@ -25,7 +25,6 @@ namespace Printer_Reservation_System
 			{
 				gvBindReservations();
 			}
-
 		}
 
 		private void gvBindReservations()
@@ -126,13 +125,6 @@ namespace Printer_Reservation_System
 		{
 			gvReservations.EditIndex = -1;
 			gvBindReservations();
-		}
-
-		private string RemoveWhitespace(string input)
-		{
-			return new string(input.ToCharArray()
-				.Where(c => !Char.IsWhiteSpace(c))
-				.ToArray());
 		}
 
 		protected void btnAddReservation_Click(object sender, EventArgs e)
