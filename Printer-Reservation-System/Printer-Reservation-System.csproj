@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BlockingTimeOverview.aspx" />
     <Content Include="CreateReservation.aspx" />
     <Content Include="styles.css" />
     <Content Include="Login.aspx" />
@@ -77,6 +78,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlockingTimeOverview.aspx.cs">
+      <DependentUpon>BlockingTimeOverview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BlockingTimeOverview.aspx.designer.cs">
+      <DependentUpon>BlockingTimeOverview.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="CreateReservation.aspx.cs">
       <DependentUpon>CreateReservation.aspx</DependentUpon>
