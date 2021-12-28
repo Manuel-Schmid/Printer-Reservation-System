@@ -10,7 +10,7 @@
 		<Columns>  
 			<asp:BoundField DataField="Name" HeaderText="Name" />  
 			<asp:BoundField DataField="Vorname" HeaderText="Vorname" />  
-			<asp:BoundField DataField="E-Mail" HeaderText="Mail" />  
+			<asp:BoundField DataField="E-Mail" HeaderText="E-Mail" />  
 			<asp:BoundField DataField="Handy" HeaderText="Handy" />  
 			<asp:Buttonfield buttontype="button" Text="Annehmen" commandname="accept"  />
 			<asp:Buttonfield buttontype="button" Text="Ablehnen" commandname="deny"  />
@@ -23,7 +23,7 @@
 			<asp:CheckBoxField DataField="Admin" HeaderText="Admin" />
 			<asp:BoundField DataField="Name" HeaderText="Name" />  
 			<asp:BoundField DataField="Vorname" HeaderText="Vorname" />  
-			<asp:BoundField DataField="E-Mail" HeaderText="Mail" readonly="true" />  
+			<asp:BoundField DataField="E-Mail" HeaderText="E-Mail" readonly="true" />  
 			<asp:BoundField DataField="Handy" HeaderText="Handy" />  
 			<asp:BoundField DataField="Bemerkung" HeaderText="Bemerkung" />  
 

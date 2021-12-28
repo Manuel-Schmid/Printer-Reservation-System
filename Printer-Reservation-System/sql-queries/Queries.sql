@@ -127,7 +127,7 @@ DELETE FROM tbl_Student WHERE tbl_Student.eMail = @eMail;
 GO
 
 /*
-EXEC spDeleteStudent @eMail='manuel.schmids@ksb-sg.ch';
+EXEC spDeleteStudent @eMail='fck.dich@steffen.ch';
 */
 
 /* ***************************************************************************** */
@@ -249,6 +249,7 @@ CREATE PROC spDeletePrinter
 	@ID INT
 )
 AS
+DELETE FROM tbl_Reservation WHERE tbl_Reservation.ID_Drucker = @ID;
 DELETE FROM tbl_Drucker WHERE tbl_Drucker.ID = @ID;
 GO
 

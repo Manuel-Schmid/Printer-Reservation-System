@@ -98,7 +98,7 @@ namespace Printer_Reservation_System
 			cmd.CommandType = CommandType.StoredProcedure;
 
 			cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
-			cmd.Parameters["@eMail"].Value = row.Cells[2].Text;
+			cmd.Parameters["@eMail"].Value = row.Cells[3].Text;
 
 			cmd.ExecuteNonQuery();
 			con.Close();
