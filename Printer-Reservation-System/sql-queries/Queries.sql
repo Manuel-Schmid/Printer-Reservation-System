@@ -29,6 +29,23 @@ EXEC spSelectStudents;
 
 
 /* ***************************************************************************** */
+/*SELECT all students names
+*/
+
+DROP PROC IF EXISTS spSelectStudentNames;
+GO 
+CREATE PROC spSelectStudentNames 
+AS
+SELECT CAST(Vorname AS VARCHAR(16)) + ' ' + CAST(Name AS VARCHAR(16)) as 'Schueler' FROM tbl_Student
+ORDER BY ID;
+GO
+
+/*
+EXEC spSelectStudentNames;
+*/
+
+
+/* ***************************************************************************** */
 /*SELECT if student is admin
 */
 
@@ -433,7 +450,7 @@ EXEC spSelectBlockingTimes;
 
 
 /* ***************************************************************************** */
-/* SELECT all Blocking Times
+/* SELECT all Exceptions from Blocking time
 */
 
 DROP PROC IF EXISTS spSelectExceptions;
@@ -441,14 +458,81 @@ GO
 CREATE PROC spSelectExceptions 
 (@SperrfensterID INT)
 AS
-SELECT CAST(Vorname AS VARCHAR(16)) + ' ' + CAST(Name AS VARCHAR(16)) as 'Schueler' FROM tbl_Sperrfenster as sperr
-JOIN [tbl_SperrfensterAusnahmen] as spa ON sperr.ID = spa.ID_Sperrfenster
-JOIN tbl_Student as stu ON stu.ID = spa.ID_Sperrfenster
+SELECT CAST(Vorname AS VARCHAR(16)) + ' ' + CAST(Name AS VARCHAR(16)) as 'Schueler' FROM tbl_Student as stu
+JOIN tbl_SperrfensterAusnahmen as spa ON stu.ID = spa.ID_Student
+JOIN tbl_Sperrfenster as sperr ON sperr.ID = spa.ID_Sperrfenster
+WHERE spa.ID_Sperrfenster = @SperrfensterID
 ORDER BY sperr.ID;
 GO
 
 /*
-EXEC spSelectExceptions @SperrfensterID = 1;
+EXEC spSelectExceptions @SperrfensterID = 5;
 */
+
+
+/* ***************************************************************************** */
+/* INSERT new blocking time
+*/
+GO
+DROP PROC IF EXISTS spInsertBlockingTime;
+DROP TYPE IF EXISTS dbo.StudentList;
+
+CREATE TYPE dbo.StudentList
+AS TABLE
+(
+  StudentID INT ,
+  Name VARCHAR(50),
+  Vorname VARCHAR(50)
+);
+
+GO
+CREATE PROC spInsertBlockingTime
+(
+	@Grund VARCHAR (50),
+	@ID_Drucker INT,
+	@Von DATETIME,
+	@Bis DATETIME,
+	@Schueler AS dbo.StudentList READONLY,
+	@Bemerkung TEXT
+)
+AS
+
+INSERT INTO tbl_Sperrfenster(Grund, Von, Bis, Bemerkung)
+VALUES (@Grund, @Von, @Bis, @Bemerkung);
+
+DECLARE @BlockingTimeID INT = (SELECT MAX(ID) FROM tbl_Sperrfenster);
+
+INSERT INTO [tbl_Sperrfenster-Drucker](ID_Sperrfenster, ID_Drucker)
+VALUES (@BlockingTimeID, @ID_Drucker);
+
+/* --- */
+
+DECLARE @RowCnt INT;
+DECLARE @StudentID INT = 1;
+DECLARE @Name VARCHAR(50);
+DECLARE @Vorname VARCHAR(50);
+
+SELECT @RowCnt = COUNT(*) FROM @Schueler;
+ 
+WHILE @StudentID <= @RowCnt
+BEGIN
+	SELECT 
+	  @Name = Name, 
+	  @Vorname = Vorname 
+	  FROM @Schueler WHERE StudentID = @StudentID
+ 
+	  INSERT INTO [tbl_SperrfensterAusnahmen](ID_Sperrfenster, ID_Student)
+	  VALUES (@BlockingTimeID, (SELECT ID FROM tbl_Student WHERE Name=@Name and Vorname=@Vorname));
+ 
+   SET @StudentID += 1
+END
+GO
+
+/*
+DECLARE @List StudentList
+INSERT INTO @List VALUES(1, 'Muster', 'Max'),(2, 'amon', 'gus'),(3, 'Korolev', 'Sergei');
+EXEC spInsertBlockingTime @Grund='testetstetstetstestest', @ID_Drucker=4, @Von='10.02.2021 10:30', @Bis='10.02.2021 10:45', @Schueler=@List, @Bemerkung='test bemerkung test';
+*/
+
 
 

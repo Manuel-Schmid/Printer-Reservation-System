@@ -1,14 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateBlockingTime.aspx.cs" Inherits="Printer_Reservation_System.CreateBlockingTime" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 	<asp:HyperLink NavigateUrl="PrinterOverview.aspx" runat="server">Drucker</asp:HyperLink>
-	<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" runat="server">Sperrzeiten</asp:HyperLink>
-	<asp:HyperLink NavigateUrl="ReservationsOverview.aspx" runat="server" CssClass="active">Reservationen</asp:HyperLink>
+	<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" runat="server" CssClass="active">Sperrzeiten</asp:HyperLink>
+	<asp:HyperLink NavigateUrl="ReservationsOverview.aspx" runat="server" >Reservationen</asp:HyperLink>
 	<asp:HyperLink NavigateUrl="StudentsOverview.aspx" runat="server">Nutzerverwaltung</asp:HyperLink>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
 	<p>
-		<asp:Literal ID="litInfo" runat="server" Text="Bitte geben Sie die gewünschten Daten für die Sperrzeit an: " ></asp:Literal>
+		<asp:Literal ID="litInfo" runat="server" Text="Bitte geben Sie die gewünschten Daten für das Sperrfenster an: " ></asp:Literal>
 	</p>
 
 	 <br />
@@ -91,8 +91,11 @@
 	 <br />
 	 <br />
 
-	<asp:Label runat="server" ID="Label5">Von der Sperrzeit ausgenommene Schüler</asp:Label>
+	<asp:Label runat="server" ID="Label5">Von der Sperrzeit ausgenommene Schüler:</asp:Label>
 	<br />
+
+	<asp:CheckBoxList ID="listStudents"	runat="server"></asp:CheckBoxList>
+
 	<br />
 	<br />
 	 <br />

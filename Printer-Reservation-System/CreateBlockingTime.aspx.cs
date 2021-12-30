@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -39,7 +37,19 @@ namespace Printer_Reservation_System
 			if (!IsPostBack)
 			{
 				ddlPrintersBind();
+				listStudentsBind();
 			}
+		}
+
+		private void listStudentsBind()
+		{
+			CheckBoxList list = listStudents;
+
+			DataTable dt = getStudentTable();
+			list.DataSource = dt;
+			list.DataTextField = "Schueler";
+			list.DataValueField = "Schueler";
+			list.DataBind();
 		}
 
 		private void ddlPrintersBind()
@@ -71,6 +81,24 @@ namespace Printer_Reservation_System
 			return tblPrinters;
 		}
 
+		private DataTable getStudentTable()
+		{
+			DataTable tblStudents = new DataTable();
+
+			con.Open();
+
+			SqlCommand cmd = new SqlCommand("spSelectStudentNames", con);
+
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			SqlDataAdapter dap = new SqlDataAdapter(cmd);
+
+			dap.Fill(tblStudents);
+			con.Close();
+
+			return tblStudents;
+		}
+
 
 		protected void btnCreate_Click(object sender, EventArgs e)
 		{
@@ -78,8 +106,8 @@ namespace Printer_Reservation_System
 			lblWrongDateOrder.Text = "";
 			if (Page.IsValid)
 			{
-				try
-				{
+				//try
+				//{
 					DateTime fromDate = Convert.ToDateTime(txtFromDate.Text + " " + txtFromTime.Text);
 					DateTime toDate = Convert.ToDateTime(txtToDate.Text + " " + txtToTime.Text);
 					if (fromDate >= toDate)
@@ -88,35 +116,61 @@ namespace Printer_Reservation_System
 					}
 					else // successful
 					{
-						insertReservation(int.Parse(ddlPrinters.SelectedValue), Session["email"].ToString(), fromDate, toDate, txtAreaComment.Text);
-						Response.Redirect("~/ReservationsOverview.aspx");
+						List<String> studentList = new List<String>();
+
+						int i = 0;
+						foreach (ListItem item in listStudents.Items)
+						{
+							if (item.Selected)
+							{
+								studentList.Add(item.Value);
+								i++;
+							}
+						}
+
+						insertBlockingTime(txtAreaReason.Text, int.Parse(ddlPrinters.SelectedValue), fromDate, toDate, studentList, txtAreaComment.Text);
+						//Response.Redirect("~/ReservationsOverview.aspx");
 					}
-				}
-				catch (Exception ex)
-				{
-					lblWrongDateOrder.Text = "Geben Sie eine gültige Zeitspanne ein.";
-				}
+				//}
+				//catch (Exception ex)
+				//{
+					//lblWrongDateOrder.Text = "Geben Sie eine gültige Zeitspanne ein.";
+				//}
 
 			}
 		}
 
-		private void insertReservation(int printerID, string studentEmail, DateTime fromDate, DateTime toDate, string comment)
+		private void insertBlockingTime(string reason, int printerID, DateTime fromDate, DateTime toDate, List<String> students, string comment)
 		{
+			DataTable studentTable = new DataTable();
+			studentTable.Columns.Add(new DataColumn("StudentID", typeof(int)));
+			studentTable.Columns.Add(new DataColumn("Name", typeof(string)));
+			studentTable.Columns.Add(new DataColumn("Vorname", typeof(string)));
+
+			// populate DataTable from your List here
+			for (int i = 0; i < students.Count; i++)
+			{
+				string vorname = students[i].Split(' ')[0];
+				string name = students[i].Split(' ')[1];
+				studentTable.Rows.Add(i + 1, name, vorname);
+			}
+
 			con.Open();
-			SqlCommand cmd = new SqlCommand("spInsertReservation", con);
+			SqlCommand cmd = new SqlCommand("spInsertBlockingTime", con);
 
 			cmd.CommandType = CommandType.StoredProcedure;
 
+			cmd.Parameters.Add(new SqlParameter("@Grund", SqlDbType.VarChar));
 			cmd.Parameters.Add(new SqlParameter("@ID_Drucker", SqlDbType.Int));
-			cmd.Parameters.Add(new SqlParameter("@Student_eMail", SqlDbType.VarChar));
 			cmd.Parameters.Add(new SqlParameter("@Von", SqlDbType.DateTime));
 			cmd.Parameters.Add(new SqlParameter("@Bis", SqlDbType.DateTime));
 			cmd.Parameters.Add(new SqlParameter("@Bemerkung", SqlDbType.Text));
+			cmd.Parameters["@Grund"].Value = reason;
 			cmd.Parameters["@ID_Drucker"].Value = printerID;
-			cmd.Parameters["@Student_eMail"].Value = studentEmail;
 			cmd.Parameters["@Von"].Value = fromDate;
 			cmd.Parameters["@Bis"].Value = toDate;
 			cmd.Parameters["@Bemerkung"].Value = comment;
+			cmd.Parameters.AddWithValue("@Schueler", studentTable);
 
 			cmd.ExecuteNonQuery();
 			con.Close();
