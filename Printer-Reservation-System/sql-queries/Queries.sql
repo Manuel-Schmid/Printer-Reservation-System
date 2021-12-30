@@ -266,8 +266,11 @@ CREATE PROC spDeletePrinter
 	@ID INT
 )
 AS
-DELETE FROM tbl_Reservation WHERE tbl_Reservation.ID_Drucker = @ID;
-DELETE FROM tbl_Drucker WHERE tbl_Drucker.ID = @ID;
+DELETE FROM tbl_SperrfensterAusnahmen WHERE ID_Sperrfenster = (SELECT ID FROM tbl_Sperrfenster WHERE ID = (SELECT ID_Sperrfenster FROM [tbl_Sperrfenster-Drucker] WHERE ID_Drucker = @ID));
+DELETE FROM [tbl_Sperrfenster-Drucker] WHERE ID_Drucker = @ID;
+DElETE FROM tbl_Sperrfenster WHERE ID = (SELECT ID_Sperrfenster FROM [tbl_Sperrfenster-Drucker] WHERE ID_Drucker = @ID);
+DELETE FROM tbl_Reservation WHERE ID_Drucker = @ID;
+DELETE FROM tbl_Drucker WHERE ID = @ID;
 GO
 
 /*
@@ -441,7 +444,7 @@ AS
 SELECT sperr.ID, sperr_dru.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', sperr.Grund, (FORMAT (sperr.Von, 'dd.MM.yy hh:mm')) as 'Von', (FORMAT (sperr.Bis, 'dd.MM.yy hh:mm')) as 'Bis', sperr.Bemerkung FROM tbl_Sperrfenster as sperr
 JOIN [tbl_Sperrfenster-Drucker] as sperr_dru on sperr.ID = sperr_dru.ID_Sperrfenster
 JOIN tbl_Drucker as dru on dru.ID = sperr_dru.ID_Drucker
-ORDER BY sperr.Von;
+ORDER BY sperr.ID; /*sperr.Von*/
 GO
 
 /*
@@ -505,8 +508,6 @@ DECLARE @BlockingTimeID INT = (SELECT MAX(ID) FROM tbl_Sperrfenster);
 INSERT INTO [tbl_Sperrfenster-Drucker](ID_Sperrfenster, ID_Drucker)
 VALUES (@BlockingTimeID, @ID_Drucker);
 
-/* --- */
-
 DECLARE @RowCnt INT;
 DECLARE @StudentID INT = 1;
 DECLARE @Name VARCHAR(50);
@@ -534,5 +535,51 @@ INSERT INTO @List VALUES(1, 'Muster', 'Max'),(2, 'amon', 'gus'),(3, 'Korolev', '
 EXEC spInsertBlockingTime @Grund='testetstetstetstestest', @ID_Drucker=4, @Von='10.02.2021 10:30', @Bis='10.02.2021 10:45', @Schueler=@List, @Bemerkung='test bemerkung test';
 */
 
+
+/* ***************************************************************************** */
+/*DELETE Blocking time
+*/
+
+DROP PROC IF EXISTS spDeleteBlockingTime;
+GO 
+CREATE PROC spDeleteBlockingTime 
+(
+	@ID INT
+)
+AS
+DELETE FROM tbl_SperrfensterAusnahmen WHERE ID_Sperrfenster = @ID;
+DELETE FROM [tbl_Sperrfenster-Drucker] WHERE ID_Sperrfenster = @ID;
+DELETE FROM tbl_Sperrfenster WHERE ID = @ID;
+GO
+
+/* ***************************************************************************** */
+/* Update Blocking time
+*/
+
+DROP PROC IF EXISTS spUpdateBlockingTime;
+GO
+CREATE PROC spUpdateBlockingTime
+(
+	@ID INT,
+	@Grund VARCHAR (50),
+	@ID_Drucker INT,
+	@Von DATETIME,
+	@Bis DATETIME,
+	@Bemerkung TEXT
+)
+AS
+UPDATE tbl_Sperrfenster
+SET
+Grund = @Grund,
+Von = @Von,
+Bis = @Bis,
+Bemerkung = @Bemerkung
+WHERE tbl_Sperrfenster.ID = @ID;
+
+UPDATE [tbl_Sperrfenster-Drucker]
+SET
+ID_Drucker = @ID_Drucker
+WHERE [tbl_Sperrfenster-Drucker].ID_Sperrfenster = @ID;
+GO
 
 

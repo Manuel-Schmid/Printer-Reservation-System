@@ -115,14 +115,16 @@ namespace Printer_Reservation_System
 			cmd.CommandType = CommandType.StoredProcedure;
 
 			cmd.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int));
+			cmd.Parameters.Add(new SqlParameter("@Grund", SqlDbType.Text));
 			cmd.Parameters.Add(new SqlParameter("@ID_Drucker", SqlDbType.Int));
 			cmd.Parameters.Add(new SqlParameter("@Von", SqlDbType.DateTime));
 			cmd.Parameters.Add(new SqlParameter("@Bis", SqlDbType.DateTime));
 			cmd.Parameters.Add(new SqlParameter("@Bemerkung", SqlDbType.Text));
 			cmd.Parameters["@ID"].Value = row.Cells[0].Text;
+			cmd.Parameters["@Grund"].Value = ((TextBox)row.Cells[1].Controls[0]).Text;
 			cmd.Parameters["@ID_Drucker"].Value = ((DropDownList)row.FindControl("ddl_Drucker")).SelectedValue;
-			cmd.Parameters["@Von"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
-			cmd.Parameters["@Bis"].Value = ((TextBox)row.Cells[5].Controls[0]).Text;
+			cmd.Parameters["@Von"].Value = ((TextBox)row.Cells[3].Controls[0]).Text;
+			cmd.Parameters["@Bis"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
 			cmd.Parameters["@Bemerkung"].Value = ((TextBox)row.Cells[6].Controls[0]).Text;
 
 			cmd.ExecuteNonQuery();
