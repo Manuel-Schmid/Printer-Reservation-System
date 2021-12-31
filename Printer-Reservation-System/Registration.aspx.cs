@@ -73,9 +73,9 @@ namespace Printer_Reservation_System
                 cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
                 cmd.Parameters.Add(new SqlParameter("@Handy", SqlDbType.VarChar));
                 cmd.Parameters.Add(new SqlParameter("@Passwort", SqlDbType.VarChar));
-                cmd.Parameters["@Name"].Value = txtLastName.Text;
-                cmd.Parameters["@Vorname"].Value = txtFirstName.Text;
-                cmd.Parameters["@eMail"].Value = txtEmail.Text;
+                cmd.Parameters["@Name"].Value = String.Concat((txtLastName.Text).Where(c => !Char.IsWhiteSpace(c)));
+                cmd.Parameters["@Vorname"].Value = String.Concat((txtFirstName.Text).Where(c => !Char.IsWhiteSpace(c)));
+                cmd.Parameters["@eMail"].Value = String.Concat((txtEmail.Text).Where(c => !Char.IsWhiteSpace(c)));
                 cmd.Parameters["@Handy"].Value = txtHandy.Text;
                 cmd.Parameters["@Passwort"].Value = GetHashString(txtPassword.Text);
 
