@@ -85,6 +85,11 @@ namespace Printer_Reservation_System
 					if (fromDate >= toDate)
 					{
 						lblWrongDateOrder.Text = "Geben Sie eine gültige Zeitspanne ein.";
+					} else if (overlapsBlockingTime()) {
+						lblWrongDateOrder.Text = "Diese Zeitspanne überschneidet sich mit einem Sperrfenster. Passen Sie die Zeitspanne an.";
+					} else if (overlapsOtherReservation())
+					{
+
 					} else // successful
 					{
 						insertReservation(int.Parse(ddlPrinters.SelectedValue), Session["email"].ToString(), fromDate, toDate, txtAreaComment.Text);
@@ -96,6 +101,17 @@ namespace Printer_Reservation_System
 				}
 
 			}
+		}
+
+		private bool overlapsBlockingTime()
+		{
+
+			return false;
+		}
+
+		private bool overlapsOtherReservation()
+		{
+			return false;
 		}
 
 		private void insertReservation(int printerID, string studentEmail, DateTime fromDate, DateTime toDate, string comment)

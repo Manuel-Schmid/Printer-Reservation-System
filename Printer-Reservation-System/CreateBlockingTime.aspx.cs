@@ -106,8 +106,8 @@ namespace Printer_Reservation_System
 			lblWrongDateOrder.Text = "";
 			if (Page.IsValid)
 			{
-				//try
-				//{
+				try
+				{
 					DateTime fromDate = Convert.ToDateTime(txtFromDate.Text + " " + txtFromTime.Text);
 					DateTime toDate = Convert.ToDateTime(txtToDate.Text + " " + txtToTime.Text);
 					if (fromDate >= toDate)
@@ -129,13 +129,14 @@ namespace Printer_Reservation_System
 						}
 
 						insertBlockingTime(txtAreaReason.Text, int.Parse(ddlPrinters.SelectedValue), fromDate, toDate, studentList, txtAreaComment.Text);
-						//Response.Redirect("~/ReservationsOverview.aspx");
+						Response.Redirect("~/ReservationsOverview.aspx");
 					}
-				//}
-				//catch (Exception ex)
-				//{
-					//lblWrongDateOrder.Text = "Geben Sie eine gültige Zeitspanne ein.";
-				//}
+				}
+
+					catch (Exception ex)
+				{
+					lblWrongDateOrder.Text = "Geben Sie eine gültige Zeitspanne ein.";
+				}
 
 			}
 		}
@@ -147,7 +148,6 @@ namespace Printer_Reservation_System
 			studentTable.Columns.Add(new DataColumn("Name", typeof(string)));
 			studentTable.Columns.Add(new DataColumn("Vorname", typeof(string)));
 
-			// populate DataTable from your List here
 			for (int i = 0; i < students.Count; i++)
 			{
 				string vorname = students[i].Split(' ')[0];
