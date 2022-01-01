@@ -74,8 +74,8 @@ namespace Printer_Reservation_System
 
 		protected void btnCreate_Click(object sender, EventArgs e)
 		{
-			lblWrongDateOrder.ForeColor = System.Drawing.Color.Red;
-			lblWrongDateOrder.Text = "";
+			lblReservationError.ForeColor = System.Drawing.Color.Red;
+			lblReservationError.Text = "";
 			if (Page.IsValid)
 			{
 				try
@@ -84,34 +84,78 @@ namespace Printer_Reservation_System
 					DateTime toDate = Convert.ToDateTime(txtToDate.Text + " " + txtToTime.Text);
 					if (fromDate >= toDate)
 					{
-						lblWrongDateOrder.Text = "Geben Sie eine gültige Zeitspanne ein.";
-					} else if (overlapsBlockingTime()) {
-						lblWrongDateOrder.Text = "Diese Zeitspanne überschneidet sich mit einem Sperrfenster. Passen Sie die Zeitspanne an.";
-					} else if (overlapsOtherReservation())
+						lblReservationError.Text = "Geben Sie eine gültige Zeitspanne ein.";
+					}
+					else
 					{
+						int printerID = int.Parse(ddlPrinters.SelectedValue);
+						int blockingTimeOverlapsCount = overlapsBlockingTime(printerID, fromDate, toDate);
+						int reservationOverlapsCount = overlapsReservation(printerID, fromDate, toDate);
 
-					} else // successful
-					{
-						insertReservation(int.Parse(ddlPrinters.SelectedValue), Session["email"].ToString(), fromDate, toDate, txtAreaComment.Text);
-						Response.Redirect("~/ReservationsOverview.aspx");
+						if (blockingTimeOverlapsCount > 0)
+						{
+							lblReservationError.Text = "Diese Zeitspanne überschneidet sich mit " + blockingTimeOverlapsCount + " Sperrfenster" + (blockingTimeOverlapsCount > 1 ? "n" : "") + ". Bitte passen Sie die Zeitspanne entsprechend an.";
+						}
+						else if (reservationOverlapsCount > 0)
+						{
+							lblReservationError.Text = "Diese Zeitspanne überschneidet sich mit " + reservationOverlapsCount + " anderen Reservation" + (reservationOverlapsCount > 1 ? "en" : "") + ". Bitte passen Sie die Zeitspanne entsprechend an.";
+						}
+						else // successful
+						{
+							//insertReservation(printerID, Session["email"].ToString(), fromDate, toDate, txtAreaComment.Text);
+							//Response.Redirect("~/ReservationsOverview.aspx");
+							lblReservationError.Text = "worked ^^";
+						}
 					}
 				} catch (Exception ex)
 				{
-					lblWrongDateOrder.Text = "Geben Sie eine gültige Zeitspanne ein.";
+					lblReservationError.Text = "Geben Sie eine gültige Zeitspanne ein.";
 				}
 
 			}
 		}
 
-		private bool overlapsBlockingTime()
+		private int overlapsBlockingTime(int printerID, DateTime fromDate, DateTime toDate)
 		{
+			con.Open();
 
-			return false;
+			SqlCommand cmd = new SqlCommand("spOverlapsBlockingTime", con);
+
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			cmd.Parameters.Add(new SqlParameter("@Student_eMail", SqlDbType.VarChar));
+			cmd.Parameters.Add(new SqlParameter("@ID_Drucker", SqlDbType.Int));
+			cmd.Parameters.Add(new SqlParameter("@Von", SqlDbType.VarChar));
+			cmd.Parameters.Add(new SqlParameter("@Bis", SqlDbType.VarChar));
+			cmd.Parameters["@Student_eMail"].Value = Session["email"].ToString();
+			cmd.Parameters["@ID_Drucker"].Value = printerID;
+			cmd.Parameters["@Von"].Value = fromDate;
+			cmd.Parameters["@Bis"].Value = toDate;
+
+			int overlapsWith = (int)cmd.ExecuteScalar();
+			con.Close();
+			return overlapsWith;
 		}
 
-		private bool overlapsOtherReservation()
+
+		private int overlapsReservation(int printerID, DateTime fromDate, DateTime toDate)
 		{
-			return false;
+			con.Open();
+
+			SqlCommand cmd = new SqlCommand("spOverlapsReservation", con);
+
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			cmd.Parameters.Add(new SqlParameter("@ID_Drucker", SqlDbType.Int));
+			cmd.Parameters.Add(new SqlParameter("@Von", SqlDbType.VarChar));
+			cmd.Parameters.Add(new SqlParameter("@Bis", SqlDbType.VarChar));
+			cmd.Parameters["@ID_Drucker"].Value = printerID;
+			cmd.Parameters["@Von"].Value = fromDate;
+			cmd.Parameters["@Bis"].Value = toDate;
+
+			int overlapsWith = (int)cmd.ExecuteScalar();
+			con.Close();
+			return overlapsWith;
 		}
 
 		private void insertReservation(int printerID, string studentEmail, DateTime fromDate, DateTime toDate, string comment)

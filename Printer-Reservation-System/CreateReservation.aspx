@@ -86,7 +86,7 @@
 	 <br />
 	<br />
 
-	<asp:Label ID="lblWrongDateOrder" runat="server" ForeColor="Red"></asp:Label>
+	<asp:Label ID="lblReservationError" runat="server" ForeColor="Red"></asp:Label>
 	<br />
 
 	<asp:Button type="submit" ID="btnCreate" runat="server" Text="Erstellen" OnClick="btnCreate_Click" />

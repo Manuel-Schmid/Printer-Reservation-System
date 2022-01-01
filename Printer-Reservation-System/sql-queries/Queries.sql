@@ -480,6 +480,7 @@ GO
 DROP PROC IF EXISTS spInsertBlockingTime;
 DROP TYPE IF EXISTS dbo.StudentList;
 
+GO
 CREATE TYPE dbo.StudentList
 AS TABLE
 (
@@ -537,7 +538,7 @@ EXEC spInsertBlockingTime @Grund='testetstetstetstestest', @ID_Drucker=4, @Von='
 
 
 /* ***************************************************************************** */
-/*DELETE Blocking time
+/* DELETE Blocking time
 */
 
 DROP PROC IF EXISTS spDeleteBlockingTime;
@@ -553,7 +554,7 @@ DELETE FROM tbl_Sperrfenster WHERE ID = @ID;
 GO
 
 /* ***************************************************************************** */
-/* Update Blocking time
+/* UPDATE Blocking time
 */
 
 DROP PROC IF EXISTS spUpdateBlockingTime;
@@ -583,3 +584,53 @@ WHERE [tbl_Sperrfenster-Drucker].ID_Sperrfenster = @ID;
 GO
 
 
+/* ***************************************************************************** */
+/* check for overlap with blockingtime
+*/
+
+DROP PROC IF EXISTS spOverlapsBlockingTime;
+GO 
+CREATE PROC spOverlapsBlockingTime
+(
+	@Student_eMail VARCHAR(50),
+	@ID_Drucker INT,
+	@Von DATETIME,
+	@Bis DATETIME
+)
+AS
+DECLARE @StudentID INT = (SELECT ID FROM tbl_Student WHERE eMail = @Student_eMail);
+
+SELECT * FROM tbl_Sperrfenster as sperr
+JOIN [tbl_Sperrfenster-Drucker] as spd ON sperr.ID = spd.ID_Sperrfenster
+JOIN tbl_SperrfensterAusnahmen as spa ON sperr.ID = spa.ID_Sperrfenster
+WHERE (sperr.Von < @Bis and sperr.Bis > @Von);
+/*WHERE (ID_Student != @StudentID) and (spd.ID_Drucker = @ID_Drucker) /*and ((Von < @Bis) and (Bis > @Von))*/;*/
+GO
+
+/* COUNT(DISTINCT sperr.ID)
+EXEC spOverlapsBlockingTime @Student_eMail='manysch3@gmail.com', @ID_Drucker = 4, @Von='10.02.2021 10:20', @Bis='10.02.2021 10:36';
+
+EXEC spOverlapsBlockingTime @Student_eMail='test@test.com', @ID_Drucker = 4, @Von='02.10.2021 10:20:00', @Bis='02.10.2021 10:31:00';
+*/																		    /*Von: 02.10.2021 10:30:00 -  Bis: 02.10.2021 10:45:00*/
+
+SELECT * FROM tbl_Status where ('02.10.2021 10:30:00' < '02.10.2021 10:31:00' and '02.10.2021 10:45:00' > '02.10.2021 10:20:00');
+
+/* ***************************************************************************** */
+/* check for overlap with reservation
+*/
+
+DROP PROC IF EXISTS spOverlapsReservation;
+GO 
+CREATE PROC spOverlapsReservation
+(
+	@ID_Drucker INT,
+	@Von DATETIME,
+	@Bis DATETIME
+)
+AS
+SELECT COUNT(ID) FROM tbl_Reservation WHERE (ID_Drucker = @ID_Drucker) and (Von < @Bis) and (Bis > @Von);
+GO
+
+/*
+EXEC spOverlapsReservation @ID_Drucker = 4, @Von='10.10.2021 10:00', @Bis='10.10.2021 12:31';
+*/
