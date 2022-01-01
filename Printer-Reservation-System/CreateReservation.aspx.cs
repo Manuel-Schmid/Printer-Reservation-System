@@ -102,9 +102,8 @@ namespace Printer_Reservation_System
 						}
 						else // successful
 						{
-							//insertReservation(printerID, Session["email"].ToString(), fromDate, toDate, txtAreaComment.Text);
-							//Response.Redirect("~/ReservationsOverview.aspx");
-							lblReservationError.Text = "worked ^^";
+							insertReservation(printerID, Session["email"].ToString(), fromDate, toDate, txtAreaComment.Text);
+							Response.Redirect("~/ReservationsOverview.aspx");
 						}
 					}
 				} catch (Exception ex)
@@ -125,8 +124,8 @@ namespace Printer_Reservation_System
 
 			cmd.Parameters.Add(new SqlParameter("@Student_eMail", SqlDbType.VarChar));
 			cmd.Parameters.Add(new SqlParameter("@ID_Drucker", SqlDbType.Int));
-			cmd.Parameters.Add(new SqlParameter("@Von", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Bis", SqlDbType.VarChar));
+			cmd.Parameters.Add(new SqlParameter("@Von", SqlDbType.DateTime));
+			cmd.Parameters.Add(new SqlParameter("@Bis", SqlDbType.DateTime));
 			cmd.Parameters["@Student_eMail"].Value = Session["email"].ToString();
 			cmd.Parameters["@ID_Drucker"].Value = printerID;
 			cmd.Parameters["@Von"].Value = fromDate;
@@ -147,8 +146,8 @@ namespace Printer_Reservation_System
 			cmd.CommandType = CommandType.StoredProcedure;
 
 			cmd.Parameters.Add(new SqlParameter("@ID_Drucker", SqlDbType.Int));
-			cmd.Parameters.Add(new SqlParameter("@Von", SqlDbType.VarChar));
-			cmd.Parameters.Add(new SqlParameter("@Bis", SqlDbType.VarChar));
+			cmd.Parameters.Add(new SqlParameter("@Von", SqlDbType.DateTime));
+			cmd.Parameters.Add(new SqlParameter("@Bis", SqlDbType.DateTime));
 			cmd.Parameters["@ID_Drucker"].Value = printerID;
 			cmd.Parameters["@Von"].Value = fromDate;
 			cmd.Parameters["@Bis"].Value = toDate;

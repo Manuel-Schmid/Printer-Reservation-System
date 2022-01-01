@@ -381,6 +381,8 @@ CREATE PROC spUpdateReservation
 	@Bemerkung TEXT
 )
 AS
+SET DATEFORMAT dmy; 
+
 UPDATE tbl_Reservation
 SET
 ID_Drucker = @ID_Drucker,
@@ -407,6 +409,8 @@ CREATE PROC spInsertReservation
 	@Bemerkung TEXT
 )
 AS
+SET DATEFORMAT dmy; 
+
 INSERT INTO tbl_Reservation (ID_Drucker, ID_Student, Von, Bis, Bemerkung)
 VALUES (@ID_Drucker, (SELECT tbl_Student.ID FROM tbl_Student WHERE eMail = @Student_eMail), @Von, @Bis, @Bemerkung)
 GO
@@ -500,6 +504,7 @@ CREATE PROC spInsertBlockingTime
 	@Bemerkung TEXT
 )
 AS
+SET DATEFORMAT dmy; 
 
 INSERT INTO tbl_Sperrfenster(Grund, Von, Bis, Bemerkung)
 VALUES (@Grund, @Von, @Bis, @Bemerkung);
@@ -598,22 +603,20 @@ CREATE PROC spOverlapsBlockingTime
 	@Bis DATETIME
 )
 AS
+SET DATEFORMAT dmy; 
 DECLARE @StudentID INT = (SELECT ID FROM tbl_Student WHERE eMail = @Student_eMail);
 
-SELECT * FROM tbl_Sperrfenster as sperr
+SELECT COUNT(DISTINCT sperr.ID) FROM tbl_Sperrfenster as sperr
 JOIN [tbl_Sperrfenster-Drucker] as spd ON sperr.ID = spd.ID_Sperrfenster
 JOIN tbl_SperrfensterAusnahmen as spa ON sperr.ID = spa.ID_Sperrfenster
-WHERE (sperr.Von < @Bis and sperr.Bis > @Von);
-/*WHERE (ID_Student != @StudentID) and (spd.ID_Drucker = @ID_Drucker) /*and ((Von < @Bis) and (Bis > @Von))*/;*/
+WHERE (sperr.ID NOT IN (SELECT ID_Sperrfenster FROM tbl_SperrfensterAusnahmen WHERE ID_Student = @StudentID)) and (spd.ID_Drucker = @ID_Drucker) and ((Von < @Bis) and (Bis > @Von));
 GO
 
-/* COUNT(DISTINCT sperr.ID)
-EXEC spOverlapsBlockingTime @Student_eMail='manysch3@gmail.com', @ID_Drucker = 4, @Von='10.02.2021 10:20', @Bis='10.02.2021 10:36';
+/* 
+EXEC spOverlapsBlockingTime @Student_eMail='manysch3@gmail.com', @ID_Drucker = 4, @Von='02.10.2021 10:30', @Bis='02.10.2021 10:36';
+EXEC spOverlapsBlockingTime @Student_eMail='test@test.com', @ID_Drucker = 4, @Von='02.10.2021 10:30', @Bis='02.10.2021 10:40';
+*/
 
-EXEC spOverlapsBlockingTime @Student_eMail='test@test.com', @ID_Drucker = 4, @Von='02.10.2021 10:20:00', @Bis='02.10.2021 10:31:00';
-*/																		    /*Von: 02.10.2021 10:30:00 -  Bis: 02.10.2021 10:45:00*/
-
-SELECT * FROM tbl_Status where ('02.10.2021 10:30:00' < '02.10.2021 10:31:00' and '02.10.2021 10:45:00' > '02.10.2021 10:20:00');
 
 /* ***************************************************************************** */
 /* check for overlap with reservation
@@ -628,6 +631,7 @@ CREATE PROC spOverlapsReservation
 	@Bis DATETIME
 )
 AS
+SET DATEFORMAT dmy; 
 SELECT COUNT(ID) FROM tbl_Reservation WHERE (ID_Drucker = @ID_Drucker) and (Von < @Bis) and (Bis > @Von);
 GO
 
