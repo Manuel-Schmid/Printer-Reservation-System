@@ -27,6 +27,24 @@ GO
 EXEC spSelectStudents;
 */
 
+/* ***************************************************************************** */
+/*SELECT date of just a single student
+*/
+
+DROP PROC IF EXISTS spSelectStudent;
+GO 
+CREATE PROC spSelectStudent 
+	(@eMail VARCHAR(50))
+AS
+SELECT Name, Vorname, eMail AS 'E-Mail', Handy, Bemerkung, ID_Status as 'Stat_ID', Status, IsAdmin AS 'Admin' FROM tbl_Student
+JOIN tbl_Status ON ID_Status = tbl_Status.ID
+WHERE eMail = @eMail
+GO
+
+/*
+EXEC spSelectStudent @eMail = 'manysch3@gmail.com';
+*/
+
 
 /* ***************************************************************************** */
 /*SELECT all students names

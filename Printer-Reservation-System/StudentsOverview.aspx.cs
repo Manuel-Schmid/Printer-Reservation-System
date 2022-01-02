@@ -49,11 +49,20 @@ namespace Printer_Reservation_System
 
 			con.Open();
 
-			SqlCommand cmd = new SqlCommand("spSelectStudents", con);
+			SqlCommand cmd;
+
+			if (Session["isAdmin"].ToString() == "False") cmd = new SqlCommand("spSelectStudent", con);
+			else cmd = new SqlCommand("spSelectStudents", con);
 
 			cmd.CommandType = CommandType.StoredProcedure;
 
-			SqlDataAdapter dap = new SqlDataAdapter(cmd);
+			if (Session["isAdmin"].ToString() == "False")
+			{
+				cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+				cmd.Parameters["@eMail"].Value = Session["email"].ToString();
+			}
+
+				SqlDataAdapter dap = new SqlDataAdapter(cmd);
 
 			dap.Fill(tblStudents);
 			con.Close();
