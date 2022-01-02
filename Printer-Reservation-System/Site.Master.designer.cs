@@ -33,6 +33,15 @@ namespace Printer_Reservation_System
         protected global::System.Web.UI.WebControls.ContentPlaceHolder PlaceHolderHeader;
 
         /// <summary>
+        /// blockingTimesLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink blockingTimesLink;
+
+        /// <summary>
         /// PlaceHolderMain control.
         /// </summary>
         /// <remarks>

@@ -171,13 +171,18 @@ Vorname = @Vorname,
 /* eMail = @currentEMail, */
 Handy = @Handy,
 Bemerkung = @Bemerkung,
-ID_Status = @Status,
 IsAdmin = @IsAdmin
+WHERE tbl_Student.eMail = @currentEMail;
+
+IF (@Status != 0) 
+UPDATE tbl_Student
+SET    
+ID_Status = @Status
 WHERE tbl_Student.eMail = @currentEMail
 GO
 
 /*
-EXEC spUpdateStudent @Name = 'se', @Vorname = 'be', @currentEMail = 'manysch3@gmail.com', @Handy = '019191919', @Bemerkung = 'weeew', @Status = 'Gesperrt', @IsAdmin = true;
+EXEC spUpdateStudent @Name = 'se', @Vorname = 'be', @currentEMail = 'manysch3@gmail.com', @Handy = '019191919', @Bemerkung = 'weeew', @Status=0, @IsAdmin = true;
 */
 
 

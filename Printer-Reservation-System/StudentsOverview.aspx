@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="StudentsOverview.aspx.cs" Inherits="Printer_Reservation_System.StudentsOverview" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 	<asp:HyperLink NavigateUrl="PrinterOverview.aspx" runat="server">Drucker</asp:HyperLink>
-	<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" runat="server">Sperrzeiten</asp:HyperLink>
+	<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" id="blockingTimesLink" runat="server">Sperrzeiten</asp:HyperLink>
 	<asp:HyperLink NavigateUrl="ReservationsOverview.aspx" runat="server">Reservationen</asp:HyperLink>
 	<asp:HyperLink NavigateUrl="StudentsOverview.aspx" runat="server" CssClass="active">Nutzerverwaltung</asp:HyperLink>
 </asp:Content>
@@ -15,7 +15,6 @@
 			<asp:BoundField DataField="Handy" HeaderText="Handy" />  
 			<asp:Buttonfield buttontype="button" Text="Annehmen" commandname="accept"  />
 			<asp:Buttonfield buttontype="button" Text="Ablehnen" commandname="deny"  />
-
 		</Columns>
 	</asp:GridView>
 
@@ -43,6 +42,6 @@
 		</Columns>
 	</asp:GridView>
 
-	<asp:Label ID="lbltest" runat="server" Text="testlabel"></asp:Label>
+	<asp:Button ID="btnLogout" runat="server" Text="Abmelden" OnClick="btnLogout_Click"/>
 
 </asp:Content>

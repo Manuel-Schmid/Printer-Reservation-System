@@ -15,6 +15,15 @@ namespace Printer_Reservation_System
     {
 
         /// <summary>
+        /// blockingTimesLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink blockingTimesLink;
+
+        /// <summary>
         /// gridviewRegistrations control.
         /// </summary>
         /// <remarks>
@@ -33,12 +42,12 @@ namespace Printer_Reservation_System
         protected global::System.Web.UI.WebControls.GridView gridviewStudents;
 
         /// <summary>
-        /// lbltest control.
+        /// btnLogout control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbltest;
+        protected global::System.Web.UI.WebControls.Button btnLogout;
     }
 }

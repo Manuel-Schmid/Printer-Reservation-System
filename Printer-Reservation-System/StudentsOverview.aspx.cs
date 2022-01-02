@@ -16,6 +16,16 @@ namespace Printer_Reservation_System
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			if (Session["isAdmin"].ToString() == "False")
+			{
+				blockingTimesLink.Visible = false;
+				gridviewRegistrations.Visible = false;
+				gridviewStudents.Columns[0].Visible = false;
+				gridviewStudents.Columns[6].Visible = false;
+				gridviewStudents.Columns[8].Visible = false;
+			}
+
+
 			conBuilder.DataSource = GlobalVariables.dataSource;
 			conBuilder.InitialCatalog = GlobalVariables.dbName;
 			conBuilder.IntegratedSecurity = true;
@@ -127,7 +137,8 @@ namespace Printer_Reservation_System
 			cmd.Parameters["@currentEMail"].Value = row.Cells[3].Text;
 			cmd.Parameters["@Handy"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
 			cmd.Parameters["@Bemerkung"].Value = ((TextBox)row.Cells[5].Controls[0]).Text;
-			cmd.Parameters["@Status"].Value = ((DropDownList)row.FindControl("ddl_Status")).SelectedValue;
+			if (Session["isAdmin"].ToString() == "False") cmd.Parameters["@Status"].Value = 0;
+			else cmd.Parameters["@Status"].Value = ((DropDownList)row.FindControl("ddl_Status")).SelectedValue;
 
 			cmd.ExecuteNonQuery();
 			con.Close();
