@@ -272,5 +272,12 @@ namespace Printer_Reservation_System
 				}
 			}
 		}
+
+		protected void btnLogout_Click(object sender, EventArgs e)
+		{
+			//Session["email"] = txtEmail.Text;
+			//Session["isAdmin"] = IsStudentAdmin(txtEmail.Text);
+			Response.Redirect("~/Login.aspx");
+		}
 	}
 }
