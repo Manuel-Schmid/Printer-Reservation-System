@@ -16,7 +16,12 @@ namespace Printer_Reservation_System
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (Session["isAdmin"].ToString() == "False") blockingTimesLink.Visible = false;
+			if (Session["isAdmin"].ToString() == "False")
+			{
+				gvPrinters.Columns[0].Visible = false;
+				gvPrinters.Columns[6].Visible = false;
+				gvPrinters.Columns[7].Visible = false;
+			}
 
 			conBuilder.DataSource = GlobalVariables.dataSource;
 			conBuilder.InitialCatalog = GlobalVariables.dbName;
@@ -47,7 +52,7 @@ namespace Printer_Reservation_System
 
 			if (tblPrinters.Rows.Count > 0)
 			{
-				tblPrinters.Rows.Add();
+				if (Session["isAdmin"].ToString() == "True") tblPrinters.Rows.Add();
 
 				gvPrinters.DataSource = tblPrinters;
 				gvPrinters.DataBind();

@@ -16,7 +16,11 @@ namespace Printer_Reservation_System
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (Session["isAdmin"].ToString() == "False") blockingTimesLink.Visible = false;
+			//if (Session["isAdmin"].ToString() == "False")
+			//{
+			//	gvBlockingTimes.Columns[0].Visible = false;
+			//	gvBlockingTimes.Columns[6].Visible = false;
+			//}
 
 			conBuilder.DataSource = GlobalVariables.dataSource;
 			conBuilder.InitialCatalog = GlobalVariables.dbName;

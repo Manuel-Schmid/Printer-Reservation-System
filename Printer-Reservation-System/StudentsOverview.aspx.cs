@@ -18,7 +18,6 @@ namespace Printer_Reservation_System
 		{
 			if (Session["isAdmin"].ToString() == "False")
 			{
-				blockingTimesLink.Visible = false;
 				gridviewRegistrations.Visible = false;
 				gridviewStudents.Columns[0].Visible = false;
 				gridviewStudents.Columns[6].Visible = false;
@@ -62,7 +61,7 @@ namespace Printer_Reservation_System
 				cmd.Parameters["@eMail"].Value = Session["email"].ToString();
 			}
 
-				SqlDataAdapter dap = new SqlDataAdapter(cmd);
+			SqlDataAdapter dap = new SqlDataAdapter(cmd);
 
 			dap.Fill(tblStudents);
 			con.Close();

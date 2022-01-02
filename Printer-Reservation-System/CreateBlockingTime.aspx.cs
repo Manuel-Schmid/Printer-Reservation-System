@@ -29,8 +29,6 @@ namespace Printer_Reservation_System
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (Session["isAdmin"].ToString() == "False") blockingTimesLink.Visible = false;
-
 			conBuilder.DataSource = GlobalVariables.dataSource;
 			conBuilder.InitialCatalog = GlobalVariables.dbName;
 			conBuilder.IntegratedSecurity = true;
@@ -131,7 +129,7 @@ namespace Printer_Reservation_System
 						}
 
 						insertBlockingTime(txtAreaReason.Text, int.Parse(ddlPrinters.SelectedValue), fromDate, toDate, studentList, txtAreaComment.Text);
-						Response.Redirect("~/ReservationsOverview.aspx");
+						Response.Redirect("~/BlockingTimesOverview.aspx");
 					}
 				}
 

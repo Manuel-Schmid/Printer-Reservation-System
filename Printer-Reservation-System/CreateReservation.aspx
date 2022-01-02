@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateReservation.aspx.cs" Inherits="Printer_Reservation_System.CreateReservation" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 	<asp:HyperLink NavigateUrl="PrinterOverview.aspx" runat="server">Drucker</asp:HyperLink>
-	<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" id="blockingTimesLink" runat="server">Sperrzeiten</asp:HyperLink>
+	<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" runat="server">Sperrzeiten</asp:HyperLink>
 	<asp:HyperLink NavigateUrl="ReservationsOverview.aspx" runat="server" CssClass="active">Reservationen</asp:HyperLink>
 	<asp:HyperLink NavigateUrl="StudentsOverview.aspx" runat="server">Nutzerverwaltung</asp:HyperLink>
 </asp:Content>
