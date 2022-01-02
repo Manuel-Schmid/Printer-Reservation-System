@@ -7,6 +7,20 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
+	<asp:GridView ID="gvAllRes" runat="server" AutoGenerateColumns="false" >
+		<Columns>
+			<asp:BoundField DataField="ID" HeaderText="ID" />
+			<asp:BoundField DataField="Name" HeaderText="Name" />
+			<asp:BoundField DataField="Vorname" HeaderText="Vorname" />
+			<asp:BoundField DataField="Drucker" HeaderText="Vorname" />
+			<asp:BoundField DataField="Von" HeaderText="Von" />
+			<asp:BoundField DataField="Bis" HeaderText="Bis" />  
+			<asp:BoundField DataField="Bemerkung" HeaderText="Bemerkung" />
+		</Columns>
+	</asp:GridView>
+
+	<br />
+
 	<asp:GridView ID="gvReservations" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="gvReservations_PageIndexChanging" OnRowCancelingEdit="gvReservations_RowCancelingEdit" OnRowDeleting="gvReservations_RowDeleting" OnRowEditing="gvReservations_RowEditing" OnRowUpdating="gvReservations_RowUpdating" OnRowDataBound="gvReservationsRowDataBound">
 		<Columns>
 			<asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="true" />

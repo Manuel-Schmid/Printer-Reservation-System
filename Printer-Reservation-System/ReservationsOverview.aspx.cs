@@ -16,6 +16,8 @@ namespace Printer_Reservation_System
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			if (Session["isAdmin"].ToString() == "True") gvAllRes.Visible = false;
+
 			conBuilder.DataSource = GlobalVariables.dataSource;
 			conBuilder.InitialCatalog = GlobalVariables.dbName;
 			conBuilder.IntegratedSecurity = true;
@@ -33,9 +35,19 @@ namespace Printer_Reservation_System
 
 			con.Open();
 
-			SqlCommand cmd = new SqlCommand("spSelectReservations", con);
+			SqlCommand cmd;
+
+			if (Session["isAdmin"].ToString() == "False") cmd = new SqlCommand("spSelectOwnReservations", con);
+			else cmd = new SqlCommand("spSelectAllReservations", con);
 
 			cmd.CommandType = CommandType.StoredProcedure;
+
+			if (Session["isAdmin"].ToString() == "False")
+			{
+				cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+				cmd.Parameters["@eMail"].Value = Session["email"].ToString();
+			}
+
 
 			SqlDataAdapter dap = new SqlDataAdapter(cmd);
 
@@ -58,8 +70,45 @@ namespace Printer_Reservation_System
 				gvReservations.Rows[0].Cells[0].ColumnSpan = columncount;
 				gvReservations.Rows[0].Cells[0].Text = "No Reservations Found";
 			}
+
+			if (Session["isAdmin"].ToString() == "False")
+			{
+				gvBindAllRes();
+			}
 		}
 
+		private void gvBindAllRes()
+		{
+			DataTable tblReservations = new DataTable();
+
+			con.Open();
+
+			SqlCommand cmd = new SqlCommand("spSelectAllReservations", con);
+
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			SqlDataAdapter dap = new SqlDataAdapter(cmd);
+
+			dap.Fill(tblReservations);
+			con.Close();
+
+			if (tblReservations.Rows.Count > 0)
+			{
+				gvAllRes.DataSource = tblReservations;
+				gvAllRes.DataBind();
+			}
+			else
+			{
+				tblReservations.Rows.Add(tblReservations.NewRow());
+				gvAllRes.DataSource = tblReservations;
+				gvAllRes.DataBind();
+				int columncount = gvAllRes.Rows[0].Cells.Count;
+				gvAllRes.Rows[0].Cells.Clear();
+				gvAllRes.Rows[0].Cells.Add(new TableCell());
+				gvAllRes.Rows[0].Cells[0].ColumnSpan = columncount;
+				gvAllRes.Rows[0].Cells[0].Text = "No Reservations Found";
+			}
+		}
 
 		protected void gvReservations_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{

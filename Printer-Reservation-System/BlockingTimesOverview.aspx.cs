@@ -18,6 +18,7 @@ namespace Printer_Reservation_System
 		{
 			if (Session["isAdmin"].ToString() == "False")
 			{
+				btnCreateBlockingTime.Visible = false;
 				gvBlockingTimes.Columns[7].Visible = false;
 				gvBlockingTimes.Columns[8].Visible = false;
 			}

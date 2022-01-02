@@ -357,9 +357,9 @@ GO
 /* SELECT all reservations
 */
 
-DROP PROC IF EXISTS spSelectReservations;
+DROP PROC IF EXISTS spSelectAllReservations;
 GO
-CREATE PROC spSelectReservations 
+CREATE PROC spSelectAllReservations 
 AS
 SELECT res.ID, stu.Name, stu.Vorname, res.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', (FORMAT (res.Von, 'dd.MM.yy hh:mm')) as 'Von', (FORMAT (res.Bis, 'dd.MM.yy hh:mm')) as 'Bis', res.Bemerkung  FROM tbl_Reservation as res
 JOIN tbl_Student as stu on stu.ID = res.ID_Student
@@ -368,8 +368,29 @@ ORDER BY res.ID;
 GO
 
 /*
-EXEC spSelectReservations;
+EXEC spSelectAllReservations;
 */
+
+/* ***************************************************************************** */
+/* SELECT all reservations
+*/
+
+DROP PROC IF EXISTS spSelectOwnReservations;
+GO
+CREATE PROC spSelectOwnReservations 
+(@eMail VARCHAR(50))
+AS
+SELECT res.ID, stu.Name, stu.Vorname, res.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', (FORMAT (res.Von, 'dd.MM.yy hh:mm')) as 'Von', (FORMAT (res.Bis, 'dd.MM.yy hh:mm')) as 'Bis', res.Bemerkung  FROM tbl_Reservation as res
+JOIN tbl_Student as stu on stu.ID = res.ID_Student
+JOIN tbl_Drucker as dru on dru.ID = res.ID_Drucker
+WHERE stu.eMail = @eMail
+ORDER BY res.ID;
+GO
+
+/*
+EXEC spSelectOwnReservations @eMail = 'manysch3@gmail.com';
+*/
+
 
 /* ***************************************************************************** */
 /*DELETE reservation
