@@ -16,6 +16,8 @@ namespace Printer_Reservation_System
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			if (!IsSupremeAdmin(Session["email"].ToString()))((CheckBoxField)gridviewStudents.Columns[0]).ReadOnly = true;
+			 
 			if (Session["isAdmin"].ToString() == "False")
 			{
 				gridviewRegistrations.Visible = false;
@@ -81,6 +83,22 @@ namespace Printer_Reservation_System
 				gridviewStudents.Rows[0].Cells[0].ColumnSpan = columncount;
 				gridviewStudents.Rows[0].Cells[0].Text = "No Students Found";
 			}
+		}
+
+		private bool IsSupremeAdmin(string eMail)
+		{
+			con.Open();
+
+			SqlCommand cmd = new SqlCommand("spSelectIsSupremeAdmin", con);
+
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+			cmd.Parameters["@eMail"].Value = eMail;
+
+			bool isValid = ((int)cmd.ExecuteScalar() >= 1);
+			con.Close();
+			return isValid;
 		}
 
 		private string getStudentStatus(string eMail)
@@ -283,8 +301,8 @@ namespace Printer_Reservation_System
 
 		protected void btnLogout_Click(object sender, EventArgs e)
 		{
-			//Session["email"] = txtEmail.Text;
-			//Session["isAdmin"] = IsStudentAdmin(txtEmail.Text);
+			//Session["email"] = "";
+			//Session["isAdmin"] = false;
 			Response.Redirect("~/Login.aspx");
 		}
 	}

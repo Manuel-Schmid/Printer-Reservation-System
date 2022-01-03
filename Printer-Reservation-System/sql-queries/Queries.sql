@@ -84,6 +84,27 @@ EXEC spSelectIsStudentAdmin @eMail = 'test@test.com';
 */
 
 /* ***************************************************************************** */
+/*SELECT if student is supremeadmin
+*/
+
+DROP PROC IF EXISTS spSelectIsSupremeAdmin;
+GO 
+CREATE PROC spSelectIsSupremeAdmin 
+(
+	@eMail VARCHAR(50)
+)
+AS
+SELECT COUNT(IsAdmin) FROM tbl_Student
+JOIN tbl_SupremeAdmin ON tbl_Student.ID = tbl_SupremeAdmin.ID_Student
+WHERE eMail = @eMail;
+GO
+
+/*
+EXEC spSelectIsSupremeAdmin @eMail = 'test@test.com';
+*/
+
+
+/* ***************************************************************************** */
 /*SELECT student status as text
 */
 
