@@ -88,7 +88,7 @@ namespace Printer_Reservation_System
 					else
 					{
 						int printerID = int.Parse(ddlPrinters.SelectedValue);
-						int blockingTimeOverlapsCount = overlapsBlockingTime(printerID, fromDate, toDate);
+						int blockingTimeOverlapsCount = (Session["isAdmin"].ToString() == "False") ? overlapsBlockingTime(printerID, fromDate, toDate) : 0;
 						int reservationOverlapsCount = overlapsReservation(printerID, fromDate, toDate);
 
 						if (blockingTimeOverlapsCount > 0)

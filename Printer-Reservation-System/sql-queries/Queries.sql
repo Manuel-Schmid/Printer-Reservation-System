@@ -47,7 +47,7 @@ EXEC spSelectStudent @eMail = 'manysch3@gmail.com';
 
 
 /* ***************************************************************************** */
-/*SELECT all students names
+/*SELECT all non-admin-students names
 */
 
 DROP PROC IF EXISTS spSelectStudentNames;
@@ -55,6 +55,7 @@ GO
 CREATE PROC spSelectStudentNames 
 AS
 SELECT CAST(Vorname AS VARCHAR(16)) + ' ' + CAST(Name AS VARCHAR(16)) as 'Schueler' FROM tbl_Student
+WHERE IsAdmin = 0
 ORDER BY ID;
 GO
 
