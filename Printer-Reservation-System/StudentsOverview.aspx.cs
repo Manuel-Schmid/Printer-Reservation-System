@@ -17,7 +17,7 @@ namespace Printer_Reservation_System
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!IsSupremeAdmin(Session["email"].ToString()))((CheckBoxField)gridviewStudents.Columns[0]).ReadOnly = true;
-			 
+			
 			if (Session["isAdmin"].ToString() == "False")
 			{
 				gridviewRegistrations.Visible = false;
@@ -25,7 +25,6 @@ namespace Printer_Reservation_System
 				gridviewStudents.Columns[6].Visible = false;
 				gridviewStudents.Columns[8].Visible = false;
 			}
-
 
 			conBuilder.DataSource = GlobalVariables.dataSource;
 			conBuilder.InitialCatalog = GlobalVariables.dbName;
@@ -85,7 +84,7 @@ namespace Printer_Reservation_System
 			}
 		}
 
-		private bool IsSupremeAdmin(string eMail)
+		private Boolean IsSupremeAdmin(string eMail)
 		{
 			con.Open();
 

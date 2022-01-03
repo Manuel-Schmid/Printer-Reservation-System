@@ -1,7 +1,26 @@
-﻿/* ***************************************************************************** */
-/* Alter Database
+﻿USE [3D_Drucker];
+
+/* ***************************************************************************** */
+/* CREATE TABLE for supreme-admins, INSERT one supreme admin
 */
 
+DROP TABLE IF EXISTS tbl_SupremeAdmin
+
+CREATE TABLE tbl_SupremeAdmin (
+	SupremeAdminID INT NOT NULL IDENTITY(1, 1),
+	ID_Student INT NOT NULL,
+	PRIMARY KEY (SupremeAdminID),
+	FOREIGN KEY (ID_Student) REFERENCES tbl_Student(ID)
+);
+
+INSERT INTO tbl_SupremeAdmin (ID_Student)
+SELECT 14
+WHERE NOT EXISTS (SELECT * FROM tbl_SupremeAdmin)
+
+
+/* ***************************************************************************** */
+/* Alter Database
+*/
 
 ALTER TABLE tbl_Student
 ALTER COLUMN Passwort VARCHAR(100);
@@ -146,7 +165,7 @@ VALUES (@Name, @Vorname, @eMail, @Handy, @Passwort, 0, NULL, (SELECT ID FROM tbl
 GO
 
 /*
-EXEC spInsertStudent @Name='Lssse', @Vorname='Bao Minh', @eMail='bao.minh@gmail.com', @Handy='02949284972', @Passwort='96C34D848F3F576D6E43FB42D7B5DDBA12303D1280F6601448003B84C205B6B4';
+EXEC spInsertStudent @Name='Le', @Vorname='BaoMinh', @eMail='bao.minh@gmail.com', @Handy='02949284972', @Passwort='96C34D848F3F576D6E43FB42D7B5DDBA12303D1280F6601448003B84C205B6B4';
 */
 
 
@@ -208,7 +227,6 @@ UPDATE tbl_Student
 SET    
 Name = @Name,
 Vorname = @Vorname,
-/* eMail = @currentEMail, */
 Handy = @Handy,
 Bemerkung = @Bemerkung,
 IsAdmin = @IsAdmin
