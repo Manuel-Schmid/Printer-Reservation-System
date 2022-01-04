@@ -39,12 +39,7 @@ namespace Printer_Reservation_System
 			{
 				for (int i = 0; i < gridviewStudents.Rows.Count; i++)
 				{
-					if (gridviewStudents.Rows[i].Cells[3].Text == userEmail)
-					{
-						TableCell cell = gridviewStudents.Rows[i].Cells[0];
-						BoundField field = (BoundField)((DataControlFieldCell)cell).ContainingField;
-						field.ReadOnly = true;
-					}
+					if (gridviewStudents.Rows[i].Cells[3].Text == userEmail) ((BoundField)((DataControlFieldCell)gridviewStudents.Rows[i].Cells[0]).ContainingField).ReadOnly = true;
 				}
 			}
 			else
