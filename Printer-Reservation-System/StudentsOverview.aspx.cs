@@ -28,13 +28,30 @@ namespace Printer_Reservation_System
 			conBuilder.InitialCatalog = GlobalVariables.dbName;
 			conBuilder.IntegratedSecurity = true;
 			con.ConnectionString = conBuilder.ConnectionString;
-
-			if (!IsSupremeAdmin(Session["email"].ToString())) ((CheckBoxField)gridviewStudents.Columns[0]).ReadOnly = true;
+			string userEmail = Session["email"].ToString();
 
 			if (!IsPostBack)
 			{
 				gvBindAll();
 			}
+
+			if (IsSupremeAdmin(userEmail))
+			{
+				for (int i = 0; i < gridviewStudents.Rows.Count; i++)
+				{
+					if (gridviewStudents.Rows[i].Cells[3].Text == userEmail)
+					{
+						TableCell cell = gridviewStudents.Rows[i].Cells[0];
+						BoundField field = (BoundField)((DataControlFieldCell)cell).ContainingField;
+						field.ReadOnly = true;
+					}
+				}
+			}
+			else
+			{
+				((CheckBoxField)gridviewStudents.Columns[0]).ReadOnly = true;
+			}
+
 		}
 
 		private void gvBindAll()
@@ -143,6 +160,7 @@ namespace Printer_Reservation_System
 		protected void gridviewStudents_RowUpdating(object sender, GridViewUpdateEventArgs e)
 		{
 			GridViewRow row = (GridViewRow)gridviewStudents.Rows[e.RowIndex];
+
 			gridviewStudents.EditIndex = -1;
 			con.Open();
 			SqlCommand cmd = new SqlCommand("spUpdateStudent", con);
