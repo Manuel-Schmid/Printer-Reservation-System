@@ -15,9 +15,7 @@ namespace Printer_Reservation_System
 		SqlConnection con = new SqlConnection();
 
 		protected void Page_Load(object sender, EventArgs e)
-		{
-			if (!IsSupremeAdmin(Session["email"].ToString()))((CheckBoxField)gridviewStudents.Columns[0]).ReadOnly = true;
-			
+		{			
 			if (Session["isAdmin"].ToString() == "False")
 			{
 				gridviewRegistrations.Visible = false;
@@ -30,6 +28,8 @@ namespace Printer_Reservation_System
 			conBuilder.InitialCatalog = GlobalVariables.dbName;
 			conBuilder.IntegratedSecurity = true;
 			con.ConnectionString = conBuilder.ConnectionString;
+
+			if (!IsSupremeAdmin(Session["email"].ToString())) ((CheckBoxField)gridviewStudents.Columns[0]).ReadOnly = true;
 
 			if (!IsPostBack)
 			{
@@ -84,7 +84,7 @@ namespace Printer_Reservation_System
 			}
 		}
 
-		private Boolean IsSupremeAdmin(string eMail)
+		private bool IsSupremeAdmin(string eMail)
 		{
 			con.Open();
 
@@ -95,9 +95,9 @@ namespace Printer_Reservation_System
 			cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
 			cmd.Parameters["@eMail"].Value = eMail;
 
-			bool isValid = ((int)cmd.ExecuteScalar() >= 1);
+			bool isSupreme = ((int)cmd.ExecuteScalar() >= 1);
 			con.Close();
-			return isValid;
+			return isSupreme;
 		}
 
 		private string getStudentStatus(string eMail)
