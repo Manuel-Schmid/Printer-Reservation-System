@@ -110,17 +110,6 @@ namespace Printer_Reservation_System
                 //userCookie.Values.Add("firstName", txtFirstName.Text);
                 //userCookie.Values.Add("lastName", txtLastName.Text);
                 //Response.Cookies.Add(userCookie);
-
-                // set session data
-                //Session["firstName"] = txtFirstName.Text;
-                //Session["lastName"] = txtLastName.Text;
-                //Session["email"] = txtEmail.Text;
-                //Session["birthdate"] = txtBirthdate.Text;
-                //Session["class"] = txtClass.Text;
-                //Session["interest"] = radioInterests.SelectedItem.Value.ToString();
-
-                //Response.Redirect("~/PrinterOverview.aspx");
-
             }
         }
 
@@ -142,7 +131,7 @@ namespace Printer_Reservation_System
             return isValid;
         }
 
-        private Boolean IsStudentAdmin(string eMail)
+        private bool IsStudentAdmin(string eMail)
         {
             con.Open();
 
