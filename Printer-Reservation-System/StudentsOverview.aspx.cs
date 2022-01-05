@@ -13,6 +13,7 @@ namespace Printer_Reservation_System
 	{
 		readonly SqlConnectionStringBuilder conBuilder = new SqlConnectionStringBuilder();
 		SqlConnection con = new SqlConnection();
+		bool isSupreme = false;
 
 		protected void Page_Load(object sender, EventArgs e)
 		{			
@@ -35,18 +36,9 @@ namespace Printer_Reservation_System
 				gvBindAll();
 			}
 
-			if (IsSupremeAdmin(userEmail))
-			{
-				for (int i = 0; i < gridviewStudents.Rows.Count; i++)
-				{
-					if (gridviewStudents.Rows[i].Cells[3].Text == userEmail) ((CheckBoxField)((DataControlFieldCell)gridviewStudents.Rows[i].Cells[0]).ContainingField).ReadOnly = true;
-				}
-			}
-			else
-			{
-				((CheckBoxField)gridviewStudents.Columns[0]).ReadOnly = true;
-			}
+			isSupreme = IsSupremeAdmin(userEmail);
 
+			if (!isSupreme) ((CheckBoxField)gridviewStudents.Columns[0]).ReadOnly = true;
 		}
 
 		private void gvBindAll()
@@ -157,7 +149,7 @@ namespace Printer_Reservation_System
 			GridViewRow row = (GridViewRow)gridviewStudents.Rows[e.RowIndex];
 
 			gridviewStudents.EditIndex = -1;
-			con.Open();
+			
 			SqlCommand cmd = new SqlCommand("spUpdateStudent", con);
 
 			cmd.CommandType = CommandType.StoredProcedure;
@@ -169,15 +161,18 @@ namespace Printer_Reservation_System
 			cmd.Parameters.Add(new SqlParameter("@Bemerkung", SqlDbType.VarChar));
 			cmd.Parameters.Add(new SqlParameter("@Status", SqlDbType.VarChar));
 			cmd.Parameters.Add(new SqlParameter("@IsAdmin", SqlDbType.VarChar));
-			cmd.Parameters["@IsAdmin"].Value = ((CheckBox)row.Cells[0].Controls[0]).Checked;
+			if (isSupreme && row.Cells[3].Text == Session["email"].ToString()) cmd.Parameters["@IsAdmin"].Value = true;
+			else cmd.Parameters["@IsAdmin"].Value = ((CheckBox)row.Cells[0].Controls[0]).Checked;
 			cmd.Parameters["@Name"].Value = ((TextBox)row.Cells[1].Controls[0]).Text;
 			cmd.Parameters["@Vorname"].Value = ((TextBox)row.Cells[2].Controls[0]).Text;
 			cmd.Parameters["@currentEMail"].Value = row.Cells[3].Text;
 			cmd.Parameters["@Handy"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
 			cmd.Parameters["@Bemerkung"].Value = ((TextBox)row.Cells[5].Controls[0]).Text;
-			if (Session["isAdmin"].ToString() == "False") cmd.Parameters["@Status"].Value = 0;
+			if (IsSupremeAdmin(row.Cells[3].Text)) cmd.Parameters["@Status"].Value = 2;
+			else if (Session["isAdmin"].ToString() == "False") cmd.Parameters["@Status"].Value = 0;
 			else cmd.Parameters["@Status"].Value = ((DropDownList)row.FindControl("ddl_Status")).SelectedValue;
-
+			
+			con.Open();
 			cmd.ExecuteNonQuery();
 			con.Close();
 
