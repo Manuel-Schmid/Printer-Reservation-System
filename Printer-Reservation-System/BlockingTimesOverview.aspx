@@ -39,6 +39,6 @@
 	</asp:GridView>
 
 	<br />
-	<asp:Button ID="btnCreateBlockingTime" runat="server" Text="Hinzufügen" OnClick="btnCreateBlockingTime_Click" />
+	<asp:Button ID="btnCreateBlockingTime" runat="server" Text="Erstellen" OnClick="btnCreateBlockingTime_Click" />
 
 </asp:Content>

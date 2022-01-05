@@ -47,6 +47,6 @@
 	</asp:GridView>
 
 	<br />
-	<asp:Button ID="btnAddReservation" runat="server" OnClick="btnAddReservation_Click" Text="Hinzufügen" />
+	<asp:Button ID="btnAddReservation" runat="server" OnClick="btnAddReservation_Click" Text="Erstellen" />
 
 </asp:Content>
