@@ -13,9 +13,15 @@ CREATE TABLE tbl_SupremeAdmin (
 	FOREIGN KEY (ID_Student) REFERENCES tbl_Student(ID)
 );
 
-INSERT INTO tbl_SupremeAdmin (ID_Student)
-SELECT 14
-WHERE NOT EXISTS (SELECT * FROM tbl_SupremeAdmin)
+GO
+IF (NOT EXISTS (SELECT * FROM tbl_Student WHERE eMail = 'test@test.com'))
+BEGIN
+	INSERT INTO tbl_Student (Name, Vorname, eMail, Handy, Passwort, IsAdmin, Bemerkung, ID_Status)
+	VALUES ('Stöckli', 'Edgar', 'test@test.com', '+49 395 372 93 75', '5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8', 1, 'This is a test account', 2);
+
+	INSERT INTO  tbl_SupremeAdmin (ID_Student) VALUES ((SELECT MAX(ID) FROM tbl_Student))
+END
+GO
 
 
 /* ***************************************************************************** */
@@ -165,7 +171,7 @@ VALUES (@Name, @Vorname, @eMail, @Handy, @Passwort, 0, NULL, (SELECT ID FROM tbl
 GO
 
 /*
-EXEC spInsertStudent @Name='Le', @Vorname='BaoMinh', @eMail='bao.minh@gmail.com', @Handy='02949284972', @Passwort='96C34D848F3F576D6E43FB42D7B5DDBA12303D1280F6601448003B84C205B6B4';
+EXEC spInsertStudent @Name='Le', @Vorname='BaoMinh', @eMail='test@test.com', @Handy='05449264922', @Passwort='5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8';
 */
 
 
@@ -199,11 +205,13 @@ CREATE PROC spDeleteStudent
 	@eMail VARCHAR(50)
 )
 AS
+DELETE FROM tbl_SperrfensterAusnahmen WHERE ID_Student = (SELECT ID FROM tbl_Student WHERE tbl_Student.eMail = @eMail);
+DELETE FROM tbl_Reservation WHERE ID_Student = (SELECT ID FROM tbl_Student WHERE tbl_Student.eMail = @eMail);
 DELETE FROM tbl_Student WHERE tbl_Student.eMail = @eMail;
 GO
 
 /*
-EXEC spDeleteStudent @eMail='fck.dich@steffen.ch';
+EXEC spDeleteStudent @eMail='test@test.com';
 */
 
 /* ***************************************************************************** */
