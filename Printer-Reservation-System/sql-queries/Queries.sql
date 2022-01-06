@@ -205,6 +205,7 @@ CREATE PROC spDeleteStudent
 	@eMail VARCHAR(50)
 )
 AS
+DELETE FROM tbl_SupremeAdmin WHERE ID_Student = (SELECT ID FROM tbl_Student WHERE tbl_Student.eMail = @eMail);
 DELETE FROM tbl_SperrfensterAusnahmen WHERE ID_Student = (SELECT ID FROM tbl_Student WHERE tbl_Student.eMail = @eMail);
 DELETE FROM tbl_Reservation WHERE ID_Student = (SELECT ID FROM tbl_Student WHERE tbl_Student.eMail = @eMail);
 DELETE FROM tbl_Student WHERE tbl_Student.eMail = @eMail;
