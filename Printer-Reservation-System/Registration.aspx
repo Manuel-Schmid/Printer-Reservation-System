@@ -1,11 +1,9 @@
-﻿<%@ Page Title="Registration" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="Printer_Reservation_System.Login" %>
+﻿<%@ Page Title="Registration" Language="C#" MasterPageFile="~/site.Master" AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="Printer_Reservation_System.Login" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
     <link rel="stylesheet" runat="server" media="screen" href="/styles.css" /> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-
-    <span class="title">3D-Drucker Reservation</span>
 
     <div class="registration">
         <asp:Label runat="server" CssClass="label">Vorname</asp:Label>

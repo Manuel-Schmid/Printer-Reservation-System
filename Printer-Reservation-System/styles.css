@@ -12,17 +12,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 15vw;
-}
-
-.title {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 10vh;
-    font-weight: bolder;
+    transform: translate(-25%, -50%);
 }
 
 .input-box {
@@ -34,6 +24,8 @@
     position: relative;
     bottom: 0;
     left: 0;
+    width: 20vw;
+    margin-top: 1vh;
 }
 
 .registration {
@@ -48,8 +40,42 @@
     position: absolute;
     top: 0;
     right: 0;
+    margin-left: 16vw;
+}
+
+.active {
+    color: dodgerblue !important;
 }
 
 .validator {
     color: red;
+}
+
+header {
+    font-size: 5vh;
+    font-weight: bold;
+    margin: 1vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 2vh;
+}
+
+.navbar1 {
+    position: absolute;
+    margin: 2vh;
+    right: 0;
+    top: 0;
+}
+
+.navbar__text {
+    margin: 1vh;
+    font-size: 3vh;
+    color: black;
 }

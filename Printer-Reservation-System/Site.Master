@@ -4,7 +4,8 @@
 
 <html>
 <head runat="server">
-	<title></title>
+    <link href="/styles.css" rel="stylesheet" />
+	<title>GBS 3D-Drucker Reservation</title>
 </head>
 <body>
 	<form id="form" runat="server">
@@ -24,9 +25,9 @@
 				</navigation>
 			<asp:ContentPlaceHolder ID="PlaceHolderMain" runat="server">
 			</asp:ContentPlaceHolder>
-			<!-- <footer>
-				<span>footer footer footer</span>
-			</footer> -->
+			<footer>
+				<span>© Manuel Schmid, Bao Minh Le 2022</span>
+			</footer>
 		</div>
 	</form>
 </body>
