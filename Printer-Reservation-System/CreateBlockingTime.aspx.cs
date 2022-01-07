@@ -99,17 +99,24 @@ namespace Printer_Reservation_System
 			return tblStudents;
 		}
 
+		private void dateVal()
+		{
+			if (calFromDate.SelectedDate == DateTime.MinValue) calFromDateValidator.IsValid = false;
+			if (calToDate.SelectedDate == DateTime.MinValue) calToDateValidator.IsValid = false;
+		}
 
 		protected void btnCreate_Click(object sender, EventArgs e)
 		{
 			lblWrongDateOrder.ForeColor = System.Drawing.Color.Red;
 			lblWrongDateOrder.Text = "";
+			dateVal();
+
 			if (Page.IsValid)
 			{
 				try
 				{
-					DateTime fromDate = Convert.ToDateTime(txtFromDate.Text + " " + txtFromTime.Text);
-					DateTime toDate = Convert.ToDateTime(txtToDate.Text + " " + txtToTime.Text);
+					DateTime fromDate = Convert.ToDateTime(calFromDate.SelectedDate.ToString().Split(' ')[0] + " " + txtFromTime.Text);
+					DateTime toDate = Convert.ToDateTime(calToDate.SelectedDate.ToString().Split(' ')[0] + " " + txtToTime.Text);
 					if (fromDate >= toDate)
 					{
 						lblWrongDateOrder.Text = "Geben Sie eine gültige Zeitspanne ein.";

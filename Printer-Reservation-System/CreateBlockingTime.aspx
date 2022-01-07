@@ -29,19 +29,8 @@
 
 	<asp:Label runat="server">Datum</asp:Label>
 	<br />
-	<asp:TextBox ID="txtFromDate" runat="server"></asp:TextBox>
-	<asp:RequiredFieldValidator id="requiredFieldValidator3" ControlToValidate="txtFromDate"
-		ErrorMessage="Bitte füllen Sie dieses Feld aus" 
-		runat="server" Display="Dynamic" />
-	<asp:CompareValidator
-		id="dateValidator" 
-		runat="server" 
-		Type="Date"
-		Operator="DataTypeCheck"
-		ControlToValidate="txtFromDate" 
-		ErrorMessage="Bitte geben Sie ein gültiges Datum ein." 
-		Display="Dynamic" >
-	</asp:CompareValidator>
+	<asp:Calendar ID="calFromDate" runat="server"></asp:Calendar>
+	<asp:CustomValidator id="calFromDateValidator" ErrorMessage="Bitte geben Sie ein gültiges Startdatum an." runat="server" Display="Dynamic" CssClass="validator"/>
 	<br />
 	<br />
 
@@ -62,19 +51,8 @@
 
 	<asp:Label runat="server">Datum</asp:Label>
 	<br />
-	<asp:TextBox ID="txtToDate" runat="server"></asp:TextBox>
-	<asp:RequiredFieldValidator id="requiredFieldValidator2" ControlToValidate="txtToDate"
-		ErrorMessage="Bitte füllen Sie dieses Feld aus" 
-		runat="server" Display="Dynamic"/>
-	<asp:CompareValidator
-		id="CompareValidator1" 
-		runat="server" 
-		Type="Date"
-		Operator="DataTypeCheck"
-		ControlToValidate="txtToDate" 
-		ErrorMessage="Bitte geben Sie ein gültiges Datum ein." 
-		Display="Dynamic" >
-	</asp:CompareValidator>
+	<asp:Calendar ID="calToDate" runat="server"></asp:Calendar>
+	<asp:CustomValidator id="calToDateValidator" ErrorMessage="Bitte geben Sie ein gültiges Enddatum an." runat="server" Display="Dynamic" CssClass="validator"/>
 	<br />
 	<br />
 
