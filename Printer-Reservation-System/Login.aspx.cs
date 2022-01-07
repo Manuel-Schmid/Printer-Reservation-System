@@ -67,8 +67,13 @@ namespace Printer_Reservation_System
         {
             // remove this !!!!!
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             //Response.Redirect("~/RegistrationsOverview.aspx");
             //return;
+=======
+            Response.Redirect("~/ReservationsOverview.aspx");
+            return;
+>>>>>>> Stashed changes
 =======
             Response.Redirect("~/ReservationsOverview.aspx");
             return;
