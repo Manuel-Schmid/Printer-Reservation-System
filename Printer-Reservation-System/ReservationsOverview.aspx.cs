@@ -16,6 +16,8 @@ namespace Printer_Reservation_System
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			if (Request.Cookies["secureCookie"] == null) Response.Redirect("~/Login.aspx");
+
 			if (Session["isAdmin"].ToString() == "True") gvAllRes.Visible = false;
 
 			conBuilder.DataSource = GlobalVariables.dataSource;
@@ -68,7 +70,7 @@ namespace Printer_Reservation_System
 				gvReservations.Rows[0].Cells.Clear();
 				gvReservations.Rows[0].Cells.Add(new TableCell());
 				gvReservations.Rows[0].Cells[0].ColumnSpan = columncount;
-				gvReservations.Rows[0].Cells[0].Text = "No Reservations Found";
+				gvReservations.Rows[0].Cells[0].Text = "Keine Reservationen vorhanden";
 			}
 
 			if (Session["isAdmin"].ToString() == "False")
@@ -106,7 +108,7 @@ namespace Printer_Reservation_System
 				gvAllRes.Rows[0].Cells.Clear();
 				gvAllRes.Rows[0].Cells.Add(new TableCell());
 				gvAllRes.Rows[0].Cells[0].ColumnSpan = columncount;
-				gvAllRes.Rows[0].Cells[0].Text = "No Reservations Found";
+				gvAllRes.Rows[0].Cells[0].Text = "Keine Reservationen vorhanden";
 			}
 		}
 

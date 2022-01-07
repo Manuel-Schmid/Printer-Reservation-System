@@ -16,7 +16,9 @@ namespace Printer_Reservation_System
 		bool isSupreme = false;
 
 		protected void Page_Load(object sender, EventArgs e)
-		{			
+		{	
+			if (Request.Cookies["secureCookie"] == null) Response.Redirect("~/Login.aspx");
+
 			if (Session["isAdmin"].ToString() == "False")
 			{
 				gridviewRegistrations.Visible = false;
@@ -308,8 +310,11 @@ namespace Printer_Reservation_System
 
 		protected void btnLogout_Click(object sender, EventArgs e)
 		{
-			//Session["email"] = "";
-			//Session["isAdmin"] = false;
+			if (Request.Cookies["secureCookie"] != null) {
+				Response.Cookies["secureCookie"].Expires = DateTime.Now.AddDays(-1);
+			}
+			Session.Abandon();
+
 			Response.Redirect("~/Login.aspx");
 		}
 	}

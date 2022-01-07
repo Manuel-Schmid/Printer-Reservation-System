@@ -42,31 +42,22 @@ namespace Printer_Reservation_System
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// txtFromDate control.
+        /// calFromDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFromDate;
+        protected global::System.Web.UI.WebControls.Calendar calFromDate;
 
         /// <summary>
-        /// requiredFieldValidator3 control.
+        /// calFromDateValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator requiredFieldValidator3;
-
-        /// <summary>
-        /// dateValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator dateValidator;
+        protected global::System.Web.UI.WebControls.CustomValidator calFromDateValidator;
 
         /// <summary>
         /// txtFromTime control.
@@ -105,31 +96,22 @@ namespace Printer_Reservation_System
         protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
-        /// txtToDate control.
+        /// calToDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtToDate;
+        protected global::System.Web.UI.WebControls.Calendar calToDate;
 
         /// <summary>
-        /// requiredFieldValidator2 control.
+        /// calToDateValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator requiredFieldValidator2;
-
-        /// <summary>
-        /// CompareValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
+        protected global::System.Web.UI.WebControls.CustomValidator calToDateValidator;
 
         /// <summary>
         /// txtToTime control.
