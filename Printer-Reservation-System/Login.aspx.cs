@@ -66,8 +66,13 @@ namespace Printer_Reservation_System
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             // remove this !!!!!
+<<<<<<< Updated upstream
             //Response.Redirect("~/RegistrationsOverview.aspx");
             //return;
+=======
+            Response.Redirect("~/ReservationsOverview.aspx");
+            return;
+>>>>>>> Stashed changes
             // remove this !!!!!
 
             if (Page.IsValid)
