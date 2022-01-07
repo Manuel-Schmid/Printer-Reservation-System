@@ -29,6 +29,8 @@ namespace Printer_Reservation_System
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			if (Request.Cookies["secureCookie"] == null) Response.Redirect("~/Login.aspx");
+
 			conBuilder.DataSource = GlobalVariables.dataSource;
 			conBuilder.InitialCatalog = GlobalVariables.dbName;
 			conBuilder.IntegratedSecurity = true;

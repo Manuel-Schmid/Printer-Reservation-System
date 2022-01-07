@@ -16,6 +16,8 @@ namespace Printer_Reservation_System
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			if (Request.Cookies["secureCookie"] == null) Response.Redirect("~/Login.aspx");
+
 			if (Session["isAdmin"].ToString() == "False")
 			{
 				gvPrinters.Columns[0].Visible = false;
