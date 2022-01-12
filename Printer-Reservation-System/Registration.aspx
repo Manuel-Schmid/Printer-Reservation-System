@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Registration" Language="C#" MasterPageFile="~/site.Master" AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="Printer_Reservation_System.Login" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/site.Master" AutoEventWireup="true" CodeBehind="Registration.aspx.cs" Inherits="Printer_Reservation_System.Login" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
@@ -10,42 +10,42 @@
 
         <asp:TextBox ID="txtFirstName" runat="server" CssClass="input input-box" placeholder="Vorname eingeben..."></asp:TextBox>
         <asp:RequiredFieldValidator id="requiredFieldValidator1" ControlToValidate="txtFirstName"
-            ErrorMessage="Bitte füllen Sie dieses Feld aus"
+            ErrorMessage="!"
             runat="server" CssClass="validator"/> 
 
         <asp:Label runat="server" CssClass="label">Nachname</asp:Label>
 
         <asp:TextBox ID="txtLastName" runat="server" CssClass="input input-box" placeholder="Nachname eingeben..."></asp:TextBox>
             <asp:RequiredFieldValidator id="requiredFieldValidator2" ControlToValidate="txtLastName"
-            ErrorMessage="Bitte füllen Sie dieses Feld aus" 
+            ErrorMessage="!" 
             runat="server" CssClass="validator"/>
 
         <asp:Label ID="lblPassword" runat="server" Text="Passwort" CssClass="label"></asp:Label>
 
         <asp:TextBox ID="txtPassword" runat="server" CssClass="input input-box" placeholder="Passwort eingeben..."></asp:TextBox>
         <asp:RequiredFieldValidator id="requiredFieldValidator5" ControlToValidate="txtPassword"
-            ErrorMessage="Bitte füllen Sie diesses Feld aus" 
+            ErrorMessage="!" 
             runat="server" CssClass="validator"/>
 
-        <div class="contact">
+        <div class="contact" style="margin-right: 11vw !important;">
             <asp:Label runat="server" CssClass="label">E-Mail</asp:Label>
 
             <asp:TextBox ID="txtEmail" runat="server" CssClass="input input-box" placeholder="E-Mail eingeben..."></asp:TextBox>
             <asp:RequiredFieldValidator id="requiredFieldValidator3" ControlToValidate="txtEmail"
-                ErrorMessage="Bitte füllen Sie dieses Feld aus" 
+                ErrorMessage="!" 
                 runat="server" Display="Dynamic" CssClass="validator"/>
             <asp:CustomValidator id="duplicateEmailValidator" ControlToValidate="txtEmail"
                 ErrorMessage="Es existiert bereits ein Konto mit dieser E-Mail Adresse." 
                 runat="server" Display="Dynamic" CssClass="validator"/>
             <asp:CustomValidator id="customValidator1" ControlToValidate="txtEmail"
                 OnServerValidate="email_validator"
-                ErrorMessage="Bitte geben Sie eine gültige E-Mail Adresse ein" runat="server" Display="Dynamic" CssClass="validator"/>
+                ErrorMessage="!" runat="server" Display="Dynamic" CssClass="validator"/>
 
             <asp:Label runat="server" CssClass="label">Handy</asp:Label>
 
             <asp:TextBox ID="txtHandy" runat="server" CssClass="input input-box" placeholder="Telefonnummer eingeben..."></asp:TextBox>
             <asp:RequiredFieldValidator id="requiredFieldValidator6" ControlToValidate="txtHandy"
-            ErrorMessage="Bitte füllen Sie dieses Feld aus" 
+            ErrorMessage="!" 
             runat="server" CssClass="validator"/>
         </div>
 

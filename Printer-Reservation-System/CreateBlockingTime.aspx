@@ -1,113 +1,89 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateBlockingTime.aspx.cs" Inherits="Printer_Reservation_System.CreateBlockingTime" %>
+﻿<%@ Page Title="3D-Drucker - Druckerübersicht" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateBlockingTime.aspx.cs" Inherits="Printer_Reservation_System.CreateBlockingTime" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
-	<asp:HyperLink NavigateUrl="PrinterOverview.aspx" runat="server">Drucker</asp:HyperLink>
-	<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" runat="server" CssClass="active">Sperrzeiten</asp:HyperLink>
-	<asp:HyperLink NavigateUrl="ReservationsOverview.aspx" runat="server" >Reservationen</asp:HyperLink>
-	<asp:HyperLink NavigateUrl="StudentsOverview.aspx" runat="server">Nutzerverwaltung</asp:HyperLink>
+
+	<link rel="stylesheet" runat="server" media="screen" href="/styles.css" /> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    
+	<div class="navbar1">
+		<asp:HyperLink NavigateUrl="PrinterOverview.aspx" runat="server" CssClass="navbar__text">Drucker</asp:HyperLink>
+		<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" runat="server" CssClass="active navbar__text">Sperrzeiten</asp:HyperLink>
+		<asp:HyperLink NavigateUrl="ReservationsOverview.aspx" runat="server" CssClass="navbar__text">Reservationen</asp:HyperLink>
+		<asp:HyperLink NavigateUrl="StudentsOverview.aspx" runat="server" CssClass="navbar__text">Nutzerverwaltung</asp:HyperLink>
+    </div>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
-	<p>
-		<asp:Literal ID="litInfo" runat="server" Text="Bitte geben Sie die gewünschten Daten für das Sperrfenster an: " ></asp:Literal>
-	</p>
+    <span style="font-size: 3vh; font-weight: bold; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);">neues Sperrfenster hinzufügen</span>
 
-	 <br />
-	 <asp:Label ID="Label4" runat="server" Text="Grund"></asp:Label>
-	 <br />
-	 <asp:TextBox ID="txtAreaReason" runat="server" TextMode="MultiLine"></asp:TextBox>
-	 <br />
-	<br />
-	<br />
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 36vh; width: 38vw;">
 
-	Zu sperrender Drucker<br />
-	<asp:DropDownList ID="ddlPrinters" runat="server"></asp:DropDownList>
-	<br />
-	<br />
-	<br />
-	 <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="Large" Text="Von"></asp:Label>
-	<br />
+        <span style="margin-right: 2vh; font-size: 2vh;">Drucker:</span>
+		<asp:DropDownList ID="ddlPrinters" runat="server" CssClass="dropdown"></asp:DropDownList>
+        <br />
 
-	<asp:Label runat="server">Datum</asp:Label>
-	<br />
-	<asp:TextBox ID="txtFromDate" runat="server"></asp:TextBox>
-	<asp:RequiredFieldValidator id="requiredFieldValidator3" ControlToValidate="txtFromDate"
-		ErrorMessage="Bitte füllen Sie dieses Feld aus" 
-		runat="server" Display="Dynamic" />
-	<asp:CompareValidator
-		id="dateValidator" 
-		runat="server" 
-		Type="Date"
-		Operator="DataTypeCheck"
-		ControlToValidate="txtFromDate" 
-		ErrorMessage="Bitte geben Sie ein gültiges Datum ein." 
-		Display="Dynamic" >
-	</asp:CompareValidator>
-	<br />
-	<br />
+		<asp:TextBox ID="txtFromDate" runat="server" placeholder="Datum [DD.MM.YY]" CssClass="input" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
+		<asp:RequiredFieldValidator id="requiredFieldValidator3" ControlToValidate="txtFromDate"
+			ErrorMessage="!" 
+			runat="server" Display="Dynamic" />
+		<asp:CompareValidator
+			id="dateValidator" 
+			runat="server" 
+			Type="Date"
+			Operator="DataTypeCheck"
+			ControlToValidate="txtFromDate" 
+			ErrorMessage="!" 
+			Display="Dynamic" >
+		</asp:CompareValidator>
 
-	<asp:Label runat="server">Uhrzeit</asp:Label>
-	<br />
-	<asp:TextBox ID="txtFromTime" runat="server"></asp:TextBox>
-	<asp:RequiredFieldValidator id="requiredFieldValidator1" ControlToValidate="txtFromTime"
-		ErrorMessage="Bitte füllen Sie dieses Feld aus" 
-		runat="server" Display="Dynamic" />
-	<asp:RegularExpressionValidator id=RegularExpressionValidator1 runat="server" ErrorMessage="Bitte geben Sie eine gültige Uhrzeit ein." Display="Dynamic" ControlToValidate="txtFromTime" 
-		ValidationExpression="^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$">
-	</asp:RegularExpressionValidator>
-	<br />
-	<br />
-	<br />
-	<asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Large" Text="Bis"></asp:Label>
-	<br />
+		<asp:TextBox ID="txtFromTime" runat="server" placeholder="Uhrzeit [HH:MM]" CssClass="input" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
+		<asp:RequiredFieldValidator id="requiredFieldValidator1" ControlToValidate="txtFromTime"
+			ErrorMessage="!" 
+			runat="server" Display="Dynamic" />
+		<asp:RegularExpressionValidator id=RegularExpressionValidator1 runat="server" ErrorMessage="!" Display="Dynamic" ControlToValidate="txtFromTime" 
+			ValidationExpression="^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$">
+		</asp:RegularExpressionValidator>
 
-	<asp:Label runat="server">Datum</asp:Label>
-	<br />
-	<asp:TextBox ID="txtToDate" runat="server"></asp:TextBox>
-	<asp:RequiredFieldValidator id="requiredFieldValidator2" ControlToValidate="txtToDate"
-		ErrorMessage="Bitte füllen Sie dieses Feld aus" 
-		runat="server" Display="Dynamic"/>
-	<asp:CompareValidator
-		id="CompareValidator1" 
-		runat="server" 
-		Type="Date"
-		Operator="DataTypeCheck"
-		ControlToValidate="txtToDate" 
-		ErrorMessage="Bitte geben Sie ein gültiges Datum ein." 
-		Display="Dynamic" >
-	</asp:CompareValidator>
-	<br />
-	<br />
 
-	<asp:Label runat="server">Uhrzeit</asp:Label>
-	<br />
-	<asp:TextBox ID="txtToTime" runat="server"></asp:TextBox>
-	<asp:RequiredFieldValidator id="requiredFieldValidator4" ControlToValidate="txtToTime"
-		ErrorMessage="Bitte füllen Sie dieses Feld aus" 
-		runat="server" Display="Dynamic"/>
-	<asp:RegularExpressionValidator id=RegularExpressionValidator2 runat="server" ErrorMessage="Bitte geben Sie eine gültige Uhrzeit ein." Display="Dynamic" ControlToValidate="txtToTime" 
-		ValidationExpression="^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$">
-	</asp:RegularExpressionValidator>
-	<br />
-	 <br />
-	 <br />
+		<span style="font-size: 2vh; margin: 2vh;">bis</span> 
 
-	<asp:Label runat="server" ID="Label5">Von der Sperrzeit ausgenommene Schüler:</asp:Label>
-	<br />
+		<asp:TextBox ID="txtToDate" runat="server" placeholder="Datum [DD.MM.YY]" CssClass="input" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
+		<asp:RequiredFieldValidator id="requiredFieldValidator2" ControlToValidate="txtToDate"
+			ErrorMessage="!" 
+			runat="server" Display="Dynamic"/>
+		<asp:CompareValidator
+			id="CompareValidator1" 
+			runat="server" 
+			Type="Date"
+			Operator="DataTypeCheck"
+			ControlToValidate="txtToDate" 
+			ErrorMessage="!" 
+			Display="Dynamic" >
+		</asp:CompareValidator>
 
-	<asp:CheckBoxList ID="listStudents"	runat="server"></asp:CheckBoxList>
+		<asp:TextBox ID="txtToTime" runat="server" placeholder="Uhrzeit [HH:MM]" CssClass="input" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
+		<asp:RequiredFieldValidator id="requiredFieldValidator4" ControlToValidate="txtToTime"
+			ErrorMessage="!" 
+			runat="server" Display="Dynamic"/>
+		<asp:RegularExpressionValidator id=RegularExpressionValidator2 runat="server" ErrorMessage="!" Display="Dynamic" ControlToValidate="txtToTime" 
+			ValidationExpression="^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$">
+		</asp:RegularExpressionValidator>
 
-	<br />
-	<br />
-	 <br />
-	 <asp:Label ID="Label3" runat="server" Text="Bemerkung"></asp:Label>
-	 <br />
-	 <asp:TextBox ID="txtAreaComment" runat="server" TextMode="MultiLine"></asp:TextBox>
-	 <br />
-	<br />
+		<asp:TextBox ID="txtAreaReason" runat="server" TextMode="MultiLine" CssClass="textarea has-fixed-size" placeholder="Grund des Sperrfensters beschreiben..." style="width: 8vw; margin-top: 1vh; margin-bottom: 1vh;"></asp:TextBox>
 
-	<asp:Label ID="lblWrongDateOrder" runat="server" ForeColor="Red"></asp:Label>
-	<br />
+        <span style="font-size: 1.7vh; margin-top: 1vh;">nicht betroffene Nutzer:</span>
 
-	<asp:Button type="submit" ID="btnCreate" runat="server" Text="Erstellen" OnClick="btnCreate_Click" />
+		<asp:CheckBoxList ID="listStudents"	runat="server"></asp:CheckBoxList>
 
+		 <asp:TextBox ID="txtAreaComment" runat="server" TextMode="MultiLine" placeholder="Bemerkung..." CssClass="textarea has-fixed-size" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
+
+		<asp:Label ID="lblWrongDateOrder" runat="server" style="color: red;"></asp:Label>
+		
+        <div style="position: absolute; right: 0; bottom: 0;">
+			<a href="/BlockingTimesOverview.aspx" class="button is-danger is-rounded">Abbruch</a>
+			<asp:Button type="submit" ID="btnCreate" runat="server" Text="Erstellen" OnClick="btnCreate_Click" Cssclass="button is-success is-rounded" />
+        </div>
+
+	</div>
+    <%--  --%>
 </asp:Content>

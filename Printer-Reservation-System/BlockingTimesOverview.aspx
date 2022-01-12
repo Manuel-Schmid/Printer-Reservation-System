@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BlockingTimesOverview.aspx.cs" Inherits="Printer_Reservation_System.BlockingTimesOverview" %>
+﻿<%@ Page Title="3D-Drucker - Sperrzeiten" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BlockingTimesOverview.aspx.cs" Inherits="Printer_Reservation_System.BlockingTimesOverview" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 
 	<link rel="stylesheet" runat="server" media="screen" href="/styles.css" /> 
@@ -15,7 +15,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
-	<asp:GridView ID="gvBlockingTimes" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="gvBlockingTimes_PageIndexChanging" OnRowCancelingEdit="gvBlockingTimes_RowCancelingEdit" OnRowDeleting="gvBlockingTimes_RowDeleting" OnRowEditing="gvBlockingTimes_RowEditing" OnRowUpdating="gvBlockingTimes_RowUpdating" OnRowDataBound="gvBlockingTimesRowDataBound">
+	<asp:GridView style="height: 20vh; width: 70vw; font-size: 2vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: none; padding: 0;" CssClass="table--centered table table is-striped" HeaderStyle-CssClass="thead" RowStyle-CssClass="tr" ID="gvBlockingTimes" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="gvBlockingTimes_PageIndexChanging" OnRowCancelingEdit="gvBlockingTimes_RowCancelingEdit" OnRowDeleting="gvBlockingTimes_RowDeleting" OnRowEditing="gvBlockingTimes_RowEditing" OnRowUpdating="gvBlockingTimes_RowUpdating" OnRowDataBound="gvBlockingTimesRowDataBound">
 		<Columns>
 			<asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="true" />
 			<asp:BoundField DataField="Grund" HeaderText="Grund" />
@@ -47,6 +47,6 @@
 	</asp:GridView>
 
 	<br />
-	<asp:Button ID="btnCreateBlockingTime" runat="server" Text="Erstellen" OnClick="btnCreateBlockingTime_Click" />
+	<asp:Button ID="btnCreateBlockingTime" runat="server" Text="+ Sperrzeit erstellen" OnClick="btnCreateBlockingTime_Click" CssClass="button is-link is-rounded" style="font-weight: bold; bottom: 0; left: 0; position: absolute; margin: 2vh; height: 5vh; width: 19vh;"/>
 
 </asp:Content>
