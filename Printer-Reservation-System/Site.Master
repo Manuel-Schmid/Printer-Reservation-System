@@ -4,7 +4,7 @@
 
 <html>
 <head runat="server">
-    <link href="/styles.css" rel="stylesheet" />
+	<link href="/styles.css" rel="stylesheet" />
 	<title>GBS 3D-Drucker Reservation</title>
     <link rel="icon" type="image/svg" href="/tools.svg">
 </head>

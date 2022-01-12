@@ -70,24 +70,6 @@ namespace Printer_Reservation_System
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
-            // remove this !!!!!
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            //Response.Redirect("~/RegistrationsOverview.aspx");
-            //return;
-=======
-            Response.Redirect("~/ReservationsOverview.aspx");
-            return;
->>>>>>> Stashed changes
-=======
-            Response.Redirect("~/ReservationsOverview.aspx");
-            return;
->>>>>>> Stashed changes
-            // remove this !!!!!
-
-=======
->>>>>>> master
             if (Page.IsValid)
             {
                 if (isLoginValid())
@@ -100,9 +82,14 @@ namespace Printer_Reservation_System
                             Session["isAdmin"] = IsStudentAdmin(txtEmail.Text);
 
                             // set cookie
-                            HttpCookie secureCookie = new HttpCookie("secureCookie");
-                            secureCookie.Values.Add("hash", GetHashString(txtEmail.Text));
-                            Response.Cookies.Add(secureCookie);
+                            //HttpCookie secureCookie = new HttpCookie("secureCookie");
+                            //secureCookie.Values.Add("hash", GetHashString(txtEmail.Text));
+                            //Response.Cookies.Add(secureCookie);
+                            Response.Cookies.Add(new HttpCookie("secureCookie", GetHashString(txtEmail.Text))
+                            {
+                                HttpOnly = true,
+                                Secure = true,
+                            });
 
                             Response.Redirect("~/ReservationsOverview.aspx");
                             break;

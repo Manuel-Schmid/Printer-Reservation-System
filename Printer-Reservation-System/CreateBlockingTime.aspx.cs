@@ -29,7 +29,7 @@ namespace Printer_Reservation_System
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (Request.Cookies["secureCookie"] == null) Response.Redirect("~/Login.aspx");
+			if ((Request.Cookies["secureCookie"] == null) || Session["isAdmin"].ToString() == "False") Response.Redirect("~/Login.aspx");
 
 			conBuilder.DataSource = GlobalVariables.dataSource;
 			conBuilder.InitialCatalog = GlobalVariables.dbName;
@@ -103,8 +103,8 @@ namespace Printer_Reservation_System
 
 		private void dateVal()
 		{
-			if (calFromDate.SelectedDate == DateTime.MinValue) calFromDateValidator.IsValid = false;
-			if (calToDate.SelectedDate == DateTime.MinValue) calToDateValidator.IsValid = false;
+			if (calFromDate.SelectedDate < DateTime.Now || calFromDate.SelectedDate == DateTime.MinValue) calFromDateValidator.IsValid = false;
+			if (calToDate.SelectedDate < DateTime.Now || calToDate.SelectedDate == DateTime.MinValue || calToDate.SelectedDate < calFromDate.SelectedDate) calToDateValidator.IsValid = false;
 		}
 
 		protected void btnCreate_Click(object sender, EventArgs e)
