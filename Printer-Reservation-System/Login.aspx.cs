@@ -82,9 +82,14 @@ namespace Printer_Reservation_System
                             Session["isAdmin"] = IsStudentAdmin(txtEmail.Text);
 
                             // set cookie
-                            HttpCookie secureCookie = new HttpCookie("secureCookie");
-                            secureCookie.Values.Add("hash", GetHashString(txtEmail.Text));
-                            Response.Cookies.Add(secureCookie);
+                            //HttpCookie secureCookie = new HttpCookie("secureCookie");
+                            //secureCookie.Values.Add("hash", GetHashString(txtEmail.Text));
+                            //Response.Cookies.Add(secureCookie);
+                            Response.Cookies.Add(new HttpCookie("secureCookie", GetHashString(txtEmail.Text))
+                            {
+                                HttpOnly = true,
+                                Secure = true,
+                            });
 
                             Response.Redirect("~/ReservationsOverview.aspx");
                             break;

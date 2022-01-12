@@ -133,17 +133,20 @@ namespace Printer_Reservation_System
 		protected void gridviewStudents_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			GridViewRow row = (GridViewRow)gridviewStudents.Rows[e.RowIndex];
-			con.Open();
-			SqlCommand cmd = new SqlCommand("spDeleteStudent", con);
+			if (!IsSupremeAdmin(row.Cells[3].Text))
+			{
+				con.Open();
+				SqlCommand cmd = new SqlCommand("spDeleteStudent", con);
 
-			cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandType = CommandType.StoredProcedure;
 
-			cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
-			cmd.Parameters["@eMail"].Value = row.Cells[3].Text;
+				cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
+				cmd.Parameters["@eMail"].Value = row.Cells[3].Text;
 
-			cmd.ExecuteNonQuery();
-			con.Close();
-			gvBindStudents();
+				cmd.ExecuteNonQuery();
+				con.Close();
+				gvBindStudents();
+			}
 		}
 
 		protected void gridviewStudents_RowUpdating(object sender, GridViewUpdateEventArgs e)
