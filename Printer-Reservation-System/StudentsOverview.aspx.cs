@@ -203,7 +203,6 @@ namespace Printer_Reservation_System
 		}
 
 		// registrations
-
 		protected void gvBindRegistrations()
 		{
 			DataTable tblRegistrations = new DataTable();

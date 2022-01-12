@@ -72,6 +72,7 @@ namespace Printer_Reservation_System
 
 			return tblPrinters;
 		}
+
 		private void dateVal()
 		{
 			if (calFromDate.SelectedDate < DateTime.Now || calFromDate.SelectedDate == DateTime.MinValue) calFromDateValidator.IsValid = false;
