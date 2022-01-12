@@ -73,25 +73,17 @@ namespace Printer_Reservation_System
 			return tblPrinters;
 		}
 
-		private void dateVal()
-		{
-			if (calFromDate.SelectedDate < DateTime.Now || calFromDate.SelectedDate == DateTime.MinValue) calFromDateValidator.IsValid = false;
-			if (calToDate.SelectedDate < DateTime.Now || calToDate.SelectedDate == DateTime.MinValue || calToDate.SelectedDate < calFromDate.SelectedDate) calToDateValidator.IsValid = false;
-		}
-
 		protected void btnCreate_Click(object sender, EventArgs e)
 		{
 			lblReservationError.ForeColor = System.Drawing.Color.Red;
 			lblReservationError.Text = "";
-			dateVal();
 
 			if (Page.IsValid)
 			{
 				try
 				{
-					
-					DateTime fromDate = Convert.ToDateTime(calFromDate.SelectedDate.ToString().Split(' ')[0] + " " + txtFromTime.Text);
-					DateTime toDate = Convert.ToDateTime(calToDate.SelectedDate.ToString().Split(' ')[0] + " " + txtToTime.Text);
+					DateTime fromDate = Convert.ToDateTime(txtFromDate + " " + txtFromTime.Text);
+					DateTime toDate = Convert.ToDateTime(txtToDate + " " + txtToTime.Text);
 					if (fromDate >= toDate)
 					{
 						lblReservationError.Text = "Geben Sie eine gültige Zeitspanne ein.";

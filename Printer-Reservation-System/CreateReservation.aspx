@@ -2,25 +2,25 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 
 	<link rel="stylesheet" runat="server" media="screen" href="/styles.css" /> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+	
 	<div class="navbar1">
 		<asp:HyperLink NavigateUrl="PrinterOverview.aspx" runat="server" CssClass="navbar__text">Drucker</asp:HyperLink>
 		<asp:HyperLink NavigateUrl="BlockingTimesOverview.aspx" runat="server" CssClass="navbar__text">Sperrzeiten</asp:HyperLink>
 		<asp:HyperLink NavigateUrl="ReservationsOverview.aspx" runat="server" CssClass="active navbar__text">Reservationen</asp:HyperLink>
 		<asp:HyperLink NavigateUrl="StudentsOverview.aspx" runat="server" CssClass="navbar__text">Nutzerverwaltung</asp:HyperLink>
-    </div>
+	</div>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
 	<span style="font-size: 3vh; font-weight: bold; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);">Drucker reservieren</span>
 
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 22vh; width: 38vw;">
+	<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 22vh; width: 38vw;">
 
 		<span style="margin-right: 2vh; font-size: 2vh;">Drucker:</span>
 		<asp:DropDownList ID="ddlPrinters" runat="server"></asp:DropDownList>
-        <br />
+		<br />
 
 		<asp:TextBox ID="txtFromDate" runat="server" placeholder="Datum [DD.MM.YY]" CssClass="input" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
 		<asp:RequiredFieldValidator id="requiredFieldValidator3" ControlToValidate="txtFromDate"
@@ -70,12 +70,12 @@
 
 		<asp:TextBox ID="txtAreaComment" runat="server" TextMode="MultiLine" placeholder="Bemerkung..." CssClass="textarea has-fixed-size" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
 
-		<asp:Label ID="lblWrongDateOrder" runat="server"></asp:Label>
+		<asp:Label ID="lblReservationError" runat="server"></asp:Label>
 
 		<div style="position: absolute; right: 0; bottom: 0;">
 			<a href="/ReservationsOverview.aspx" class="button is-danger is-rounded">Abbruch</a>
 			<asp:Button type="submit" ID="btnCreate" runat="server" Text="Erstellen" OnClick="btnCreate_Click" Cssclass="button is-success is-rounded" />
-        </div>
+		</div>
 
 	</div>
 
