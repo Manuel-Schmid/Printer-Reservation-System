@@ -133,7 +133,7 @@ namespace Printer_Reservation_System
 		protected void gridviewStudents_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			GridViewRow row = (GridViewRow)gridviewStudents.Rows[e.RowIndex];
-			if (!IsSupremeAdmin(row.Cells[3].Text))
+			if (row.Cells[3].Text != Session["email"].ToString() && !IsSupremeAdmin(row.Cells[3].Text)) // can't delete supreme admin or oneself
 			{
 				con.Open();
 				SqlCommand cmd = new SqlCommand("spDeleteStudent", con);
