@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Printer_Reservation_System.Login1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Printer_Reservation_System.Login1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PlaceHolderHeader" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
@@ -9,16 +9,16 @@
         <asp:Label runat="server" CssClass="label">E-Mail</asp:Label>
         <asp:TextBox ID="txtEmail" runat="server" CssClass="input input-box" placeholder="E-Mail eingeben..."></asp:TextBox>
         <asp:RequiredFieldValidator id="requiredFieldValidator3" ControlToValidate="txtEmail"
-            ErrorMessage="Bitte füllen Sie dieses Feld aus" 
+            ErrorMessage="!" 
             runat="server" Display="Dynamic" CssClass="validator"/>
         <asp:CustomValidator id="customValidator1" ControlToValidate="txtEmail"
             OnServerValidate="email_validator"
-            ErrorMessage="Bitte geben Sie eine gültige E-Mail Adresse ein" runat="server" Display="Dynamic" CssClass="validator"/>
+            ErrorMessage="!" runat="server" Display="Dynamic" CssClass="validator"/>
 
         <asp:Label ID="lblPassword" runat="server" Text="Passwort" CssClass="label">Passwort</asp:Label>
         <asp:TextBox ID="txtPassword" runat="server" CssClass="input input-box" placeholder="Passwort eingeben..."></asp:TextBox>
         <asp:RequiredFieldValidator id="requiredFieldValidator5" ControlToValidate="txtPassword"
-            ErrorMessage="Bitte füllen Sie diesses Feld aus" 
+            ErrorMessage="!" 
             runat="server" CssClass="validator"/>
 
         <asp:Label ID="lblInvalidLogin" runat="server" ForeColor="Red"></asp:Label>
