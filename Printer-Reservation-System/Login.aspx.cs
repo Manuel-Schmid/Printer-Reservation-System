@@ -33,6 +33,11 @@ namespace Printer_Reservation_System
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.Cookies["secureCookie"] != null)
+            {
+                Response.Cookies["secureCookie"].Expires = DateTime.Now.AddDays(-1);
+            }
+
             conBuilder.DataSource = GlobalVariables.dataSource;
             conBuilder.InitialCatalog = GlobalVariables.dbName;
             conBuilder.IntegratedSecurity = true;
@@ -65,6 +70,7 @@ namespace Printer_Reservation_System
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             // remove this !!!!!
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
@@ -80,6 +86,8 @@ namespace Printer_Reservation_System
 >>>>>>> Stashed changes
             // remove this !!!!!
 
+=======
+>>>>>>> master
             if (Page.IsValid)
             {
                 if (isLoginValid())
@@ -90,6 +98,12 @@ namespace Printer_Reservation_System
                             lblInvalidLogin.Text = "";
                             Session["email"] = txtEmail.Text;
                             Session["isAdmin"] = IsStudentAdmin(txtEmail.Text);
+
+                            // set cookie
+                            HttpCookie secureCookie = new HttpCookie("secureCookie");
+                            secureCookie.Values.Add("hash", GetHashString(txtEmail.Text));
+                            Response.Cookies.Add(secureCookie);
+
                             Response.Redirect("~/ReservationsOverview.aspx");
                             break;
 
@@ -113,13 +127,6 @@ namespace Printer_Reservation_System
                 {
                     lblInvalidLogin.Text = "Die eingegebenen Login-Daten sind inkorrekt.";
                 }
-            
-
-                // set cookie
-                //HttpCookie userCookie = new HttpCookie("userCookie");
-                //userCookie.Values.Add("firstName", txtFirstName.Text);
-                //userCookie.Values.Add("lastName", txtLastName.Text);
-                //Response.Cookies.Add(userCookie);
             }
         }
 

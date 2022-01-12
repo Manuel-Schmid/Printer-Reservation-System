@@ -8,7 +8,6 @@
     <div class="login">
         <asp:Label runat="server" CssClass="label">E-Mail</asp:Label>
         <asp:TextBox ID="txtEmail" runat="server" CssClass="input input-box" placeholder="E-Mail eingeben..."></asp:TextBox>
-
         <asp:RequiredFieldValidator id="requiredFieldValidator3" ControlToValidate="txtEmail"
             ErrorMessage="!" 
             runat="server" Display="Dynamic" CssClass="validator"/>
