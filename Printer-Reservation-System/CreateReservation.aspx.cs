@@ -82,8 +82,8 @@ namespace Printer_Reservation_System
 			{
 				try
 				{
-					DateTime fromDate = Convert.ToDateTime(txtFromDate + " " + txtFromTime.Text);
-					DateTime toDate = Convert.ToDateTime(txtToDate + " " + txtToTime.Text);
+					DateTime fromDate = Convert.ToDateTime(txtFromDate.Text + " " + txtFromTime.Text);
+					DateTime toDate = Convert.ToDateTime(txtToDate.Text + " " + txtToTime.Text);
 					if (fromDate >= toDate)
 					{
 						lblReservationError.Text = "Geben Sie eine gültige Zeitspanne ein.";
