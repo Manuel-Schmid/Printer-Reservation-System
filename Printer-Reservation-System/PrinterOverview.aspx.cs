@@ -68,7 +68,7 @@ namespace Printer_Reservation_System
 				gvPrinters.Rows[0].Cells.Clear();
 				gvPrinters.Rows[0].Cells.Add(new TableCell());
 				gvPrinters.Rows[0].Cells[0].ColumnSpan = columncount;
-				gvPrinters.Rows[0].Cells[0].Text = "No Printers Found";
+				gvPrinters.Rows[0].Cells[0].Text = "Keine Drucker vorhanden";
 			}
 		}
 

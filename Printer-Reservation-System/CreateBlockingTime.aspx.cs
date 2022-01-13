@@ -138,7 +138,6 @@ namespace Printer_Reservation_System
 						Response.Redirect("~/BlockingTimesOverview.aspx");
 					}
 				}
-
 					catch (Exception ex)
 				{
 					lblWrongDateOrder.Text = "Geben Sie eine gültige Zeitspanne ein.";
