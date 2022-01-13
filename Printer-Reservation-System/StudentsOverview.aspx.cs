@@ -22,6 +22,7 @@ namespace Printer_Reservation_System
 			if (Session["isAdmin"].ToString() == "False")
 			{
 				gridviewRegistrations.Visible = false;
+				label2.Visible = false;
 				gridviewStudents.Columns[0].Visible = false;
 				gridviewStudents.Columns[6].Visible = false;
 				gridviewStudents.Columns[8].Visible = false;

@@ -15,7 +15,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
-	<asp:GridView style="height: 20vh; width: 70vw; font-size: 2vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: none; padding: 0;" CssClass="table--centered table table is-striped" HeaderStyle-CssClass="thead" RowStyle-CssClass="tr" ID="gvBlockingTimes" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="gvBlockingTimes_PageIndexChanging" OnRowCancelingEdit="gvBlockingTimes_RowCancelingEdit" OnRowDeleting="gvBlockingTimes_RowDeleting" OnRowEditing="gvBlockingTimes_RowEditing" OnRowUpdating="gvBlockingTimes_RowUpdating" OnRowDataBound="gvBlockingTimesRowDataBound">
+	<div style="position: absolute; top: 25%; left: 50%; transform: translate(-50%);">
+
+	<span style="font-size: 3vh; font-weight: bold; margin-bottom: 2vh;">Sperrzeiten</span>
+
+	<asp:GridView style="height: 20vh; width: 70vw; font-size: 2vh; border: none; padding: 0;" CssClass="table--centered table table is-striped" HeaderStyle-CssClass="thead" RowStyle-CssClass="tr" ID="gvBlockingTimes" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="gvBlockingTimes_PageIndexChanging" OnRowCancelingEdit="gvBlockingTimes_RowCancelingEdit" OnRowDeleting="gvBlockingTimes_RowDeleting" OnRowEditing="gvBlockingTimes_RowEditing" OnRowUpdating="gvBlockingTimes_RowUpdating" OnRowDataBound="gvBlockingTimesRowDataBound">
 		<Columns>
 			<asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="true" />
 			<asp:BoundField DataField="Grund" HeaderText="Grund" />
@@ -46,7 +50,8 @@
 		</Columns>
 	</asp:GridView>
 
-	<br />
-	<asp:Button ID="btnCreateBlockingTime" runat="server" Text="+ Sperrzeit erstellen" OnClick="btnCreateBlockingTime_Click" CssClass="button is-link is-rounded" style="font-weight: bold; bottom: 0; left: 0; position: absolute; margin: 2vh; height: 6vh; width: 25vh;"/>
+    </div>
+
+	<asp:Button ID="btnCreateBlockingTime" runat="server" Text="+ Sperrzeit erstellen" OnClick="btnCreateBlockingTime_Click" CssClass="button is-link is-rounded" style="font-weight: bold; bottom: 0; left: 0; position: absolute; margin: 2vh; font-size: 2.3vh"/>
 
 </asp:Content>

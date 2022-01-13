@@ -16,6 +16,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
 	<div style="position: absolute; top: 25%; left: 50%; transform: translate(-50%);">
+
+        <asp:Label Text="Registrationsanfragen" runat="server" ID="label2" style="font-size: 3vh; font-weight: bold; margin-bottom: 2vh;"/>
 	
 		<asp:GridView style="margin-bottom: 5%; height: 20vh; width: 70vw; font-size: 2vh; border: none; padding: 0;" CssClass="table--centered table table is-striped" HeaderStyle-CssClass="thead" RowStyle-CssClass="tr" ID="gridviewRegistrations" AutoGenerateColumns="false" runat="server" OnPageIndexChanging="gridviewRegistrations_PageIndexChanging" OnRowCommand="gridviewRegistrations_RowCommand" >
 			<Columns>
@@ -27,6 +29,8 @@
 				<asp:Buttonfield buttontype="button" Text="Ablehnen" commandname="deny" />
 			</Columns>
 		</asp:GridView>
+
+        <asp:Label Text="Nutzerübersicht" runat="server" style="font-size: 3vh; font-weight: bold; margin-bottom: 2vh;"/>
 
 		<asp:GridView style="height: 20vh; width: 70vw; font-size: 2vh; border: none; padding: 0;" CssClass="table--centered table table is-striped" HeaderStyle-CssClass="thead" RowStyle-CssClass="tr" ID="gridviewStudents" AutoGenerateColumns="false" runat="server" OnPageIndexChanging="gridviewStudents_PageIndexChanging" OnRowCancelingEdit="gridviewStudents_RowCancelingEdit" OnRowDeleting="gridviewStudents_RowDeleting" OnRowEditing="gridviewStudents_RowEditing" OnRowUpdating="gridviewStudents_RowUpdating" OnRowDataBound="gv_StatusRowDataBound">
 			<Columns>
@@ -54,6 +58,6 @@
 
 	</div>
 
-	<asp:Button ID="btnLogout" runat="server" Text="Abmelden" OnClick="btnLogout_Click" class="button is-dark" style="font-weight: bold; bottom: 0; left: 0; position: absolute; margin: 2vh; height: 6vh; width: 15vh;"/>
+	<asp:Button ID="btnLogout" runat="server" Text="Abmelden" OnClick="btnLogout_Click" class="button is-dark" style="font-weight: bold; bottom: 0; left: 0; position: absolute; margin: 2vh; font-size: 2.3vh"/>
 
 </asp:Content>

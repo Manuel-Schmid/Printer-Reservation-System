@@ -15,19 +15,25 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
-	<asp:GridView style="height: 20vh; width: 70vw; font-size: 2vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: none; padding: 0;" CssClass="table--centered table table is-striped" HeaderStyle-CssClass="thead" RowStyle-CssClass="tr" ID="gvPrinters" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="gvPrinters_PageIndexChanging" OnRowCancelingEdit="gvPrinters_RowCancelingEdit" OnRowDeleting="gvPrinters_RowDeleting" OnRowEditing="gvPrinters_RowEditing" OnRowUpdating="gvPrinters_RowUpdating">
-		<Columns>  
-			<asp:BoundField DataField="ID" HeaderText="Nr." readonly="true" />  
-			<asp:BoundField DataField="Marke" HeaderText="Marke" />  
-			<asp:BoundField DataField="Modell" HeaderText="Modell" />  
-			<asp:BoundField DataField="Typ" HeaderText="Typ" />
-			<asp:BoundField DataField="Beschreibung" HeaderText="Beschreibung" />  
-			<asp:BoundField DataField="Druckbereich" HeaderText="Druckbereich (L x B x H)" />  
+	<div style="position: absolute; top: 25%; left: 50%; transform: translate(-50%);">
 
-			<asp:CommandField ShowEditButton="true" /> 
-			<asp:CommandField ShowDeleteButton="true" />
-		</Columns>
-	</asp:GridView>
+		<span style="font-size: 3vh; font-weight: bold; margin-bottom: 2vh;">Druckerübersicht</span>
+
+		<asp:GridView style="height: 20vh; width: 70vw; font-size: 2vh; border: none; padding: 0;" CssClass="table--centered table table is-striped" HeaderStyle-CssClass="thead" RowStyle-CssClass="tr" ID="gvPrinters" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="gvPrinters_PageIndexChanging" OnRowCancelingEdit="gvPrinters_RowCancelingEdit" OnRowDeleting="gvPrinters_RowDeleting" OnRowEditing="gvPrinters_RowEditing" OnRowUpdating="gvPrinters_RowUpdating">
+			<Columns>  
+				<asp:BoundField DataField="ID" HeaderText="Nr." readonly="true" />  
+				<asp:BoundField DataField="Marke" HeaderText="Marke" />  
+				<asp:BoundField DataField="Modell" HeaderText="Modell" />  
+				<asp:BoundField DataField="Typ" HeaderText="Typ" />
+				<asp:BoundField DataField="Beschreibung" HeaderText="Beschreibung" />  
+				<asp:BoundField DataField="Druckbereich" HeaderText="Druckbereich (L x B x H)" />  
+
+				<asp:CommandField ShowEditButton="true" /> 
+				<asp:CommandField ShowDeleteButton="true" />
+			</Columns>
+		</asp:GridView>
+
+    </div>
 
 </asp:Content>
 
