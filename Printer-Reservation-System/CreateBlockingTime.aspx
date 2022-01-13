@@ -16,7 +16,7 @@
 
     <span style="font-size: 3.7vh; font-weight: bold; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);">neues Sperrfenster hinzufügen</span>
 
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: auto; width: 50vw;">
+    <div style="position: absolute; top: 30%; left: 50%; transform: translate(-50%); height: auto; width: 50vw;">
 
         <span style="margin-right: 2vh; font-size: 2.5vh;">Drucker:</span>
 		<asp:DropDownList ID="ddlPrinters" runat="server" CssClass="dropdown"></asp:DropDownList>

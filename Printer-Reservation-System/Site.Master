@@ -26,8 +26,8 @@
 				</navigation>
 			<asp:ContentPlaceHolder ID="PlaceHolderMain" runat="server">
 			</asp:ContentPlaceHolder>
-			<footer>
-				<span>© Manuel Schmid, Bao Minh Le 2022</span>
+			<footer style="position:fixed !important;">
+				<span style="margin:1vh !important; font-size: 1.5vh;">© Manuel Schmid, Bao Minh Le 2022</span>
 			</footer>
 		</div>
 	</form>

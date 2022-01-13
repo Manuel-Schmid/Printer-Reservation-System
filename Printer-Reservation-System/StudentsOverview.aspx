@@ -58,6 +58,6 @@
 
 	</div>
 
-	<asp:Button ID="btnLogout" runat="server" Text="Abmelden" OnClick="btnLogout_Click" class="button is-dark" style="font-weight: bold; bottom: 0; left: 0; position: absolute; margin: 2vh; font-size: 2.3vh"/>
+	<asp:Button ID="btnLogout" runat="server" Text="Abmelden" OnClick="btnLogout_Click" class="button is-dark" style="font-weight: bold; bottom: 0; left: 0; position: fixed; margin: 2vh; font-size: 2.3vh"/>
 
 </asp:Content>
