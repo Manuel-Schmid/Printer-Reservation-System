@@ -30,16 +30,16 @@ namespace Printer_Reservation_System
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar calFromDate;
+        protected global::System.Web.UI.WebControls.TextBox txtFromDate;
 
         /// <summary>
-        /// calFromDateValidator control.
+        /// dateValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator calFromDateValidator;
+        protected global::System.Web.UI.WebControls.CompareValidator dateValidator;
 
         /// <summary>
         /// txtFromTime control.
@@ -84,16 +84,16 @@ namespace Printer_Reservation_System
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar calToDate;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator requiredFieldValidator2;
 
         /// <summary>
-        /// calToDateValidator control.
+        /// CompareValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator calToDateValidator;
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
 
         /// <summary>
         /// txtToTime control.

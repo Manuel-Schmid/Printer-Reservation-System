@@ -25,7 +25,7 @@
 		<asp:TextBox ID="txtFromDate" runat="server" placeholder="Datum [DD.MM.YY]" CssClass="input" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
 		<asp:RequiredFieldValidator id="requiredFieldValidator3" ControlToValidate="txtFromDate"
 			ErrorMessage="!" 
-			runat="server" Display="Dynamic" />
+			runat="server"x Display="Dynamic" />
 		<asp:CompareValidator
 			id="dateValidator" 
 			runat="server" 
