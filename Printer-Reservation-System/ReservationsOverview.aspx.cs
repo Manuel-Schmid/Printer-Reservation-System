@@ -18,9 +18,18 @@ namespace Printer_Reservation_System
 		{
 			if (Request.Cookies["secureCookie"] == null) Response.Redirect("~/Login.aspx");
 
-			if (Session["isAdmin"].ToString() == "True") { gvAllRes.Visible = false; gvAllResTxt.Visible = false; }
+			if (Session["isAdmin"].ToString() == "True")
+			{
+				gvAllRes.Visible = false;
+				gvAllResTxt.Visible = false;
+				lblgvReservations.Text = "Reservationen";
+			}
+			else
+			{
+				lblgvReservations.Text = "Eigene Reservationen";
+			}
 
-				conBuilder.DataSource = GlobalVariables.dataSource;
+			conBuilder.DataSource = GlobalVariables.dataSource;
 			conBuilder.InitialCatalog = GlobalVariables.dbName;
 			conBuilder.IntegratedSecurity = true;
 			con.ConnectionString = conBuilder.ConnectionString;

@@ -14,9 +14,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
-	<div style="position: absolute; top: 25%; left: 50%; transform: translate(-50%);">
+	<div style="position: absolute; top: 25%; left: 50%; transform: translate(-50%);" runat="server">
 
-        <span style="font-size: 3vh; font-weight: bold; margin-bottom: 2vh;">alle Reservationen</span>
+		<asp:Label Text="Reservationen" runat="server" ID="lblgvReservations" style="font-size: 3vh; font-weight: bold; margin-bottom: 2vh;" />
 
 	<asp:GridView style="margin-bottom: 5%; height: 20vh; width: 70vw; font-size: 2vh; border: none; padding: 0;" CssClass="table--centered table table is-striped" HeaderStyle-CssClass="thead" RowStyle-CssClass="tr" ID="gvReservations" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="gvReservations_PageIndexChanging" OnRowCancelingEdit="gvReservations_RowCancelingEdit" OnRowDeleting="gvReservations_RowDeleting" OnRowEditing="gvReservations_RowEditing" OnRowUpdating="gvReservations_RowUpdating" OnRowDataBound="gvReservationsRowDataBound">
 		
@@ -44,7 +44,7 @@
 		</Columns>
 	</asp:GridView>
 
-        <asp:Label Text="eigene Reservationen" runat="server" ID="gvAllResTxt" style="font-size: 3vh; font-weight: bold; margin-bottom: 2vh;" />
+        <asp:Label Text="Alle Reservationen" runat="server" ID="gvAllResTxt" style="font-size: 3vh; font-weight: bold; margin-bottom: 2vh;" />
 
 		<asp:GridView style="height: 20vh; width: 70vw; font-size: 2vh; border: none; padding: 0;" CssClass="table--centered table table is-striped" HeaderStyle-CssClass="thead" RowStyle-CssClass="tr" ID="gvAllRes" runat="server" AutoGenerateColumns="false" >
 			

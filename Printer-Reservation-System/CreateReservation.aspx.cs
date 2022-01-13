@@ -28,7 +28,7 @@ namespace Printer_Reservation_System
 			myScriptResDef.CdnDebugPath = "http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.js";
 			ScriptManager.ScriptResourceMapping.AddDefinition("jquery", null, myScriptResDef);
 		}
-
+		
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (Request.Cookies["secureCookie"] == null) Response.Redirect("~/Login.aspx");
