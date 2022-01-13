@@ -14,19 +14,19 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
-	<span style="font-size: 3vh; font-weight: bold; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);">Drucker reservieren</span>
+	<span style="font-size: 3.7vh; font-weight: bold; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);">Drucker reservieren</span>
 
-	<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 22vh; width: 38vw;">
+	<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: auto; width: 50vw;">
 
-		<span style="margin-right: 2vh; font-size: 2vh;">Drucker:</span>
+		<span style="margin-right: 2vh; font-size: 2.5vh;">Drucker:</span>
 		<asp:DropDownList ID="ddlPrinters" runat="server"></asp:DropDownList>
 		<br />
 
-		<asp:TextBox ID="txtFromDate" runat="server" placeholder="Datum [DD.MM.YY]" CssClass="input" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
-		<asp:RequiredFieldValidator id="requiredFieldValidator3" ControlToValidate="txtFromDate"
+		<asp:TextBox ID="txtFromDate" runat="server" placeholder="Datum [DD.MM.YY]" CssClass="input" style="width: 11vw; margin-top: 1vh;"></asp:TextBox>
+		<asp:RequiredFieldValidator id="requiredFieldValidator3" ControlToValidate="txtFromDate" style="color:red;"
 			ErrorMessage="!" 
 			runat="server" Display="Dynamic" />
-		<asp:CompareValidator
+		<asp:CompareValidator style="color:red;"
 			id="dateValidator" 
 			runat="server" 
 			Type="Date"
@@ -36,21 +36,21 @@
 			Display="Dynamic" >
 		</asp:CompareValidator>
 
-		<asp:TextBox ID="txtFromTime" runat="server" placeholder="Uhrzeit [HH:MM]" CssClass="input" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
-		<asp:RequiredFieldValidator id="requiredFieldValidator1" ControlToValidate="txtFromTime"
+		<asp:TextBox ID="txtFromTime" runat="server" placeholder="Uhrzeit [HH:MM]" CssClass="input" style="width: 10vw; margin-top: 1vh;"></asp:TextBox>
+		<asp:RequiredFieldValidator id="requiredFieldValidator1" ControlToValidate="txtFromTime" style="color:red;"
 			ErrorMessage="!" 
 			runat="server" Display="Dynamic" />
-		<asp:RegularExpressionValidator id=RegularExpressionValidator1 runat="server" ErrorMessage="!" Display="Dynamic" ControlToValidate="txtFromTime" 
+		<asp:RegularExpressionValidator style="color:red;" id=RegularExpressionValidator1 runat="server" ErrorMessage="!" Display="Dynamic" ControlToValidate="txtFromTime" 
 			ValidationExpression="^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$">
 		</asp:RegularExpressionValidator>
 
-		<span style="font-size: 2vh; margin: 2vh;">bis</span> 
+		<span style="font-size: 3vh; margin: 2vh;">bis</span> 
 
-		<asp:TextBox ID="txtToDate" runat="server" placeholder="Datum [DD.MM.YY]" CssClass="input" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
-		<asp:RequiredFieldValidator id="requiredFieldValidator2" ControlToValidate="txtToDate"
+		<asp:TextBox ID="txtToDate" runat="server" placeholder="Datum [DD.MM.YY]" CssClass="input" style="width: 11vw; margin-top: 1vh;"></asp:TextBox>
+		<asp:RequiredFieldValidator id="requiredFieldValidator2" ControlToValidate="txtToDate" style="color:red;"
 			ErrorMessage="!" 
 			runat="server" Display="Dynamic"/>
-		<asp:CompareValidator
+		<asp:CompareValidator style="color:red;"
 			id="CompareValidator1" 
 			runat="server" 
 			Type="Date"
@@ -60,19 +60,20 @@
 			Display="Dynamic" >
 		</asp:CompareValidator>
 
-		<asp:TextBox ID="txtToTime" runat="server" placeholder="Uhrzeit [HH:MM]" CssClass="input" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
-		<asp:RequiredFieldValidator id="requiredFieldValidator4" ControlToValidate="txtToTime"
+		<asp:TextBox ID="txtToTime" runat="server" placeholder="Uhrzeit [HH:MM]" CssClass="input" style="width: 10vw; margin-top: 1vh;"></asp:TextBox>
+		<asp:RequiredFieldValidator id="requiredFieldValidator4" ControlToValidate="txtToTime" style="color:red;"
 			ErrorMessage="!" 
 			runat="server" Display="Dynamic"/>
-		<asp:RegularExpressionValidator id=RegularExpressionValidator2 runat="server" ErrorMessage="!" Display="Dynamic" ControlToValidate="txtToTime" 
+		<asp:RegularExpressionValidator style="color:red;" id=RegularExpressionValidator2 runat="server" ErrorMessage="!" Display="Dynamic" ControlToValidate="txtToTime" 
 			ValidationExpression="^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$">
 		</asp:RegularExpressionValidator>
 
-		<asp:TextBox ID="txtAreaComment" runat="server" TextMode="MultiLine" placeholder="Bemerkung..." CssClass="textarea has-fixed-size" style="width: 8vw; margin-top: 1vh;"></asp:TextBox>
-
 		<asp:Label ID="lblReservationError" runat="server"></asp:Label>
 
-		<div style="position: absolute; right: 0; bottom: 0;">
+		<asp:TextBox ID="txtAreaComment" runat="server" TextMode="MultiLine" placeholder="Bemerkung..." CssClass="textarea has-fixed-size" style="width: 9vw; margin-top: 1vh;"></asp:TextBox>
+
+	
+		<div style="position: absolute; right: 0; margin-top: 2vh;">
 			<a href="/ReservationsOverview.aspx" class="button is-danger is-rounded">Abbruch</a>
 			<asp:Button type="submit" ID="btnCreate" runat="server" Text="Erstellen" OnClick="btnCreate_Click" Cssclass="button is-success is-rounded" />
 		</div>

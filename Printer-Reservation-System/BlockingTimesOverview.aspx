@@ -47,6 +47,6 @@
 	</asp:GridView>
 
 	<br />
-	<asp:Button ID="btnCreateBlockingTime" runat="server" Text="+ Sperrzeit erstellen" OnClick="btnCreateBlockingTime_Click" CssClass="button is-link is-rounded" style="font-weight: bold; bottom: 0; left: 0; position: absolute; margin: 2vh; height: 5vh; width: 19vh;"/>
+	<asp:Button ID="btnCreateBlockingTime" runat="server" Text="+ Sperrzeit erstellen" OnClick="btnCreateBlockingTime_Click" CssClass="button is-link is-rounded" style="font-weight: bold; bottom: 0; left: 0; position: absolute; margin: 2vh; height: 6vh; width: 25vh;"/>
 
 </asp:Content>

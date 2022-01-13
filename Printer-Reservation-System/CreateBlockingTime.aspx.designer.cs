@@ -132,6 +132,15 @@ namespace Printer_Reservation_System
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
 
         /// <summary>
+        /// lblWrongDateOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWrongDateOrder;
+
+        /// <summary>
         /// txtAreaReason control.
         /// </summary>
         /// <remarks>
@@ -157,15 +166,6 @@ namespace Printer_Reservation_System
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAreaComment;
-
-        /// <summary>
-        /// lblWrongDateOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWrongDateOrder;
 
         /// <summary>
         /// btnCreate control.

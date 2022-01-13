@@ -132,15 +132,6 @@ namespace Printer_Reservation_System
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
 
         /// <summary>
-        /// txtAreaComment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAreaComment;
-
-        /// <summary>
         /// lblReservationError control.
         /// </summary>
         /// <remarks>
@@ -148,6 +139,15 @@ namespace Printer_Reservation_System
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblReservationError;
+
+        /// <summary>
+        /// txtAreaComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAreaComment;
 
         /// <summary>
         /// btnCreate control.
