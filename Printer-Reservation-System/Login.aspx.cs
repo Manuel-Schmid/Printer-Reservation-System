@@ -81,10 +81,7 @@ namespace Printer_Reservation_System
                             Session["email"] = txtEmail.Text;
                             Session["isAdmin"] = IsStudentAdmin(txtEmail.Text);
 
-                            // set cookie
-                            //HttpCookie secureCookie = new HttpCookie("secureCookie");
-                            //secureCookie.Values.Add("hash", GetHashString(txtEmail.Text));
-                            //Response.Cookies.Add(secureCookie);
+                            // set secure cookie
                             Response.Cookies.Add(new HttpCookie("secureCookie", GetHashString(txtEmail.Text))
                             {
                                 HttpOnly = true,

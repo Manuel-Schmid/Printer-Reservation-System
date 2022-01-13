@@ -86,7 +86,7 @@ namespace Printer_Reservation_System
 				gridviewStudents.Rows[0].Cells.Clear();
 				gridviewStudents.Rows[0].Cells.Add(new TableCell());
 				gridviewStudents.Rows[0].Cells[0].ColumnSpan = columncount;
-				gridviewStudents.Rows[0].Cells[0].Text = "No Students Found";
+				gridviewStudents.Rows[0].Cells[0].Text = "Keine Benutzer erfasst";
 			}
 		}
 
@@ -104,30 +104,6 @@ namespace Printer_Reservation_System
 			bool isSupreme = ((int)cmd.ExecuteScalar() >= 1);
 			con.Close();
 			return isSupreme;
-		}
-
-		private string getStudentStatus(string eMail)
-		{
-			con.Open();
-			SqlCommand cmd = new SqlCommand("spSelectStudentStatus", con);
-
-			cmd.CommandType = CommandType.StoredProcedure;
-
-			cmd.Parameters.Add(new SqlParameter("@eMail", SqlDbType.VarChar));
-			cmd.Parameters["@eMail"].Value = eMail;
-
-
-			string status = "";
-
-			object o = cmd.ExecuteScalar();
-			con.Close();
-
-			if (o != null)
-			{
-				status = o.ToString();
-			}
-			else { status = "error"; }
-			return status;
 		}
 
 		protected void gridviewStudents_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -231,7 +207,7 @@ namespace Printer_Reservation_System
 				gridviewRegistrations.Rows[0].Cells.Clear();
 				gridviewRegistrations.Rows[0].Cells.Add(new TableCell());
 				gridviewRegistrations.Rows[0].Cells[0].ColumnSpan = columncount;
-				gridviewRegistrations.Rows[0].Cells[0].Text = "No Registrations Found";
+				gridviewRegistrations.Rows[0].Cells[0].Text = "Keine neuen Registrationen vorhanden";
 			}
 		}
 

@@ -88,7 +88,7 @@ namespace Printer_Reservation_System
 				gvBlockingTimes.Rows[0].Cells.Clear();
 				gvBlockingTimes.Rows[0].Cells.Add(new TableCell());
 				gvBlockingTimes.Rows[0].Cells[0].ColumnSpan = columncount;
-				gvBlockingTimes.Rows[0].Cells[0].Text = "No BlockingTimes Found";
+				gvBlockingTimes.Rows[0].Cells[0].Text = "Keine Sperrzeiten eingetragen";
 			}
 		}
 
@@ -198,7 +198,8 @@ namespace Printer_Reservation_System
 
 			return tblPrinters;
 		}
-		protected void btnCreateBlockingTime_Click(object sender, EventArgs e)
+
+		protected void btnCreateBlockingTime_Click(object sneder, EventArgs e)
 		{
 			Response.Redirect("~/CreateBlockingTime.aspx");
 		}
