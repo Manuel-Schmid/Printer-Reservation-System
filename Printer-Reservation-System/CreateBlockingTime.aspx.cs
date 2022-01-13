@@ -116,6 +116,10 @@ namespace Printer_Reservation_System
 					{
 						lblWrongDateOrder.Text = "Geben Sie eine gültige Zeitspanne ein.";
 					}
+					else if (toDate < DateTime.Now)
+					{
+						lblWrongDateOrder.Text = "Das Enddatum darf nicht in der Vergangenheit liegen.";
+					}
 					else // successful
 					{
 						List<String> studentList = new List<String>();

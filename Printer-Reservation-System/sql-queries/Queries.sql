@@ -410,7 +410,7 @@ DROP PROC IF EXISTS spSelectAllReservations;
 GO
 CREATE PROC spSelectAllReservations 
 AS
-SELECT res.ID, stu.Name, stu.Vorname, res.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', (FORMAT (res.Von, 'dd.MM.yy hh:mm')) as 'Von', (FORMAT (res.Bis, 'dd.MM.yy hh:mm')) as 'Bis', res.Bemerkung  FROM tbl_Reservation as res
+SELECT res.ID, stu.Name, stu.Vorname, res.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', (FORMAT (res.Von, 'dd.MM.yy HH:mm')) as 'Von', (FORMAT (res.Bis, 'dd.MM.yy HH:mm')) as 'Bis', res.Bemerkung  FROM tbl_Reservation as res
 JOIN tbl_Student as stu on stu.ID = res.ID_Student
 JOIN tbl_Drucker as dru on dru.ID = res.ID_Drucker
 ORDER BY res.ID;
@@ -429,7 +429,7 @@ GO
 CREATE PROC spSelectOwnReservations 
 (@eMail VARCHAR(50))
 AS
-SELECT res.ID, stu.Name, stu.Vorname, res.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', (FORMAT (res.Von, 'dd.MM.yy hh:mm')) as 'Von', (FORMAT (res.Bis, 'dd.MM.yy hh:mm')) as 'Bis', res.Bemerkung  FROM tbl_Reservation as res
+SELECT res.ID, stu.Name, stu.Vorname, res.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', (FORMAT (res.Von, 'dd.MM.yy HH:mm')) as 'Von', (FORMAT (res.Bis, 'dd.MM.yy HH:mm')) as 'Bis', res.Bemerkung  FROM tbl_Reservation as res
 JOIN tbl_Student as stu on stu.ID = res.ID_Student
 JOIN tbl_Drucker as dru on dru.ID = res.ID_Drucker
 WHERE stu.eMail = @eMail
@@ -538,7 +538,7 @@ DROP PROC IF EXISTS spSelectBlockingTimes;
 GO
 CREATE PROC spSelectBlockingTimes 
 AS
-SELECT sperr.ID, sperr_dru.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', sperr.Grund, (FORMAT (sperr.Von, 'dd.MM.yy hh:mm')) as 'Von', (FORMAT (sperr.Bis, 'dd.MM.yy hh:mm')) as 'Bis', sperr.Bemerkung FROM tbl_Sperrfenster as sperr
+SELECT sperr.ID, sperr_dru.ID_Drucker, CAST(dru.Marke AS VARCHAR(16)) + ' ' + CAST(dru.Modell AS VARCHAR(16)) as 'Drucker', sperr.Grund, (FORMAT (sperr.Von, 'dd.MM.yy HH:mm')) as 'Von', (FORMAT (sperr.Bis, 'dd.MM.yy HH:mm')) as 'Bis', sperr.Bemerkung FROM tbl_Sperrfenster as sperr
 JOIN [tbl_Sperrfenster-Drucker] as sperr_dru on sperr.ID = sperr_dru.ID_Sperrfenster
 JOIN tbl_Drucker as dru on dru.ID = sperr_dru.ID_Drucker
 ORDER BY sperr.ID; /*sperr.Von*/

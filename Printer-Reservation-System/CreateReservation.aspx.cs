@@ -87,6 +87,9 @@ namespace Printer_Reservation_System
 					if (fromDate >= toDate)
 					{
 						lblReservationError.Text = "Geben Sie eine gültige Zeitspanne ein.";
+					} else if (toDate < DateTime.Now)
+                    {
+						lblReservationError.Text = "Das Enddatum darf nicht in der Vergangenheit liegen.";
 					}
 					else
 					{
