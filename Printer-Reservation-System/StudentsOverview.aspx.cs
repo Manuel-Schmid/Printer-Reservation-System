@@ -133,7 +133,7 @@ namespace Printer_Reservation_System
 		protected void gridviewStudents_RowDeleting(object sender, GridViewDeleteEventArgs e)
 		{
 			GridViewRow row = (GridViewRow)gridviewStudents.Rows[e.RowIndex];
-			if (row.Cells[3].Text != Session["email"].ToString() && !IsSupremeAdmin(row.Cells[3].Text)) // can't delete supreme admin or oneself
+			if (row.Cells[3].Text != Session["email"].ToString() && !(IsSupremeAdmin(row.Cells[3].Text))) // can't delete supreme admin or oneself
 			{
 				con.Open();
 				SqlCommand cmd = new SqlCommand("spDeleteStudent", con);
@@ -173,9 +173,9 @@ namespace Printer_Reservation_System
 			cmd.Parameters["@currentEMail"].Value = row.Cells[3].Text;
 			cmd.Parameters["@Handy"].Value = ((TextBox)row.Cells[4].Controls[0]).Text;
 			cmd.Parameters["@Bemerkung"].Value = ((TextBox)row.Cells[5].Controls[0]).Text;
-			if (IsSupremeAdmin(row.Cells[3].Text)) cmd.Parameters["@Status"].Value = 2;
-			else if (Session["isAdmin"].ToString() == "False") cmd.Parameters["@Status"].Value = 0;
-			else cmd.Parameters["@Status"].Value = ((DropDownList)row.FindControl("ddl_Status")).SelectedValue;
+			if (IsSupremeAdmin(row.Cells[3].Text)) cmd.Parameters["@Status"].Value = 2; // supreme-admin
+			else if (Session["isAdmin"].ToString() == "False" || (row.Cells[3].Text == Session["email"].ToString())) cmd.Parameters["@Status"].Value = 0; // students
+			else cmd.Parameters["@Status"].Value = ((DropDownList)row.FindControl("ddl_Status")).SelectedValue; // admins
 			
 			con.Open();
 			cmd.ExecuteNonQuery();
